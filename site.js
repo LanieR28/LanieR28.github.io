@@ -10,6 +10,8 @@
   const navMegaInner = navMega ? navMega.querySelector(".nav-mega-inner") : null;
   const navTriggers = Array.from(document.querySelectorAll(".nav-trigger[data-menu]"));
   const navPanels = Array.from(document.querySelectorAll(".mega-panel[data-panel]"));
+  const productLocalNav = document.querySelector(".project-page-view .product-local-nav");
+  const productHero = document.getElementById("chunithm-bot");
   const fadeDuration = 220;
   const openingClassDuration = 1040;
   let closeTimer = null;
@@ -188,4 +190,15 @@
       closeMegaMenu();
     }
   });
+
+  if (productLocalNav && productHero) {
+    function updateProductNavVisibility() {
+      const heroBottom = productHero.getBoundingClientRect().bottom;
+      productLocalNav.classList.toggle("is-visible", heroBottom <= 120);
+    }
+
+    updateProductNavVisibility();
+    window.addEventListener("scroll", updateProductNavVisibility, { passive: true });
+    window.addEventListener("resize", updateProductNavVisibility);
+  }
 })();
