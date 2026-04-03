@@ -945,7 +945,7 @@ main {
 .product-page .eyebrow,
 .product-page .product-kicker {
   margin-top: 0;
-  margin-bottom: 56px;
+  margin-bottom: 34px;
 }
 
 .product-hero-copy h1,
@@ -960,7 +960,7 @@ main {
 }
 
 .product-kicker {
-  margin: 0 0 56px;
+  margin: 0 0 34px;
   color: var(--blue);
   font-size: 16px;
   font-weight: 600;
@@ -1186,7 +1186,7 @@ main {
 
 .product-page .section-heading,
 .product-page .feature-copy {
-  gap: 56px;
+  gap: 30px;
 }
 
 .product-page .feature-copy > .body-text,
