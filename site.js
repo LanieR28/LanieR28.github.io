@@ -11,7 +11,9 @@
   const navTriggers = Array.from(document.querySelectorAll(".nav-trigger[data-menu]"));
   const navPanels = Array.from(document.querySelectorAll(".mega-panel[data-panel]"));
   const fadeDuration = 220;
+  const openingClassDuration = 140;
   let closeTimer = null;
+  let openingTimer = null;
 
   function fadeSwapImage(img, nextSrc) {
     if (img.getAttribute("src") === nextSrc) {
@@ -100,9 +102,20 @@
     if (!nextPanel) {
       return;
     }
+    const wasOpen = navRegion.classList.contains("is-open");
     navRegion.classList.add("is-open");
     navMega.setAttribute("aria-hidden", "false");
     setMegaPanelSize(nextPanel);
+    if (!wasOpen) {
+      navRegion.classList.add("is-opening");
+      if (openingTimer) {
+        window.clearTimeout(openingTimer);
+      }
+      openingTimer = window.setTimeout(function () {
+        navRegion.classList.remove("is-opening");
+        openingTimer = null;
+      }, openingClassDuration);
+    }
     navTriggers.forEach((trigger) => {
       trigger.classList.toggle("is-active", trigger.dataset.menu === menuName);
     });
@@ -116,9 +129,14 @@
       return;
     }
     navRegion.classList.remove("is-open");
+    navRegion.classList.remove("is-opening");
     navMega.setAttribute("aria-hidden", "true");
     if (navMegaInner) {
       navMegaInner.style.removeProperty("height");
+    }
+    if (openingTimer) {
+      window.clearTimeout(openingTimer);
+      openingTimer = null;
     }
     navTriggers.forEach((trigger) => trigger.classList.remove("is-active"));
     navPanels.forEach((panel) => panel.classList.remove("is-active"));
