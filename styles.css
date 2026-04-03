@@ -48,9 +48,9 @@ body {
   content: "";
   position: fixed;
   inset: 0;
-  background-image: url("./assets/bison-bg.jpg");
+  background-image: url("./assets/home-bg-02.PNG");
   background-size: cover;
-  background-position: 75% center;
+  background-position: center;
   background-repeat: no-repeat;
   opacity: 0.14;
   pointer-events: none;
