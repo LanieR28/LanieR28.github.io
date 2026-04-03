@@ -38,9 +38,9 @@ body {
 }
 
 .site-shell {
-  width: min(1180px, calc(100vw - 28px));
-  margin: 0 auto;
-  padding: 18px 0 72px;
+  width: 100%;
+  margin: 0;
+  padding: 0 0 72px;
 }
 
 .hero,
@@ -54,29 +54,36 @@ body {
 
 .hero,
 .section {
-  border: 1px solid var(--line);
-  border-radius: 30px;
-  background: var(--panel);
-  box-shadow: var(--shadow);
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
 }
 
 .hero {
-  padding: 20px 24px 28px;
+  padding: 0 0 28px;
 }
 
 .topbar {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   gap: 12px;
   flex-wrap: wrap;
+  width: 100%;
   min-height: 44px;
-  padding: 0 20px;
-  border: none;
+  padding: 0 24px;
   border-radius: 0;
   background: rgb(245, 245, 248);
   backdrop-filter: none;
   box-shadow: none;
+}
+
+.hero-grid,
+.section {
+  width: min(1180px, calc(100vw - 32px));
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .brand {
@@ -99,6 +106,7 @@ body {
   display: flex;
   gap: 14px;
   align-items: center;
+  justify-content: center;
 }
 
 .nav-links a {
@@ -113,7 +121,6 @@ body {
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-left: auto;
 }
 
 .search-box input {
@@ -512,7 +519,7 @@ main {
 
 @media (max-width: 960px) {
   .site-shell {
-    width: min(100vw - 18px, 1180px);
+    width: 100%;
   }
 
   .hero-grid,
@@ -532,7 +539,8 @@ main {
 
   .topbar {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+    padding: 10px 14px;
   }
 
   .search-box {
