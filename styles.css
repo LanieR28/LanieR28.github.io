@@ -377,12 +377,18 @@ h1 {
   font-size: clamp(20px, 3.1vw, 34px);
   line-height: 1.72;
   letter-spacing: -0.05em;
+  font-weight: 600;
 }
 
 h2 {
   font-size: clamp(26px, 4.2vw, 38px);
   line-height: 1.14;
   letter-spacing: -0.04em;
+  font-weight: 600;
+}
+
+h3 {
+  font-weight: 600;
 }
 
 .hero-text,
@@ -426,7 +432,7 @@ h2 {
   border-radius: 50%;
   color: #fff;
   font-size: 20px;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 0.04em;
   background: linear-gradient(135deg, var(--blue), var(--blue-2));
   flex: none;
@@ -436,6 +442,7 @@ h2 {
   display: block;
   margin-bottom: 4px;
   font-size: 18px;
+  font-weight: 600;
 }
 
 .profile-copy p {
@@ -545,7 +552,7 @@ main {
   margin-bottom: 8px;
   color: var(--blue);
   font-size: 12px;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 0.16em;
   text-transform: uppercase;
 }
@@ -625,6 +632,7 @@ main {
 .contact-card strong {
   font-size: 18px;
   line-height: 1.45;
+  font-weight: 600;
 }
 
 .mini-grid {
@@ -643,7 +651,7 @@ main {
   display: block;
   margin-bottom: 8px;
   font-size: 12px;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
@@ -651,6 +659,7 @@ main {
 .mini-card strong {
   font-size: 17px;
   line-height: 1.5;
+  font-weight: 600;
 }
 
 .contact-grid {
