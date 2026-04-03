@@ -1,7 +1,7 @@
 :root {
   --bg: rgb(255, 255, 255);
   --nav-gap: 45px;
-  --home-bg-position-y: 65%;
+  --home-bg-position-y: 35%;
   --panel: rgba(255, 255, 255, 0.84);
   --panel-strong: #ffffff;
   --text: rgb(0, 0, 0);
