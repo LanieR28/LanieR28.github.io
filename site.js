@@ -14,6 +14,7 @@
   const productHero = document.getElementById("chunithm-bot");
   const fadeDuration = 220;
   const openingClassDuration = 1040;
+  const isProjectPage = document.body.classList.contains("project-page-view");
   let closeTimer = null;
   let openingTimer = null;
   let firstOpenAfterEnter = true;
@@ -54,7 +55,7 @@
     }
   }
 
-  const initialTheme = localStorage.getItem(storageKey) || "light";
+  const initialTheme = isProjectPage ? "dark" : (localStorage.getItem(storageKey) || "light");
   applyTheme(initialTheme);
 
   if (toggleButton) {

@@ -115,17 +115,6 @@ body {
   background: #000;
 }
 
-.product-dark-page .topbar {
-  background: #000;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.product-dark-page .nav-links a,
-.product-dark-page .icon-button,
-.product-dark-page .theme-icon {
-  color: #f5f5f7;
-}
-
 .product-dark-page .hero-text,
 .product-dark-page .body-text,
 .product-dark-page p,
@@ -155,6 +144,58 @@ body {
   backdrop-filter: none;
   box-shadow: none;
   transition: background-color 0.42s ease, color 0.42s ease;
+}
+
+.project-page-view .topbar {
+  border-bottom: 1px solid var(--line);
+}
+
+:root[data-theme="dark"] .project-page-view .topbar {
+  background: rgb(45, 45, 48);
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+
+:root[data-theme="light"] .project-page-view .topbar {
+  background: rgb(245, 245, 248);
+  border-bottom-color: rgba(19, 36, 61, 0.08);
+}
+
+:root[data-theme="dark"] .project-page-view,
+:root[data-theme="dark"] .project-page-view .site-shell,
+:root[data-theme="dark"] .project-page-view .subhero,
+:root[data-theme="dark"] .project-page-view .product-page,
+:root[data-theme="dark"] .project-page-view .section {
+  background: #000;
+  color: #f5f5f7;
+}
+
+:root[data-theme="light"] .project-page-view,
+:root[data-theme="light"] .project-page-view .site-shell,
+:root[data-theme="light"] .project-page-view .subhero,
+:root[data-theme="light"] .project-page-view .product-page,
+:root[data-theme="light"] .project-page-view .section {
+  background: #fff;
+  color: #111;
+}
+
+:root[data-theme="light"] .project-page-view .hero-text,
+:root[data-theme="light"] .project-page-view .body-text,
+:root[data-theme="light"] .project-page-view p,
+:root[data-theme="light"] .project-page-view .product-lead,
+:root[data-theme="light"] .project-page-view .highlight-tile span,
+:root[data-theme="light"] .project-page-view .minor-card p,
+:root[data-theme="light"] .project-page-view .b30-gallery figcaption,
+:root[data-theme="light"] .project-page-view .level-gallery figcaption {
+  color: rgba(17, 17, 17, 0.72);
+}
+
+:root[data-theme="light"] .project-page-view h1,
+:root[data-theme="light"] .project-page-view h2,
+:root[data-theme="light"] .project-page-view h3,
+:root[data-theme="light"] .project-page-view strong,
+:root[data-theme="light"] .project-page-view .product-local-title,
+:root[data-theme="light"] .project-page-view .product-local-nav-inner a {
+  color: #111;
 }
 
 .topbar-inner {
@@ -969,6 +1010,11 @@ main {
   background: rgba(255, 255, 255, 0.03);
 }
 
+:root[data-theme="light"] .project-page-view .highlight-tile {
+  border-top-color: rgba(19, 36, 61, 0.1);
+  background: rgba(15, 23, 42, 0.03);
+}
+
 .highlight-tile span {
   display: block;
   margin-bottom: 12px;
@@ -1094,6 +1140,16 @@ main {
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 24px;
   background: rgba(255, 255, 255, 0.04);
+}
+
+:root[data-theme="light"] .project-page-view .minor-card {
+  border-color: rgba(19, 36, 61, 0.1);
+  background: rgba(15, 23, 42, 0.03);
+}
+
+:root[data-theme="light"] .project-page-view .minor-card h3,
+:root[data-theme="light"] .project-page-view .highlight-tile strong {
+  color: #111;
 }
 
 .minor-card h3 {
