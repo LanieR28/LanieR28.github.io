@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="zh-Hans">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>LanieR | Personal Website</title>
+    <meta
+      name="description"
+      content="LanieR 的个人网站，展示 CHUNITHM Bot System、谱面预览、歌曲信息和同步系统等项目。"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="site-shell">
+      <header class="hero">
+        <nav class="topbar">
+          <a class="brand" href="#top">LanieR</a>
+          <div class="nav-links">
+            <a href="#projects">Projects</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+          </div>
+        </nav>
+
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <p class="eyebrow">Personal Website</p>
+            <h1>Building playful systems for rhythm games and web demos.</h1>
+            <p class="hero-text">
+              这里是 LanieR 的个人主页。目前重点项目是一个围绕 CHUNITHM 构建的 Bot +
+              渲染 + 数据同步系统，我正在把它整理成更完整、更适合演示与展示的 Web experience。
+            </p>
+            <div class="hero-actions">
+              <a class="button primary" href="#projects">View Projects</a>
+              <a class="button secondary" href="#contact">Get in Touch</a>
+            </div>
+          </div>
+
+          <div class="hero-card">
+            <p class="eyebrow">Featured System</p>
+            <h2>CHUNITHM Bot System</h2>
+            <p>
+              一个整合 QQ Bot、谱面预览、歌曲信息图、等级图、容错分析、官网登录同步与玩家成绩处理的个人系统。
+            </p>
+            <ul class="hero-points">
+              <li>Best 30 / AJ / AJC / PC30 图像化展示</li>
+              <li>歌曲信息图与谱面预览图渲染</li>
+              <li>官网登录导入、别名系统、账号绑定与手动录入</li>
+            </ul>
+          </div>
+        </div>
+      </header>
+
+      <main>
+        <section class="section" id="projects">
+          <div class="section-heading">
+            <p class="eyebrow">Projects</p>
+            <h2>Selected Work</h2>
+          </div>
+
+          <div class="project-grid">
+            <article class="project-card wide">
+              <img src="./assets/chuni-b30.png" alt="CHUNITHM Best 30 preview" />
+              <div class="project-copy">
+                <p class="project-tag">Featured Project</p>
+                <h3>CHUNITHM Bot System</h3>
+                <p>
+                  一个面向 QQ 使用场景的 CHUNITHM 辅助系统，集成 B30、歌曲信息图、谱面图、等级图、容错分析、
+                  官网成绩同步与账号管理。它同时也是我最近在逐步网页化、演示化的一套完整作品。
+                </p>
+                <div class="pill-row">
+                  <span>Python</span>
+                  <span>Rendering</span>
+                  <span>QQ Bot</span>
+                  <span>Data Pipeline</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="project-card">
+              <img src="./assets/chuni-songinfo.png" alt="Song info preview" />
+              <div class="project-copy">
+                <p class="project-tag">Image Rendering</p>
+                <h3>Song Info Cards</h3>
+                <p>
+                  为单曲生成带封面、BPM、谱师与基础信息的图像卡片，用于机器人查询与后续网页展示。
+                </p>
+              </div>
+            </article>
+
+            <article class="project-card">
+              <img src="./assets/chuni-chart.png" alt="Chart preview" />
+              <div class="project-copy">
+                <p class="project-tag">Chart Preview</p>
+                <h3>Chart Visualization</h3>
+                <p>
+                  支持谱面预览图抓取、缓存与发送，围绕高画质和展示体验做了专门优化。
+                </p>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="section split" id="about">
+          <div>
+            <div class="section-heading">
+              <p class="eyebrow">About</p>
+              <h2>What I care about</h2>
+            </div>
+            <p class="body-text">
+              我喜欢把原本零散的小工具、脚本和素材整理成真正能运行、能展示、能让别人一眼看懂价值的系统。
+              最近的主要方向是 rhythm game tooling、图像化展示、数据整理与更适合演示的 Web 体验。
+            </p>
+          </div>
+
+          <div class="info-panel">
+            <div class="info-item">
+              <span class="info-label">Focus</span>
+              <strong>Bot Systems / Web Demos / Data Tools</strong>
+            </div>
+            <div class="info-item">
+              <span class="info-label">Current Theme</span>
+              <strong>CHUNITHM + visualized gameplay data</strong>
+            </div>
+            <div class="info-item">
+              <span class="info-label">Style</span>
+              <strong>Playable, visual, and demo-friendly</strong>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="contact">
+          <div class="section-heading">
+            <p class="eyebrow">Contact</p>
+            <h2>Links</h2>
+          </div>
+          <div class="contact-grid">
+            <a class="contact-card" href="https://github.com/LanieR28" target="_blank" rel="noreferrer">
+              <span class="contact-label">GitHub</span>
+              <strong>@LanieR28</strong>
+            </a>
+            <div class="contact-card">
+              <span class="contact-label">Email</span>
+              <strong>greglyz@qq.com</strong>
+            </div>
+            <div class="contact-card">
+              <span class="contact-label">Status</span>
+              <strong>Personal website in progress</strong>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
