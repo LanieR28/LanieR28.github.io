@@ -413,10 +413,9 @@ h2 {
   align-items: center;
   gap: 16px;
   margin-top: 28px;
-  padding: 16px 18px;
-  border: 1px solid var(--line);
-  border-radius: 22px;
-  background: rgba(255, 255, 255, 0.72);
+  padding: 16px 0;
+  border-top: 1px solid var(--line);
+  background: transparent;
 }
 
 .avatar-badge {
@@ -450,32 +449,33 @@ h2 {
   justify-content: center;
   min-height: 48px;
   padding: 0 18px;
-  border-radius: 999px;
+  border-radius: 0;
   text-decoration: none;
   font-weight: 600;
 }
 
 .button.primary {
   color: #fff;
-  background: linear-gradient(135deg, var(--blue), var(--blue-2));
+  background: var(--blue);
 }
 
 .button.secondary {
   color: var(--blue);
-  background: rgba(31, 120, 216, 0.1);
+  background: transparent;
+  border: 1px solid var(--line);
 }
 
 .hero-card,
 .project-card,
 .info-panel,
 .contact-card {
-  border: 1px solid var(--line);
-  border-radius: 26px;
-  background: rgba(255, 255, 255, 0.82);
+  border: none;
+  border-radius: 0;
+  background: transparent;
 }
 
 .hero-card {
-  padding: 22px;
+  padding: 0;
 }
 
 .hero-card h2 {
@@ -518,6 +518,8 @@ main {
 
 .project-card {
   overflow: hidden;
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
 }
 
 .project-card.wide {
@@ -578,8 +580,9 @@ main {
 
 .pill-row span {
   padding: 8px 12px;
-  border-radius: 999px;
-  background: rgba(31, 120, 216, 0.08);
+  border-radius: 0;
+  background: transparent;
+  border: 1px solid var(--line);
   color: var(--blue);
   font-size: 13px;
   font-weight: 600;
@@ -599,14 +602,13 @@ main {
 .info-panel {
   display: grid;
   gap: 12px;
-  padding: 18px;
+  padding: 0;
 }
 
 .info-item {
   padding: 14px 16px;
-  border: 1px solid var(--line);
-  border-radius: 18px;
-  background: rgba(255, 255, 255, 0.66);
+  border-top: 1px solid var(--line);
+  background: transparent;
 }
 
 .info-label,
@@ -633,9 +635,8 @@ main {
 
 .mini-card {
   padding: 16px;
-  border: 1px solid var(--line);
-  border-radius: 18px;
-  background: rgba(255, 255, 255, 0.68);
+  border-top: 1px solid var(--line);
+  background: transparent;
 }
 
 .mini-label {
@@ -663,6 +664,7 @@ main {
   padding: 18px;
   color: var(--text);
   text-decoration: none;
+  border-top: 1px solid var(--line);
 }
 
 .search-hit {
@@ -707,10 +709,10 @@ main {
 .detail-visuals img {
   width: 100%;
   display: block;
-  border: 1px solid var(--line);
-  border-radius: 24px;
-  background: rgba(255, 255, 255, 0.8);
-  box-shadow: var(--shadow);
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
 }
 
 .detail-copy {
