@@ -50,7 +50,7 @@ body {
   inset: 0;
   background-image: url("./assets/home-bg-02.PNG");
   background-size: cover;
-  background-position: center;
+  background-position: center 56%;
   background-repeat: no-repeat;
   opacity: 0.14;
   pointer-events: none;
