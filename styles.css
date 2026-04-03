@@ -946,6 +946,11 @@ main {
 .product-page .product-kicker {
   margin-top: 0;
   margin-bottom: 34px;
+  color: var(--blue);
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .product-hero-copy h1,
@@ -961,11 +966,6 @@ main {
 
 .product-kicker {
   margin: 0 0 34px;
-  color: var(--blue);
-  font-size: 16px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
 }
 
 .product-lead {
