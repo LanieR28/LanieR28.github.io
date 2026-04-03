@@ -36,6 +36,7 @@ body {
   color: var(--text);
   font-family: "Avenir Next", "Hiragino Sans", "Yu Gothic", sans-serif;
   background: var(--bg);
+  transition: background-color 0.42s ease, color 0.42s ease;
 }
 
 .site-shell {
@@ -78,6 +79,7 @@ body {
   background: rgb(245, 245, 248);
   backdrop-filter: none;
   box-shadow: none;
+  transition: background-color 0.42s ease, color 0.42s ease;
 }
 
 .hero-grid,
@@ -102,6 +104,7 @@ body {
   width: 16px;
   height: 16px;
   object-fit: contain;
+  transition: opacity 0.22s ease;
 }
 
 .nav-links {
@@ -117,6 +120,7 @@ body {
   font-weight: 400;
   font-size: 12px;
   white-space: nowrap;
+  transition: color 0.42s ease;
 }
 
 .search-box {
@@ -148,6 +152,7 @@ body {
   background: transparent;
   color: var(--text);
   cursor: pointer;
+  transition: color 0.42s ease, opacity 0.22s ease;
 }
 
 .theme-toggle {
@@ -159,12 +164,19 @@ body {
   width: 16px;
   height: 16px;
   object-fit: contain;
+  transition: opacity 0.22s ease;
 }
 
 .theme-icon {
   display: block;
   font-size: 16px;
   line-height: 1;
+  transition: opacity 0.22s ease, color 0.42s ease;
+}
+
+img[data-light][data-dark].is-fading,
+.theme-icon.is-fading {
+  opacity: 0;
 }
 
 :root[data-theme="dark"] .topbar {

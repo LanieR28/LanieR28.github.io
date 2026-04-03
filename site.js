@@ -5,16 +5,40 @@
   const searchForm = document.getElementById("site-search-form");
   const searchInput = document.getElementById("site-search-input");
   const themeImages = Array.from(document.querySelectorAll("img[data-light][data-dark]"));
+  const fadeDuration = 220;
+
+  function fadeSwapImage(img, nextSrc) {
+    if (img.getAttribute("src") === nextSrc) {
+      return;
+    }
+    img.classList.add("is-fading");
+    window.setTimeout(function () {
+      img.src = nextSrc;
+      img.classList.remove("is-fading");
+    }, fadeDuration);
+  }
+
+  function fadeSwapThemeIcon(icon, nextText) {
+    if (icon.textContent === nextText) {
+      return;
+    }
+    icon.classList.add("is-fading");
+    window.setTimeout(function () {
+      icon.textContent = nextText;
+      icon.classList.remove("is-fading");
+    }, fadeDuration);
+  }
 
   function applyTheme(theme) {
     root.dataset.theme = theme;
     themeImages.forEach((img) => {
-      img.src = theme === "dark" ? img.dataset.dark : img.dataset.light;
+      const nextSrc = theme === "dark" ? img.dataset.dark : img.dataset.light;
+      fadeSwapImage(img, nextSrc);
     });
     if (toggleButton) {
       const icon = toggleButton.querySelector(".theme-icon");
       if (icon) {
-        icon.textContent = theme === "dark" ? "☾" : "☀︎";
+        fadeSwapThemeIcon(icon, theme === "dark" ? "☾" : "☀︎");
       }
     }
   }
