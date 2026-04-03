@@ -68,7 +68,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
+  gap: 42px;
   flex-wrap: wrap;
   width: 100%;
   min-height: 44px;
@@ -93,6 +93,7 @@ body {
   width: 24px;
   height: 24px;
   flex: none;
+  margin-right: 42px;
 }
 
 .brand img {
@@ -121,6 +122,8 @@ body {
   display: flex;
   align-items: center;
   gap: 0;
+  margin-left: 42px;
+  margin-right: 42px;
 }
 
 .search-box input {
@@ -158,6 +161,16 @@ body {
   display: block;
   font-size: 16px;
   line-height: 1;
+}
+
+:root[data-theme="dark"] .topbar {
+  background: rgb(45, 45, 48);
+}
+
+:root[data-theme="dark"] .nav-links a,
+:root[data-theme="dark"] .icon-button,
+:root[data-theme="dark"] .theme-icon {
+  color: rgb(255, 255, 255);
 }
 
 .hero-grid {
