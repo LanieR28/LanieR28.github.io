@@ -1,5 +1,6 @@
 :root {
   --bg: rgb(255, 255, 255);
+  --nav-height: 44px;
   --nav-gap: 45px;
   --home-bg-position-y: 35%;
   --panel: rgba(255, 255, 255, 0.84);
@@ -48,8 +49,11 @@ body {
 .home-page .site-shell::before {
   content: "";
   position: fixed;
-  inset: 0;
-  background-image: url("./assets/home-bg-02.PNG");
+  top: var(--nav-height);
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-image: url("./assets/home-bg-03.jpg");
   background-size: cover;
   background-position: center var(--home-bg-position-y);
   background-repeat: no-repeat;
