@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>LanieR | CHUNITHM 雲に凪 Bot 技術解説</title>
+    <meta
+      name="description"
+      content="CHUNITHM 雲に凪 Bot の技術解説ページ。Bot、描画、データ同期、キャッシュ、運用までをひとつのシステムとしてどう設計したかをまとめています。"
+    />
+    <link rel="icon" type="image/png" href="./assets/lr-web-icon.png" />
+    <link rel="apple-touch-icon" href="./assets/lr-web-icon.png" />
+    <meta name="theme-color" content="#ffffff" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="./site.js" defer></script>
+  </head>
+  <body class="tech-page-view">
+    <div class="site-shell">
+      <header class="hero subhero">
+        <div class="nav-region" id="nav-region">
+          <nav class="topbar">
+            <div class="topbar-inner">
+              <a class="brand" href="./index.html" aria-label="LanieR ホーム">
+                <img
+                  src="./assets/lr-logo.png"
+                  data-light="./assets/lr-logo.png"
+                  data-dark="./assets/lr-logo-dark.png"
+                  alt="LR"
+                />
+              </a>
+              <div class="nav-links">
+                <a class="nav-trigger" data-menu="home" href="./index.html">ホーム</a>
+                <a class="nav-trigger" data-menu="archive" href="./projects.html">作品</a>
+                <a class="nav-trigger" data-menu="blog" href="./index.html#top">ブログ</a>
+                <a class="nav-trigger" data-menu="projects" href="./projects.html#chunithm-bot">プロジェクト</a>
+                <a class="nav-trigger" data-menu="about" href="./index.html#top">私について</a>
+                <a class="nav-trigger" data-menu="videos" href="./index.html#videos">動画</a>
+              </div>
+              <div class="nav-actions">
+                <form class="search-box" id="site-search-form">
+                  <input id="site-search-input" type="search" placeholder="ページ内検索" />
+                  <button class="icon-button search-button" type="submit" aria-label="検索">
+                    <img
+                      src="./assets/search-icon.png"
+                      data-light="./assets/search-icon.png"
+                      data-dark="./assets/search-icon-dark.png"
+                      alt="検索"
+                    />
+                  </button>
+                </form>
+                <button class="icon-button theme-toggle" id="theme-toggle" type="button" aria-label="表示モード切替">
+                  <span class="theme-icon" aria-hidden="true">☀︎</span>
+                </button>
+              </div>
+            </div>
+          </nav>
+
+          <div class="nav-mega" id="nav-mega" aria-hidden="true">
+            <div class="nav-mega-inner">
+              <section class="mega-panel" data-panel="home">
+                <div class="mega-column mega-column-primary">
+                  <p class="mega-label">ホームを見る</p>
+                  <a href="./index.html">トップページ</a>
+                  <a href="./projects.html#chunithm-bot">最近の制作物</a>
+                  <a href="./index.html#top">このサイトについて</a>
+                </div>
+                <div class="mega-column">
+                  <p class="mega-label">注目セクション</p>
+                  <a href="./projects-tech.html#overview">技術解説</a>
+                  <a href="./index.html#videos">動画置き場</a>
+                </div>
+                <div class="mega-column">
+                  <p class="mega-label">ナビゲーション</p>
+                  <a href="./projects.html">作品ページへ</a>
+                  <a href="./index.html#top">私について</a>
+                </div>
+              </section>
+
+              <section class="mega-panel" data-panel="archive">
+                <div class="mega-column mega-column-primary">
+                  <p class="mega-label">作品を見る</p>
+                  <a href="./projects.html#chunithm-bot">作品ページ</a>
+                  <a href="./projects-tech.html#overview">技術解説</a>
+                </div>
+                <div class="mega-column">
+                  <p class="mega-label">記録</p>
+                  <a href="./projects-tech.html#architecture">構成</a>
+                  <a href="./projects-tech.html#implementation">実装</a>
+                </div>
+                <div class="mega-column">
+                  <p class="mega-label">関連ページ</p>
+                  <a href="./projects.html#feature-b30">機能紹介</a>
+                  <a href="./projects-tech.html#presentation">見せ方の軸</a>
+                </div>
+              </section>
+
+              <section class="mega-panel" data-panel="blog">
+                <div class="mega-column mega-column-primary">
+                  <p class="mega-label">ブログ</p>
+                  <a href="./index.html#top">準備中のブログ</a>
+                  <a href="./index.html#top">制作ログ</a>
+                </div>
+                <div class="mega-column">
+                  <p class="mega-label">予定</p>
+                  <a href="./index.html#top">更新メモ</a>
+                  <a href="./index.html#top">実装ログ</a>
+                </div>
+                <div class="mega-column">
+                  <p class="mega-label">関連</p>
+                  <a href="./projects-tech.html#overview">技術解説</a>
+                </div>
+              </section>
+
+              <section class="mega-panel" data-panel="projects">
+                <div class="mega-column mega-column-primary">
+                  <p class="mega-label">プロジェクトを見る</p>
+                  <a href="./projects.html#chunithm-bot">CHUNITHM 雲に凪 Bot</a>
+                  <a href="./projects-tech.html#overview">技術解説</a>
+                  <a href="./projects.html#feature-b30">B30</a>
+                </div>
+                <div class="mega-column">
+                  <p class="mega-label">画像と可視化</p>
+                  <a href="./projects.html#feature-songinfo">楽曲情報カード</a>
+                  <a href="./projects.html#feature-level">レベル一覧</a>
+                </div>
+                <div class="mega-column">
+                  <p class="mega-label">システム</p>
+                  <a href="./projects-tech.html#architecture">アーキテクチャ</a>
+                  <a href="./projects-tech.html#operations">運用と同期</a>
+                </div>
+              </section>
+
+              <section class="mega-panel" data-panel="about">
+                <div class="mega-column mega-column-primary">
+                  <p class="mega-label">私について</p>
+                  <a href="./index.html#top">どんなものを作るか</a>
+                  <a href="./index.html#top">制作の方向性</a>
+                </div>
+                <div class="mega-column">
+                  <p class="mega-label">制作領域</p>
+                  <a href="./projects-tech.html#overview">Bot</a>
+                  <a href="./projects-tech.html#architecture">描画</a>
+                  <a href="./projects-tech.html#implementation">Web</a>
+                </div>
+                <div class="mega-column">
+                  <p class="mega-label">作品</p>
+                  <a href="./projects.html#chunithm-bot">CHUNITHM 雲に凪 Bot</a>
+                </div>
+              </section>
+
+              <section class="mega-panel" data-panel="videos">
+                <div class="mega-column mega-column-primary">
+                  <p class="mega-label">動画</p>
+                  <a href="./index.html#videos">動画置き場</a>
+                  <a href="./index.html#videos">自作譜面</a>
+                  <a href="./index.html#videos">音ゲー手元</a>
+                </div>
+                <div class="mega-column">
+                  <p class="mega-label">公開予定</p>
+                  <a href="./index.html#videos">制作物デモ</a>
+                  <a href="./index.html#videos">アーカイブ化</a>
+                </div>
+                <div class="mega-column">
+                  <p class="mega-label">関連ページ</p>
+                  <a href="./projects-tech.html#overview">技術解説</a>
+                  <a href="./projects.html#chunithm-bot">機能紹介</a>
+                </div>
+              </section>
+            </div>
+          </div>
+        </div>
+
+        <div class="tech-hero" id="overview" data-search="CHUNITHM 雲に凪 Bot 技術解説 設計 実装 教授 向け">
+          <p class="eyebrow">技術解説</p>
+          <h1>CHUNITHM 雲に凪 Bot</h1>
+          <p class="tech-hero-lead">
+            教員に見せたいのは、見た目の派手さだけではなく、
+            複数の処理系をひとつの体験に束ねる設計力です。
+          </p>
+          <p class="body-text tech-intro-copy">
+            このページでは、Bot の機能紹介ではなく、
+            どう分割し、どう統合し、どう運用に乗せたかを中心にまとめています。
+            コマンド処理、画像レンダリング、データ同期、キャッシュ戦略、運用保守をひとつの制作物として扱っています。
+          </p>
+          <div class="tech-hero-actions">
+            <a class="button primary" href="#architecture">構成を見る</a>
+            <a class="button secondary" href="#presentation">見せ方の軸へ</a>
+          </div>
+        </div>
+      </header>
+
+      <main class="tech-page">
+        <section class="section tech-metrics" aria-label="project metrics">
+          <article class="tech-metric-card">
+            <span>構成</span>
+            <strong>6 つの制作単位</strong>
+            <p>メイン Bot と複数レンダラ、同期処理を役割ごとに分割しています。</p>
+          </article>
+          <article class="tech-metric-card">
+            <span>I/O</span>
+            <strong>Bot → 処理 → 画像</strong>
+            <p>入力解釈から画像生成・返信までを一気通貫で設計しています。</p>
+          </article>
+          <article class="tech-metric-card">
+            <span>同期</span>
+            <strong>公式 + 手動入力</strong>
+            <p>公式サイト由来の記録と手動追加入力を同一モデルに解決しています。</p>
+          </article>
+          <article class="tech-metric-card">
+            <span>運用</span>
+            <strong>キャッシュ + デプロイ</strong>
+            <p>重い描画処理とサーバ配備を前提に、再生成と静的資産を整理しています。</p>
+          </article>
+        </section>
+
+        <section class="section tech-section" id="architecture">
+          <div class="section-heading">
+            <p class="eyebrow">システム構成</p>
+            <h2>1つの Bot ではなく、<br />複数レイヤーの連携として設計。</h2>
+          </div>
+          <div class="tech-flow-grid">
+            <article class="tech-flow-card">
+              <span>01</span>
+              <h3>入力解釈</h3>
+              <p>QQ から受けたコマンドを解釈し、別名や難易度補完、品質指定までを整理します。</p>
+            </article>
+            <article class="tech-flow-card">
+              <span>02</span>
+              <h3>処理分配</h3>
+              <p>Bot 本体は処理の入口に徹し、B30・楽曲情報・レベル一覧・譜面表示などを専用系に振り分けます。</p>
+            </article>
+            <article class="tech-flow-card">
+              <span>03</span>
+              <h3>描画実行</h3>
+              <p>複数のレンダリング系で UI 画像を生成し、PNG 品質や送信サイズ制御まで含めて整えます。</p>
+            </article>
+            <article class="tech-flow-card">
+              <span>04</span>
+              <h3>返信・運用</h3>
+              <p>生成物を Bot 返信に戻し、キャッシュ・送信品質・失敗時の保守も含めてシステム化しています。</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="section tech-section tech-section-alt" id="implementation">
+          <div class="section-heading">
+            <p class="eyebrow">実装で見せられる点</p>
+            <h2>教授に見せやすいのは、<br />“機能数” ではなく “実装の幅”。</h2>
+          </div>
+          <div class="tech-columns">
+            <article class="tech-note-card">
+              <h3>コマンド解析と正規化</h3>
+              <p>
+                曲名の別名、色プレフィックスによる難易度推定、'master' / 'ultima' などの表記ゆれを吸収し、
+                人が雑に入力しても使える入口を作っています。
+              </p>
+            </article>
+            <article class="tech-note-card">
+              <h3>画像生成と視覚設計</h3>
+              <p>
+                単に値を返すのではなく、B30・chuinfo・レベル一覧・ボーダー分析を
+                画像 UI として成立させるためのレイアウト、品質、出力サイズ制御を実装しています。
+              </p>
+            </article>
+            <article class="tech-note-card">
+              <h3>データ統合</h3>
+              <p>
+                公式サイトからの同期結果と、手動入力や追加入力を矛盾なく解決し、
+                同一プレイヤーの記録として扱えるようにしています。
+              </p>
+            </article>
+            <article class="tech-note-card">
+              <h3>運用と保守</h3>
+              <p>
+                サーバ同期、Bot 切替、画像キャッシュ、品質プリセット、エラーハンドリングなど、
+                実際に運用し続ける前提で調整しています。
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <section class="section tech-section" id="proof">
+          <div class="section-heading">
+            <p class="eyebrow">機能別の証拠</p>
+            <h2>見せ方ではなく、<br />どの技術を実際に束ねているか。</h2>
+          </div>
+          <div class="tech-proof-grid">
+            <article class="tech-proof-card">
+              <div class="tech-proof-copy">
+                <p class="eyebrow">表示系</p>
+                <h3>B30 系 4 種</h3>
+                <p>
+                  Best 30 / AJ / AJC / PC という同一記録の異なる切り方を、
+                  それぞれ別用途のビューとして実装しています。
+                </p>
+              </div>
+              <img src="./assets/chuni-b30-best-web.png" alt="B30 example" />
+            </article>
+            <article class="tech-proof-card">
+              <div class="tech-proof-copy">
+                <p class="eyebrow">可視化系</p>
+                <h3>楽曲・譜面・レベル一覧</h3>
+                <p>
+                  song info、譜面表示、全曲レベル一覧、個人進行状況という複数の視点を
+                  それぞれ別 UI として成立させています。
+                </p>
+              </div>
+              <img src="./assets/chuni-songinfo-web.png" alt="song info example" />
+            </article>
+            <article class="tech-proof-card">
+              <div class="tech-proof-copy">
+                <p class="eyebrow">解析系</p>
+                <h3>ボーダー計算の画像化</h3>
+                <p>
+                  数字の計算結果だけではなく、目標達成に必要な余白を視覚として返し、
+                  実用性と読みやすさの両方を確保しています。
+                </p>
+              </div>
+              <img src="./assets/chuni-border-web.png" alt="border example" />
+            </article>
+          </div>
+        </section>
+
+        <section class="section tech-section tech-section-alt" id="operations">
+          <div class="section-heading">
+            <p class="eyebrow">運用設計</p>
+            <h2>作って終わりではなく、<br />継続運用できる構造にする。</h2>
+          </div>
+          <div class="tech-columns">
+            <article class="tech-note-card">
+              <h3>静的キャッシュ</h3>
+              <p>重い画像や静的譜面を事前生成し、再描画コストと返信速度の両立を図っています。</p>
+            </article>
+            <article class="tech-note-card">
+              <h3>品質プリセット</h3>
+              <p>標準・高品質・超高品質の送信サイズを分け、見た目と実運用の妥協点をコントロールしています。</p>
+            </article>
+            <article class="tech-note-card">
+              <h3>同期パイプライン</h3>
+              <p>公式サイト由来のデータ取得からサーバ反映までを、手順化して壊れにくくまとめています。</p>
+            </article>
+            <article class="tech-note-card">
+              <h3>複数 Bot 経路</h3>
+              <p>QQ 公式 Bot と NapCat の両系統を扱い、表現力と安定性のバランスを見ながら運用しています。</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="section tech-section" id="presentation">
+          <div class="section-heading">
+            <p class="eyebrow">教授に見せるなら</p>
+            <h2>この作品は、<br />“何が作れるか” より “どう設計できるか” を見せやすい。</h2>
+          </div>
+          <div class="tech-presentation-grid">
+            <article class="tech-presentation-card">
+              <span>1</span>
+              <h3>UI を作る力</h3>
+              <p>見た目の整った画像 UI を、単発のデザインではなく運用可能な出力系として作っています。</p>
+            </article>
+            <article class="tech-presentation-card">
+              <span>2</span>
+              <h3>システムを分ける力</h3>
+              <p>Bot、描画、同期、データ解決を別責務として分割し、全体としてつなぎ直しています。</p>
+            </article>
+            <article class="tech-presentation-card">
+              <span>3</span>
+              <h3>現実に耐える力</h3>
+              <p>入力の揺れ、画像サイズ、キャッシュ、同期失敗、公開運用といった実運用の問題に向き合っています。</p>
+            </article>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
