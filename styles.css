@@ -255,8 +255,8 @@ img[data-light][data-dark].is-fading,
   visibility: hidden;
   pointer-events: none;
   transition:
-    opacity 0.16s ease,
-    visibility 0s linear 0.16s;
+    opacity 0.12s ease,
+    visibility 0s linear 0.12s;
 }
 
 .mega-panel.is-active {
@@ -264,7 +264,7 @@ img[data-light][data-dark].is-fading,
   visibility: visible;
   pointer-events: auto;
   transition:
-    opacity 0.16s ease,
+    opacity 0.12s ease,
     visibility 0s linear 0s;
 }
 
@@ -278,7 +278,7 @@ img[data-light][data-dark].is-fading,
 .mega-column > * {
   opacity: 0;
   transform: none;
-  transition: opacity 0.18s ease;
+  transition: opacity 0.12s ease;
 }
 
 .nav-region.is-opening .mega-panel.is-active .mega-column > * {
