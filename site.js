@@ -88,9 +88,7 @@
     if (!navMegaInner || !panel) {
       return;
     }
-    const nextWidth = Math.ceil(panel.offsetWidth + 16);
     const nextHeight = Math.ceil(panel.offsetHeight + 62);
-    navMegaInner.style.width = `${nextWidth}px`;
     navMegaInner.style.height = `${nextHeight}px`;
   }
 
@@ -120,7 +118,6 @@
     navRegion.classList.remove("is-open");
     navMega.setAttribute("aria-hidden", "true");
     if (navMegaInner) {
-      navMegaInner.style.removeProperty("width");
       navMegaInner.style.removeProperty("height");
     }
     navTriggers.forEach((trigger) => trigger.classList.remove("is-active"));
