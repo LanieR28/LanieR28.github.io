@@ -39,6 +39,28 @@ body {
   transition: background-color 0.42s ease, color 0.42s ease;
 }
 
+.home-page .site-shell {
+  position: relative;
+  isolation: isolate;
+}
+
+.home-page .site-shell::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url("./assets/bison-bg.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.14;
+  pointer-events: none;
+  z-index: -1;
+}
+
+:root[data-theme="dark"] .home-page .site-shell::before {
+  opacity: 0.1;
+}
+
 .site-shell {
   width: 100%;
   margin: 0;
