@@ -32,11 +32,13 @@
 
           <form class="search-box" id="site-search-form">
             <input id="site-search-input" type="search" placeholder="サイト内検索" />
-            <button type="submit">検索</button>
+            <button class="icon-button search-button" type="submit" aria-label="検索">
+              <img src="./assets/search-icon.png" alt="検索" />
+            </button>
           </form>
 
-          <button class="theme-toggle" id="theme-toggle" type="button" aria-label="表示モード切替">
-            夜間
+          <button class="icon-button theme-toggle" id="theme-toggle" type="button" aria-label="表示モード切替">
+            <span class="theme-icon" aria-hidden="true">☀︎</span>
           </button>
         </nav>
 

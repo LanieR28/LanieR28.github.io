@@ -8,7 +8,10 @@
   function applyTheme(theme) {
     root.dataset.theme = theme;
     if (toggleButton) {
-      toggleButton.textContent = theme === "dark" ? "昼間" : "夜間";
+      const icon = toggleButton.querySelector(".theme-icon");
+      if (icon) {
+        icon.textContent = theme === "dark" ? "☾" : "☀︎";
+      }
     }
   }
 

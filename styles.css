@@ -1,9 +1,9 @@
 :root {
-  --bg: #f4f8fc;
+  --bg: rgb(255, 255, 255);
   --panel: rgba(255, 255, 255, 0.84);
   --panel-strong: #ffffff;
-  --text: #13243d;
-  --muted: #5a6f88;
+  --text: rgb(0, 0, 0);
+  --muted: rgb(0, 0, 0);
   --line: rgba(19, 36, 61, 0.1);
   --blue: #1f78d8;
   --blue-2: #55b8ff;
@@ -11,11 +11,11 @@
 }
 
 :root[data-theme="dark"] {
-  --bg: #0d1728;
-  --panel: rgba(18, 31, 52, 0.88);
-  --panel-strong: #10203a;
-  --text: #eff5ff;
-  --muted: #a8b8d3;
+  --bg: rgb(0, 0, 0);
+  --panel: rgb(45, 45, 48);
+  --panel-strong: rgb(45, 45, 48);
+  --text: rgb(255, 255, 255);
+  --muted: rgb(255, 255, 255);
   --line: rgba(222, 236, 255, 0.12);
   --blue: #7ab8ff;
   --blue-2: #4ae0ff;
@@ -34,7 +34,7 @@ body {
   margin: 0;
   color: var(--text);
   font-family: "Avenir Next", "Hiragino Sans", "Yu Gothic", sans-serif;
-  background: rgb(255, 255, 255);
+  background: var(--bg);
 }
 
 .site-shell {
@@ -104,15 +104,15 @@ body {
 
 .nav-links {
   display: flex;
-  gap: 14px;
+  gap: 42px;
   align-items: center;
   justify-content: center;
 }
 
 .nav-links a {
-  color: var(--muted);
+  color: var(--text);
   text-decoration: none;
-  font-weight: 500;
+  font-weight: 400;
   font-size: 12px;
   white-space: nowrap;
 }
@@ -120,33 +120,44 @@ body {
 .search-box {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 0;
 }
 
 .search-box input {
-  width: 138px;
-  height: 28px;
-  padding: 0 12px;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  background: rgb(255, 255, 255);
-  color: var(--text);
-  font: inherit;
-  font-size: 12px;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
 }
 
-.search-box button,
-.theme-toggle {
+.icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
   height: 28px;
-  padding: 0 10px;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  background: rgb(255, 255, 255);
+  padding: 0;
+  border: none;
+  background: transparent;
   color: var(--text);
-  font: inherit;
-  font-size: 12px;
-  font-weight: 600;
   cursor: pointer;
+}
+
+.search-button img {
+  display: block;
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+}
+
+.theme-icon {
+  display: block;
+  font-size: 16px;
+  line-height: 1;
 }
 
 .hero-grid {
