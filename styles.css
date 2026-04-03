@@ -105,14 +105,14 @@ p {
 }
 
 h1 {
-  font-size: clamp(42px, 7vw, 72px);
-  line-height: 0.96;
+  font-size: clamp(38px, 6.1vw, 64px);
+  line-height: 1.06;
   letter-spacing: -0.05em;
 }
 
 h2 {
-  font-size: clamp(28px, 5vw, 42px);
-  line-height: 1.02;
+  font-size: clamp(26px, 4.2vw, 38px);
+  line-height: 1.14;
   letter-spacing: -0.04em;
 }
 
@@ -128,9 +128,9 @@ h2 {
 
 .hero-text {
   max-width: 640px;
-  margin-top: 18px;
+  margin-top: 22px;
   font-size: 18px;
-  line-height: 1.75;
+  line-height: 1.9;
 }
 
 .hero-actions {
@@ -173,11 +173,15 @@ h2 {
   padding: 22px;
 }
 
+.hero-card h2 {
+  margin-top: 6px;
+}
+
 .hero-points {
-  margin: 18px 0 0;
-  padding-left: 18px;
+  margin: 22px 0 0;
+  padding-left: 22px;
   color: var(--muted);
-  line-height: 1.8;
+  line-height: 1.95;
 }
 
 .bullet-list {
@@ -242,6 +246,7 @@ main {
 .project-copy h3 {
   margin-bottom: 10px;
   font-size: 28px;
+  line-height: 1.18;
   letter-spacing: -0.03em;
 }
 
