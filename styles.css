@@ -120,7 +120,9 @@ h2 {
 .body-text,
 .project-copy p,
 .hero-card p,
-.contact-label {
+.contact-label,
+.bullet-list,
+.mini-label {
   color: var(--muted);
 }
 
@@ -175,6 +177,13 @@ h2 {
   margin: 18px 0 0;
   padding-left: 18px;
   color: var(--muted);
+  line-height: 1.8;
+}
+
+.bullet-list {
+  display: grid;
+  gap: 12px;
+  padding-left: 20px;
   line-height: 1.8;
 }
 
@@ -296,6 +305,33 @@ main {
   line-height: 1.45;
 }
 
+.mini-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.mini-card {
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.68);
+}
+
+.mini-label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.mini-card strong {
+  font-size: 17px;
+  line-height: 1.5;
+}
+
 .contact-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -318,7 +354,8 @@ main {
   .project-grid,
   .project-card.wide,
   .split,
-  .contact-grid {
+  .contact-grid,
+  .mini-grid {
     grid-template-columns: 1fr;
   }
 

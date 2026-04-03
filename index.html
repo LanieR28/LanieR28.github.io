@@ -1,78 +1,112 @@
 <!doctype html>
-<html lang="zh-Hans">
+<html lang="ja">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>LanieR | Personal Website</title>
+    <title>LanieR | Portfolio & Demo</title>
     <meta
       name="description"
-      content="LanieR 的个人网站，展示 CHUNITHM Bot System、谱面预览、歌曲信息和同步系统等项目。"
+      content="LanieR の個人サイト。CHUNITHM Bot System を中心に、譜面プレビュー、楽曲情報カード、同期システムなどの制作物を紹介します。"
     />
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
     <div class="site-shell">
-      <header class="hero">
+      <header class="hero" id="top">
         <nav class="topbar">
           <a class="brand" href="#top">LanieR</a>
           <div class="nav-links">
-            <a href="#projects">Projects</a>
-            <a href="#about">About</a>
-            <a href="#contact">Contact</a>
+            <a href="#overview">概要</a>
+            <a href="#project">プロジェクト</a>
+            <a href="#architecture">構成</a>
+            <a href="#contact">連絡先</a>
           </div>
         </nav>
 
         <div class="hero-grid">
           <div class="hero-copy">
-            <p class="eyebrow">Personal Website</p>
-            <h1>Building playful systems for rhythm games and web demos.</h1>
+            <p class="eyebrow">Portfolio / Research Demo</p>
+            <h1>CHUNITHM を中心にした Bot・描画・同期システムの統合デモ</h1>
             <p class="hero-text">
-              这里是 LanieR 的个人主页。目前重点项目是一个围绕 CHUNITHM 构建的 Bot +
-              渲染 + 数据同步系统，我正在把它整理成更完整、更适合演示与展示的 Web experience。
+              このページは、教授向けの紹介を想定した個人 Web サイトです。現在の主な制作物は、
+              CHUNITHM 用の QQ Bot を中心に、画像レンダリング、プレイヤーデータ処理、
+              公式サイト同期、譜面プレビュー表示を一体化したシステムです。
             </p>
             <div class="hero-actions">
-              <a class="button primary" href="#projects">View Projects</a>
-              <a class="button secondary" href="#contact">Get in Touch</a>
+              <a class="button primary" href="#project">デモを見る</a>
+              <a class="button secondary" href="#architecture">構成を見る</a>
             </div>
           </div>
 
           <div class="hero-card">
-            <p class="eyebrow">Featured System</p>
+            <p class="eyebrow">Project Summary</p>
             <h2>CHUNITHM Bot System</h2>
             <p>
-              一个整合 QQ Bot、谱面预览、歌曲信息图、等级图、容错分析、官网登录同步与玩家成绩处理的个人系统。
+              QQ 上で動作する Bot を基盤に、Best 30、楽曲情報、譜面プレビュー、レベル別一覧、
+              許容値分析、アカウント管理、公式サイトからのデータ同期までを扱う個人制作システムです。
             </p>
             <ul class="hero-points">
-              <li>Best 30 / AJ / AJC / PC30 图像化展示</li>
-              <li>歌曲信息图与谱面预览图渲染</li>
-              <li>官网登录导入、别名系统、账号绑定与手动录入</li>
+              <li>Best 30 / AJ / AJC / PC30 の画像化表示</li>
+              <li>楽曲情報カードと譜面プレビュー画像の生成</li>
+              <li>別名検索、難易度補完、手動登録、プレイ回数登録</li>
+              <li>CHUNITHM-NET からのデータ取得と統合</li>
             </ul>
           </div>
         </div>
       </header>
 
       <main>
-        <section class="section" id="projects">
+        <section class="section split" id="overview">
+          <div>
+            <div class="section-heading">
+              <p class="eyebrow">Overview</p>
+              <h2>研究・制作の狙い</h2>
+            </div>
+            <p class="body-text">
+              既存の音楽ゲーム補助ツールは、情報取得、画像表示、ユーザー管理、同期処理が分断されていることが多く、
+              使い手にとっても説明する側にとっても全体像が見えにくいという課題があります。
+              本システムでは、Bot 操作、描画、データ処理、同期基盤を一つの流れとして統合し、
+              「実際に使えること」と「外部に見せられること」の両方を重視しています。
+            </p>
+          </div>
+
+          <div class="info-panel">
+            <div class="info-item">
+              <span class="info-label">対象</span>
+              <strong>CHUNITHM プレイヤー向け支援システム</strong>
+            </div>
+            <div class="info-item">
+              <span class="info-label">主な要素</span>
+              <strong>Bot / Rendering / Data Pipeline / Web Demo</strong>
+            </div>
+            <div class="info-item">
+              <span class="info-label">重視点</span>
+              <strong>視覚的な分かりやすさ・実用性・デモ適性</strong>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="project">
           <div class="section-heading">
-            <p class="eyebrow">Projects</p>
-            <h2>Selected Work</h2>
+            <p class="eyebrow">Featured Project</p>
+            <h2>CHUNITHM Bot System デモ</h2>
           </div>
 
           <div class="project-grid">
             <article class="project-card wide">
               <img src="./assets/chuni-b30.png" alt="CHUNITHM Best 30 preview" />
               <div class="project-copy">
-                <p class="project-tag">Featured Project</p>
-                <h3>CHUNITHM Bot System</h3>
+                <p class="project-tag">Main Demo</p>
+                <h3>Best 30 可視化システム</h3>
                 <p>
-                  一个面向 QQ 使用场景的 CHUNITHM 辅助系统，集成 B30、歌曲信息图、谱面图、等级图、容错分析、
-                  官网成绩同步与账号管理。它同时也是我最近在逐步网页化、演示化的一套完整作品。
+                  プレイヤーの上位 30 譜面を一覧化し、スコア、定数、レート、ランプ、ジャケット画像をまとめて表示します。
+                  Bot 上の利用体験を保ちながら、Web 上でも成果物として提示できるようにしています。
                 </p>
                 <div class="pill-row">
                   <span>Python</span>
-                  <span>Rendering</span>
+                  <span>Image Rendering</span>
                   <span>QQ Bot</span>
-                  <span>Data Pipeline</span>
+                  <span>Data Integration</span>
                 </div>
               </div>
             </article>
@@ -80,10 +114,11 @@
             <article class="project-card">
               <img src="./assets/chuni-songinfo.png" alt="Song info preview" />
               <div class="project-copy">
-                <p class="project-tag">Image Rendering</p>
-                <h3>Song Info Cards</h3>
+                <p class="project-tag">Information Card</p>
+                <h3>楽曲情報カード</h3>
                 <p>
-                  为单曲生成带封面、BPM、谱师与基础信息的图像卡片，用于机器人查询与后续网页展示。
+                  曲名、BPM、アーティスト、カテゴリ、ジャケットなどを一枚のカードに統合し、
+                  Bot からの検索結果を視覚的に整理します。
                 </p>
               </div>
             </article>
@@ -92,39 +127,53 @@
               <img src="./assets/chuni-chart.png" alt="Chart preview" />
               <div class="project-copy">
                 <p class="project-tag">Chart Preview</p>
-                <h3>Chart Visualization</h3>
+                <h3>譜面プレビュー表示</h3>
                 <p>
-                  支持谱面预览图抓取、缓存与发送，围绕高画质和展示体验做了专门优化。
+                  譜面ファイルの取得、キャッシュ、画像生成、Bot 送信までを一連の流れとして実装し、
+                  高画質での譜面確認を可能にしています。
                 </p>
               </div>
             </article>
           </div>
         </section>
 
-        <section class="section split" id="about">
+        <section class="section split" id="architecture">
           <div>
             <div class="section-heading">
-              <p class="eyebrow">About</p>
-              <h2>What I care about</h2>
+              <p class="eyebrow">System Architecture</p>
+              <h2>構成要素</h2>
             </div>
-            <p class="body-text">
-              我喜欢把原本零散的小工具、脚本和素材整理成真正能运行、能展示、能让别人一眼看懂价值的系统。
-              最近的主要方向是 rhythm game tooling、图像化展示、数据整理与更适合演示的 Web 体验。
-            </p>
+            <ul class="bullet-list">
+              <li>Bot 層：QQ 公式 Bot と NapCat の両方を保持し、運用経路を分離</li>
+              <li>命令処理層：コマンド解析、難易度補完、別名解決、アカウント処理</li>
+              <li>描画層：B30、楽曲情報、譜面、レベル一覧、許容値分析を個別レンダラで生成</li>
+              <li>データ層：楽曲データ、プレイヤー成績、別名辞書、バインド情報を統合管理</li>
+              <li>同期層：CHUNITHM-NET からの取得結果を解析し、内部データへ反映</li>
+            </ul>
           </div>
 
-          <div class="info-panel">
-            <div class="info-item">
-              <span class="info-label">Focus</span>
-              <strong>Bot Systems / Web Demos / Data Tools</strong>
+          <div>
+            <div class="section-heading">
+              <p class="eyebrow">Functions</p>
+              <h2>主要機能</h2>
             </div>
-            <div class="info-item">
-              <span class="info-label">Current Theme</span>
-              <strong>CHUNITHM + visualized gameplay data</strong>
-            </div>
-            <div class="info-item">
-              <span class="info-label">Style</span>
-              <strong>Playable, visual, and demo-friendly</strong>
+            <div class="mini-grid">
+              <div class="mini-card">
+                <span class="mini-label">B30</span>
+                <strong>Best 30 / AJ / AJC / PC30</strong>
+              </div>
+              <div class="mini-card">
+                <span class="mini-label">Info</span>
+                <strong>楽曲情報カードと譜面プレビュー</strong>
+              </div>
+              <div class="mini-card">
+                <span class="mini-label">Level</span>
+                <strong>レベル別一覧と個人進捗表示</strong>
+              </div>
+              <div class="mini-card">
+                <span class="mini-label">Sync</span>
+                <strong>公式サイト同期と手動登録</strong>
+              </div>
             </div>
           </div>
         </section>
@@ -132,7 +181,7 @@
         <section class="section" id="contact">
           <div class="section-heading">
             <p class="eyebrow">Contact</p>
-            <h2>Links</h2>
+            <h2>リンク</h2>
           </div>
           <div class="contact-grid">
             <a class="contact-card" href="https://github.com/LanieR28" target="_blank" rel="noreferrer">
@@ -145,7 +194,7 @@
             </div>
             <div class="contact-card">
               <span class="contact-label">Status</span>
-              <strong>Personal website in progress</strong>
+              <strong>Professor demo page / 個人サイト整備中</strong>
             </div>
           </div>
         </section>
