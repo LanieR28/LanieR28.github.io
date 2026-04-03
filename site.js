@@ -5,7 +5,12 @@
   const searchForm = document.getElementById("site-search-form");
   const searchInput = document.getElementById("site-search-input");
   const themeImages = Array.from(document.querySelectorAll("img[data-light][data-dark]"));
+  const navRegion = document.getElementById("nav-region");
+  const navMega = document.getElementById("nav-mega");
+  const navTriggers = Array.from(document.querySelectorAll(".nav-trigger[data-menu]"));
+  const navPanels = Array.from(document.querySelectorAll(".mega-panel[data-panel]"));
   const fadeDuration = 220;
+  let closeTimer = null;
 
   function fadeSwapImage(img, nextSrc) {
     if (img.getAttribute("src") === nextSrc) {
@@ -77,4 +82,67 @@
       }
     });
   }
+
+  function openMegaMenu(menuName) {
+    if (!navRegion || !navMega) {
+      return;
+    }
+    navRegion.classList.add("is-open");
+    navMega.setAttribute("aria-hidden", "false");
+    navTriggers.forEach((trigger) => {
+      trigger.classList.toggle("is-active", trigger.dataset.menu === menuName);
+    });
+    navPanels.forEach((panel) => {
+      panel.classList.toggle("is-active", panel.dataset.panel === menuName);
+    });
+  }
+
+  function closeMegaMenu() {
+    if (!navRegion || !navMega) {
+      return;
+    }
+    navRegion.classList.remove("is-open");
+    navMega.setAttribute("aria-hidden", "true");
+    navTriggers.forEach((trigger) => trigger.classList.remove("is-active"));
+    navPanels.forEach((panel) => panel.classList.remove("is-active"));
+  }
+
+  function clearCloseTimer() {
+    if (closeTimer) {
+      window.clearTimeout(closeTimer);
+      closeTimer = null;
+    }
+  }
+
+  function scheduleCloseMegaMenu() {
+    clearCloseTimer();
+    closeTimer = window.setTimeout(closeMegaMenu, 120);
+  }
+
+  navTriggers.forEach((trigger) => {
+    trigger.addEventListener("mouseenter", function () {
+      clearCloseTimer();
+      openMegaMenu(trigger.dataset.menu);
+    });
+    trigger.addEventListener("focus", function () {
+      clearCloseTimer();
+      openMegaMenu(trigger.dataset.menu);
+    });
+  });
+
+  if (navMega) {
+    navMega.addEventListener("mouseenter", clearCloseTimer);
+    navMega.addEventListener("mouseleave", scheduleCloseMegaMenu);
+  }
+
+  if (navRegion) {
+    navRegion.addEventListener("mouseleave", scheduleCloseMegaMenu);
+  }
+
+  document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape") {
+      clearCloseTimer();
+      closeMegaMenu();
+    }
+  });
 })();
