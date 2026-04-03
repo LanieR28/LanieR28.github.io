@@ -941,6 +941,18 @@ main {
   line-height: 1.72;
 }
 
+.product-hero-copy .eyebrow,
+.product-page .eyebrow,
+.product-page .product-kicker {
+  margin-top: 0;
+  margin-bottom: 56px;
+}
+
+.product-hero-copy h1,
+.product-page h2 {
+  margin-top: 0;
+}
+
 .product-hero-center,
 .product-heading-center,
 .feature-copy-center {
@@ -948,7 +960,7 @@ main {
 }
 
 .product-kicker {
-  margin: 0 0 68px;
+  margin: 0 0 56px;
   color: var(--blue);
   font-size: 16px;
   font-weight: 600;
@@ -1006,12 +1018,13 @@ main {
 .highlight-tile {
   min-height: 140px;
   padding: 22px 22px 24px;
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.04);
 }
 
 :root[data-theme="light"] .project-page-view .highlight-tile {
-  border-top-color: rgba(19, 36, 61, 0.1);
+  border-color: rgba(19, 36, 61, 0.1);
   background: rgba(15, 23, 42, 0.03);
 }
 
@@ -1169,6 +1182,16 @@ main {
   font-size: clamp(22px, 3.7vw, 40px);
   line-height: 1.28;
   letter-spacing: 0.085em;
+}
+
+.product-page .section-heading,
+.product-page .feature-copy {
+  gap: 56px;
+}
+
+.product-page .feature-copy > .body-text,
+.product-page .section-heading + .highlight-row {
+  margin-top: 0;
 }
 
 .product-page .body-text {
