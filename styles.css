@@ -282,17 +282,16 @@ img[data-light][data-dark].is-fading,
 }
 
 .nav-region.is-opening .mega-panel.is-active .mega-column > * {
-  opacity: 1;
-  animation: mega-item-rise 0.28s ease forwards;
+  animation: mega-item-rise 0.34s ease both;
 }
 
 .nav-region.is-opening .mega-panel.is-active .mega-column > :nth-child(1) { animation-delay: 0s; }
-.nav-region.is-opening .mega-panel.is-active .mega-column > :nth-child(2) { animation-delay: 0.035s; }
-.nav-region.is-opening .mega-panel.is-active .mega-column > :nth-child(3) { animation-delay: 0.07s; }
-.nav-region.is-opening .mega-panel.is-active .mega-column > :nth-child(4) { animation-delay: 0.105s; }
-.nav-region.is-opening .mega-panel.is-active .mega-column > :nth-child(5) { animation-delay: 0.14s; }
-.nav-region.is-opening .mega-panel.is-active .mega-column > :nth-child(6) { animation-delay: 0.175s; }
-.nav-region.is-opening .mega-panel.is-active .mega-column > :nth-child(7) { animation-delay: 0.21s; }
+.nav-region.is-opening .mega-panel.is-active .mega-column > :nth-child(2) { animation-delay: 0.045s; }
+.nav-region.is-opening .mega-panel.is-active .mega-column > :nth-child(3) { animation-delay: 0.09s; }
+.nav-region.is-opening .mega-panel.is-active .mega-column > :nth-child(4) { animation-delay: 0.135s; }
+.nav-region.is-opening .mega-panel.is-active .mega-column > :nth-child(5) { animation-delay: 0.18s; }
+.nav-region.is-opening .mega-panel.is-active .mega-column > :nth-child(6) { animation-delay: 0.225s; }
+.nav-region.is-opening .mega-panel.is-active .mega-column > :nth-child(7) { animation-delay: 0.27s; }
 
 .nav-region.is-open:not(.is-opening) .mega-panel.is-active .mega-column > * {
   opacity: 1;
