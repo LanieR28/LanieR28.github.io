@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>LanieR | Projects</title>
+    <meta
+      name="description"
+      content="LanieR のプロジェクト一覧ページ。CHUNITHM Bot System を中心に、画像レンダリングや譜面表示フローを整理して紹介します。"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="site-shell">
+      <header class="hero subhero">
+        <nav class="topbar">
+          <a class="brand" href="./index.html">LanieR</a>
+          <div class="nav-links">
+            <a href="./index.html#about">About</a>
+            <a href="./index.html#projects">Home Projects</a>
+            <a href="./index.html#contact">Contact</a>
+          </div>
+        </nav>
+
+        <div class="subhero-copy">
+          <p class="eyebrow">Project Archive</p>
+          <h1>Projects and systems I am currently building.</h1>
+          <p class="hero-text">
+            個人サイトから見える制作物を、もう少しだけプロジェクト寄りに整理したページです。
+            現時点では CHUNITHM Bot System が中心ですが、今後ここに増やしていく前提のアーカイブとして使います。
+          </p>
+        </div>
+      </header>
+
+      <main>
+        <section class="section project-detail" id="chunithm-bot">
+          <div class="section-heading">
+            <p class="eyebrow">Featured Project</p>
+            <h2>CHUNITHM Bot System</h2>
+          </div>
+
+          <div class="detail-grid">
+            <div class="detail-visuals">
+              <img src="./assets/chuni-b30.png" alt="Best 30 preview" />
+              <img src="./assets/chuni-songinfo.png" alt="Song info preview" />
+            </div>
+
+            <div class="detail-copy">
+              <p class="body-text">
+                QQ 上で操作する Bot を中心に、Best 30、譜面プレビュー、楽曲情報、
+                レベル一覧、許容値分析、アカウント管理、公式サイト同期を一体化した個人制作システムです。
+                使う人にとって実用的であることと、外から見たときに成果物として説明しやすいことの両方を意識しています。
+              </p>
+
+              <div class="mini-grid">
+                <div class="mini-card">
+                  <span class="mini-label">Input</span>
+                  <strong>QQ コマンド / 公式サイトデータ / 手動登録</strong>
+                </div>
+                <div class="mini-card">
+                  <span class="mini-label">Output</span>
+                  <strong>画像カード / 譜面表示 / 集計データ</strong>
+                </div>
+                <div class="mini-card">
+                  <span class="mini-label">Core</span>
+                  <strong>Bot Bridge / Renderers / Sync Scripts</strong>
+                </div>
+                <div class="mini-card">
+                  <span class="mini-label">Focus</span>
+                  <strong>見た目・使いやすさ・データ整理</strong>
+                </div>
+              </div>
+
+              <ul class="bullet-list">
+                <li>Best 30、AJ、AJC、PC30 の画像化表示</li>
+                <li>譜面プレビューと楽曲情報カードの高画質出力</li>
+                <li>別名検索、難易度補完、アカウント作成とバインド</li>
+                <li>CHUNITHM-NET 公式サイトとの同期フロー</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section class="section project-detail">
+          <div class="section-heading">
+            <p class="eyebrow">Secondary Piece</p>
+            <h2>Chart Preview Flow</h2>
+          </div>
+
+          <div class="detail-grid reverse">
+            <div class="detail-copy">
+              <p class="body-text">
+                譜面データの取得、キャッシュ、変換、送信の流れそのものも一つのミニシステムとして扱っています。
+                画質維持と送信制約のバランスを取りながら、実際に使えるプレビュー体験を設計しています。
+              </p>
+            </div>
+            <div class="detail-visuals single">
+              <img src="./assets/chuni-chart.png" alt="Chart preview flow" />
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
