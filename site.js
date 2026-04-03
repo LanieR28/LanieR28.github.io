@@ -4,9 +4,13 @@
   const toggleButton = document.getElementById("theme-toggle");
   const searchForm = document.getElementById("site-search-form");
   const searchInput = document.getElementById("site-search-input");
+  const themeImages = Array.from(document.querySelectorAll("img[data-light][data-dark]"));
 
   function applyTheme(theme) {
     root.dataset.theme = theme;
+    themeImages.forEach((img) => {
+      img.src = theme === "dark" ? img.dataset.dark : img.dataset.light;
+    });
     if (toggleButton) {
       const icon = toggleButton.querySelector(".theme-icon");
       if (icon) {

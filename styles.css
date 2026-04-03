@@ -1,5 +1,6 @@
 :root {
   --bg: rgb(255, 255, 255);
+  --nav-gap: 28px;
   --panel: rgba(255, 255, 255, 0.84);
   --panel-strong: #ffffff;
   --text: rgb(0, 0, 0);
@@ -68,7 +69,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 42px;
+  gap: 0;
   flex-wrap: wrap;
   width: 100%;
   min-height: 44px;
@@ -93,7 +94,7 @@ body {
   width: 24px;
   height: 24px;
   flex: none;
-  margin-right: 42px;
+  margin-right: var(--nav-gap);
 }
 
 .brand img {
@@ -105,7 +106,7 @@ body {
 
 .nav-links {
   display: flex;
-  gap: 42px;
+  gap: var(--nav-gap);
   align-items: center;
   justify-content: center;
 }
@@ -122,8 +123,7 @@ body {
   display: flex;
   align-items: center;
   gap: 0;
-  margin-left: 42px;
-  margin-right: 42px;
+  margin-left: var(--nav-gap);
 }
 
 .search-box input {
@@ -148,6 +148,10 @@ body {
   background: transparent;
   color: var(--text);
   cursor: pointer;
+}
+
+.theme-toggle {
+  margin-left: var(--nav-gap);
 }
 
 .search-button img {
