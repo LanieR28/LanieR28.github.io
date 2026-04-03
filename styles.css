@@ -223,15 +223,13 @@ img[data-light][data-dark].is-fading,
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transform: translateY(-8px);
-  transition: opacity 0.22s ease, transform 0.22s ease, visibility 0.22s ease, background-color 0.42s ease;
+  transition: opacity 0.22s ease, visibility 0.22s ease, background-color 0.42s ease;
 }
 
 .nav-region.is-open .nav-mega {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
-  transform: translateY(0);
 }
 
 .nav-mega-inner {
