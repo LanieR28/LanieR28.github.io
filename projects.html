@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>LanieR | アーカイブ</title>
+    <title>LanieR | CHUNITHM 雲に凪 Bot</title>
     <meta
       name="description"
-      content="LanieR の制作物アーカイブ。CHUNITHM Bot System を中心に、画像レンダリングや譜面表示フローを整理して紹介します。"
+      content="CHUNITHM 雲に凪 Bot の機能紹介ページ。B30、楽曲情報、レベル一覧、ボーダー分析、同期と登録機能を Apple 製品ページのような構成でまとめています。"
     />
     <link rel="icon" type="image/png" href="./assets/lr-web-icon.png" />
     <link rel="apple-touch-icon" href="./assets/lr-web-icon.png" />
@@ -170,81 +170,156 @@
           </div>
         </div>
 
-        <div class="subhero-copy">
-          <p class="eyebrow">アーカイブ</p>
-          <h1>制作物とシステムの記録</h1>
+        <div class="subhero-copy product-hero-copy">
+          <p class="eyebrow">CHUNITHM 雲に凪 Bot</p>
+          <h1>見る、集める、整える。</h1>
           <p class="hero-text">
-            個人サイトから見える制作物を、もう少しだけプロジェクト寄りに整理したページです。
-            現時点では CHUNITHM Bot System が中心ですが、今後ここに少しずつ増やしていく前提のアーカイブとして使います。
+            QQ Bot、画像レンダリング、譜面プレビュー、レベル一覧、ボーダー分析、
+            公式サイト同期までを一つにつないだ、CHUNITHM 向け個人システムです。
           </p>
         </div>
       </header>
 
-      <main>
-        <section class="section project-detail" id="chunithm-bot" data-search="CHUNITHM Bot System アーカイブ">
-          <div class="section-heading">
-            <p class="eyebrow">主力プロジェクト</p>
-            <h2>CHUNITHM Bot System</h2>
+      <main class="product-page" id="projects">
+        <section class="product-hero section" id="chunithm-bot" data-search="CHUNITHM 雲に凪 Bot B30 chuinfo chuborder chulvl chusc">
+          <div class="product-hero-center">
+            <p class="product-kicker">主力プロジェクト</p>
+            <h2>CHUNITHM 雲に凪 Bot</h2>
+            <p class="product-lead">
+              画像で伝える。コマンドで完結する。CHUNITHM の記録と可視化を、
+              ひとつの流れにまとめた Bot システムです。
+            </p>
           </div>
+          <div class="product-hero-visual">
+            <img src="./assets/chuni-b30-best-web.jpg" alt="CHUNITHM 雲に凪 Bot preview" />
+          </div>
+        </section>
 
-          <div class="detail-grid">
-            <div class="detail-visuals">
-              <img src="./assets/chuni-b30.png" alt="Best 30 preview" />
-              <img src="./assets/chuni-songinfo.png" alt="Song info preview" />
-            </div>
+        <section class="product-highlights section">
+          <div class="section-heading product-heading-center">
+            <p class="eyebrow">まずは、ハイライトから。</p>
+            <h2>大きく見せたい機能と、静かに支える機能。</h2>
+          </div>
+          <div class="highlight-row">
+            <article class="highlight-tile">
+              <span>B30</span>
+              <strong>4系統の画像化表示</strong>
+            </article>
+            <article class="highlight-tile">
+              <span>楽曲情報</span>
+              <strong>chuinfo</strong>
+            </article>
+            <article class="highlight-tile">
+              <span>レベル一覧</span>
+              <strong>chulvl / chusc</strong>
+            </article>
+            <article class="highlight-tile">
+              <span>分析</span>
+              <strong>chuborder</strong>
+            </article>
+            <article class="highlight-tile">
+              <span>運用</span>
+              <strong>同期・登録・別名</strong>
+            </article>
+          </div>
+        </section>
 
-            <div class="detail-copy">
+        <section class="feature-band feature-dark section">
+          <div class="feature-copy feature-copy-center">
+            <p class="eyebrow">Best 30</p>
+            <h2>4つの視点を、1つの体験で。</h2>
+            <p class="body-text">
+              Best 30、AJ Best 30、AJC Best 30、PC 30。
+              同じプレイヤーデータを、目的ごとに異なる見方で切り出せます。
+              単にスコアを並べるのではなく、画像として「見た瞬間に分かる」ことを重視しました。
+            </p>
+          </div>
+          <div class="b30-gallery">
+            <figure><img src="./assets/chuni-b30-best-web.jpg" alt="Best 30" /><figcaption>Best 30</figcaption></figure>
+            <figure><img src="./assets/chuni-b30-aj-web.jpg" alt="AJ Best 30" /><figcaption>AJ Best 30</figcaption></figure>
+            <figure><img src="./assets/chuni-b30-ajc-web.jpg" alt="AJC Best 30" /><figcaption>AJC Best 30</figcaption></figure>
+            <figure><img src="./assets/chuni-b30-pc-web.jpg" alt="PC 30" /><figcaption>PC 30</figcaption></figure>
+          </div>
+        </section>
+
+        <section class="feature-band feature-light section">
+          <div class="feature-split">
+            <div class="feature-copy">
+              <p class="eyebrow">chuinfo</p>
+              <h2>楽曲情報を、1枚で。</h2>
               <p class="body-text">
-                QQ 上で操作する Bot を中心に、Best 30、譜面プレビュー、楽曲情報、
-                レベル一覧、許容値分析、アカウント管理、公式サイト同期を一体化した個人制作システムです。
-                使う人にとって実用的であることと、外から見たときに成果物として説明しやすいことの両方を意識しています。
+                曲名、難易度、譜面情報、見た目の印象までを一枚のカードに集約。
+                検索体験と視認性の両方を崩さず、Bot から返ってきた時にそのまま使える情報量を目指しました。
               </p>
-
-              <div class="mini-grid">
-                <div class="mini-card">
-                  <span class="mini-label">入力</span>
-                  <strong>QQ コマンド / 公式サイトデータ / 手動登録</strong>
-                </div>
-                <div class="mini-card">
-                  <span class="mini-label">出力</span>
-                  <strong>画像カード / 譜面表示 / 集計データ</strong>
-                </div>
-                <div class="mini-card">
-                  <span class="mini-label">中核</span>
-                  <strong>Bot Bridge / Renderers / Sync Scripts</strong>
-                </div>
-                <div class="mini-card">
-                  <span class="mini-label">重視点</span>
-                  <strong>見た目・使いやすさ・データ整理</strong>
-                </div>
-              </div>
-
-              <ul class="bullet-list">
-                <li>Best 30、AJ、AJC、PC30 の画像化表示</li>
-                <li>譜面プレビューと楽曲情報カードの高画質出力</li>
-                <li>別名検索、難易度補完、アカウント作成とバインド</li>
-                <li>CHUNITHM-NET 公式サイトとの同期フロー</li>
-              </ul>
+            </div>
+            <div class="feature-visual">
+              <img src="./assets/chuni-songinfo-web.jpg" alt="chuinfo preview" />
             </div>
           </div>
         </section>
 
-        <section class="section project-detail" data-search="譜面プレビュー フロー">
-          <div class="section-heading">
-            <p class="eyebrow">周辺機能</p>
-            <h2>譜面プレビュー表示フロー</h2>
-          </div>
-
-          <div class="detail-grid reverse">
-            <div class="detail-copy">
+        <section class="feature-band feature-dark section">
+          <div class="feature-split reverse">
+            <div class="feature-visual">
+              <img src="./assets/chuni-border-web.jpg" alt="chuborder preview" />
+            </div>
+            <div class="feature-copy">
+              <p class="eyebrow">chuborder</p>
+              <h2>目標スコアまでの余白を、可視化する。</h2>
               <p class="body-text">
-                譜面データの取得、キャッシュ、変換、送信の流れそのものも一つのミニシステムとして扱っています。
-                画質維持と送信制約のバランスを取りながら、実際に使えるプレビュー体験を設計しています。
+                S / SS / SSS / 99AJ から任意点数まで。
+                どのくらいのミス許容が残っているかを、計算結果ではなく視覚として返す機能です。
+                実用性の高さと、見て気持ちいい表現の両方を強く意識したセクションです。
               </p>
             </div>
-            <div class="detail-visuals single">
-              <img src="./assets/chuni-chart.png" alt="Chart preview flow" />
-            </div>
+          </div>
+        </section>
+
+        <section class="feature-band feature-light section">
+          <div class="feature-copy feature-copy-center">
+            <p class="eyebrow">chulvl / chusc</p>
+            <h2>全体も、個人も。レベル帯をひと目で。</h2>
+            <p class="body-text">
+              全曲一覧としての `chulvl` と、個人達成状況としての `chusc`。
+              同じレベル帯でも、全体視点と個人視点を分けて見せることで、進行状況と課題を整理しやすくしています。
+            </p>
+          </div>
+          <div class="level-gallery">
+            <figure><img src="./assets/chuni-level-all-web.jpg" alt="chulvl preview" /><figcaption>chulvl</figcaption></figure>
+            <figure><img src="./assets/chuni-level-user-web.jpg" alt="chusc preview" /><figcaption>chusc</figcaption></figure>
+          </div>
+        </section>
+
+        <section class="feature-band feature-minor section">
+          <div class="section-heading product-heading-center">
+            <p class="eyebrow">そのほかの機能</p>
+            <h2>使い続けるための、小さくて大事な仕組み。</h2>
+          </div>
+          <div class="minor-grid">
+            <article class="minor-card">
+              <h3>別名検索</h3>
+              <p>曲名の揺れや短縮形を吸収して、入力しやすさを上げます。</p>
+            </article>
+            <article class="minor-card">
+              <h3>手動登録</h3>
+              <p>`/upload` と `/uploadpc` で、スコアや PC を後から補完できます。</p>
+            </article>
+            <article class="minor-card">
+              <h3>アカウント管理</h3>
+              <p>`/create`、`/bind`、`/rename` で、プレイヤー名の運用を整理します。</p>
+            </article>
+            <article class="minor-card">
+              <h3>譜面プレビュー</h3>
+              <p>`/chuchart` で、譜面画像をそのまま Bot から確認できます。</p>
+            </article>
+            <article class="minor-card">
+              <h3>公式同期</h3>
+              <p>CHUNITHM-NET のデータ取得と取り込みを整理し、更新作業を一本化します。</p>
+            </article>
+            <article class="minor-card">
+              <h3>ヘルプと補助導線</h3>
+              <p>画像版 `/help`、難易度補完、色プレフィックス認識で導線を整えます。</p>
+            </article>
           </div>
         </section>
       </main>
