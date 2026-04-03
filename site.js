@@ -14,6 +14,7 @@
   const openingClassDuration = 140;
   let closeTimer = null;
   let openingTimer = null;
+  let firstOpenAfterEnter = true;
 
   function fadeSwapImage(img, nextSrc) {
     if (img.getAttribute("src") === nextSrc) {
@@ -106,8 +107,9 @@
     navRegion.classList.add("is-open");
     navMega.setAttribute("aria-hidden", "false");
     setMegaPanelSize(nextPanel);
-    if (!wasOpen) {
+    if (!wasOpen && firstOpenAfterEnter) {
       navRegion.classList.add("is-opening");
+      firstOpenAfterEnter = false;
       if (openingTimer) {
         window.clearTimeout(openingTimer);
       }
@@ -171,6 +173,12 @@
   }
 
   if (navRegion) {
+    navRegion.addEventListener("mouseenter", function () {
+      clearCloseTimer();
+      if (!navRegion.classList.contains("is-open")) {
+        firstOpenAfterEnter = true;
+      }
+    });
     navRegion.addEventListener("mouseleave", scheduleCloseMegaMenu);
   }
 
