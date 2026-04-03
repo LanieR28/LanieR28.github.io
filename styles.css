@@ -318,7 +318,7 @@ img[data-light][data-dark].is-fading,
   text-decoration: none;
   font-size: 13px;
   line-height: 1.5;
-  font-weight: 600;
+  font-weight: 500;
   transition: color 0.24s ease;
 }
 
@@ -326,7 +326,7 @@ img[data-light][data-dark].is-fading,
   font-size: clamp(28px, 3vw, 34px);
   line-height: 1.18;
   letter-spacing: -0.03em;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .mega-column a:hover {
@@ -353,7 +353,7 @@ img[data-light][data-dark].is-fading,
   margin: 0 0 10px;
   color: var(--blue);
   font-size: 12px;
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: 0.22em;
   text-transform: uppercase;
 }
@@ -419,7 +419,7 @@ h2 {
   border-radius: 50%;
   color: #fff;
   font-size: 20px;
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: 0.04em;
   background: linear-gradient(135deg, var(--blue), var(--blue-2));
   flex: none;
@@ -444,7 +444,7 @@ h2 {
   padding: 0 18px;
   border-radius: 999px;
   text-decoration: none;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .button.primary {
@@ -535,7 +535,7 @@ main {
   margin-bottom: 8px;
   color: var(--blue);
   font-size: 12px;
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: 0.16em;
   text-transform: uppercase;
 }
@@ -558,7 +558,7 @@ main {
 .text-link {
   color: var(--blue);
   text-decoration: none;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .pill-row {
@@ -574,7 +574,7 @@ main {
   background: rgba(31, 120, 216, 0.08);
   color: var(--blue);
   font-size: 13px;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .split {
@@ -606,7 +606,7 @@ main {
   display: block;
   margin-bottom: 8px;
   font-size: 13px;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
@@ -634,7 +634,7 @@ main {
   display: block;
   margin-bottom: 8px;
   font-size: 12px;
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
