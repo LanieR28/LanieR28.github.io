@@ -218,7 +218,7 @@ img[data-light][data-dark].is-fading,
   top: 100%;
   left: 0;
   width: 100%;
-  background: rgba(255, 255, 255, 0.98);
+  background: rgb(245, 245, 248);
   border-top: 1px solid rgba(19, 36, 61, 0.06);
   opacity: 0;
   visibility: hidden;
@@ -235,19 +235,42 @@ img[data-light][data-dark].is-fading,
 }
 
 .nav-mega-inner {
+  position: relative;
   width: min(1180px, calc(100vw - 32px));
   margin: 0 auto;
   padding: 28px 8px 34px;
+  transition: width 0.28s linear, height 0.28s linear;
+  will-change: width, height;
 }
 
 .mega-panel {
-  display: none;
+  position: absolute;
+  top: 28px;
+  left: 8px;
+  display: grid;
   grid-template-columns: minmax(320px, 1.55fr) minmax(190px, 0.9fr) minmax(210px, 1fr);
   gap: 56px;
+  width: max-content;
+  max-width: calc(100vw - 48px);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(8px);
+  transition:
+    opacity 0.22s ease,
+    transform 0.22s ease,
+    visibility 0s linear 0.22s;
 }
 
 .mega-panel.is-active {
-  display: grid;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0);
+  transition:
+    opacity 0.22s ease,
+    transform 0.22s ease,
+    visibility 0s linear 0s;
 }
 
 .mega-column {
@@ -289,7 +312,7 @@ img[data-light][data-dark].is-fading,
 }
 
 :root[data-theme="dark"] .nav-mega {
-  background: rgba(22, 22, 24, 0.985);
+  background: rgb(45, 45, 48);
   border-top-color: rgba(255, 255, 255, 0.08);
 }
 
