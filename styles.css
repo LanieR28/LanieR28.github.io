@@ -115,6 +115,17 @@ body {
   background: #000;
 }
 
+.product-dark-page .topbar {
+  background: #000;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.product-dark-page .nav-links a,
+.product-dark-page .icon-button,
+.product-dark-page .theme-icon {
+  color: #f5f5f7;
+}
+
 .product-dark-page .hero-text,
 .product-dark-page .body-text,
 .product-dark-page p,
@@ -876,9 +887,9 @@ main {
 }
 
 .product-hero-copy h1 {
-  font-size: clamp(56px, 10vw, 120px);
-  line-height: 1.02;
-  letter-spacing: -0.06em;
+  font-size: clamp(44px, 8vw, 92px);
+  line-height: 1.08;
+  letter-spacing: 0.035em;
 }
 
 .product-hero-copy .hero-text {
@@ -896,11 +907,11 @@ main {
 }
 
 .product-kicker {
-  margin: 0 0 10px;
+  margin: 0 0 34px;
   color: var(--blue);
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 600;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
@@ -1098,9 +1109,9 @@ main {
 }
 
 .product-page h2 {
-  font-size: clamp(36px, 6vw, 72px);
-  line-height: 1.06;
-  letter-spacing: -0.04em;
+  font-size: clamp(28px, 4.8vw, 56px);
+  line-height: 1.14;
+  letter-spacing: 0.03em;
 }
 
 .product-page .body-text {
@@ -1157,7 +1168,7 @@ main {
   }
 
   .product-hero-copy h1 {
-    font-size: clamp(42px, 13vw, 72px);
+    font-size: clamp(34px, 10vw, 56px);
   }
 
   .product-hero-copy .hero-text {
