@@ -1,6 +1,7 @@
 :root {
   --bg: rgb(255, 255, 255);
   --nav-gap: 45px;
+  --home-bg-position-y: 56%;
   --panel: rgba(255, 255, 255, 0.84);
   --panel-strong: #ffffff;
   --text: rgb(0, 0, 0);
@@ -50,7 +51,7 @@ body {
   inset: 0;
   background-image: url("./assets/home-bg-02.PNG");
   background-size: cover;
-  background-position: center 56%;
+  background-position: center var(--home-bg-position-y);
   background-repeat: no-repeat;
   opacity: 0.14;
   pointer-events: none;
