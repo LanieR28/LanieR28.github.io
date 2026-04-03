@@ -71,27 +71,44 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
+  gap: 12px;
   flex-wrap: wrap;
+  min-height: 48px;
+  padding: 0 18px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(18px);
 }
 
 .brand {
-  color: var(--text);
-  text-decoration: none;
-  font-size: 24px;
-  font-weight: 800;
-  letter-spacing: -0.04em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  flex: none;
+}
+
+.brand img {
+  display: block;
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
 }
 
 .nav-links {
   display: flex;
-  gap: 18px;
+  gap: 14px;
+  align-items: center;
 }
 
 .nav-links a {
   color: var(--muted);
   text-decoration: none;
-  font-weight: 600;
+  font-weight: 500;
+  font-size: 13px;
+  white-space: nowrap;
 }
 
 .search-box {
@@ -102,26 +119,28 @@ body {
 }
 
 .search-box input {
-  width: 170px;
-  height: 40px;
+  width: 138px;
+  height: 34px;
   padding: 0 12px;
   border: 1px solid var(--line);
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.78);
   color: var(--text);
   font: inherit;
+  font-size: 13px;
 }
 
 .search-box button,
 .theme-toggle {
-  height: 40px;
-  padding: 0 14px;
+  height: 34px;
+  padding: 0 12px;
   border: 1px solid var(--line);
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.78);
   color: var(--text);
   font: inherit;
-  font-weight: 700;
+  font-size: 13px;
+  font-weight: 600;
   cursor: pointer;
 }
 
