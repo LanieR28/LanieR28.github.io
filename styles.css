@@ -277,27 +277,38 @@ img[data-light][data-dark].is-fading,
 
 .mega-column > * {
   opacity: 0;
-  transform: translateY(6px);
-  transition: opacity 0.1s ease, transform 0.1s ease;
+  transform: none;
+  transition: opacity 0.18s ease;
 }
 
 .nav-region.is-opening .mega-panel.is-active .mega-column > * {
   opacity: 1;
-  transform: translateY(0);
+  animation: mega-item-rise 0.28s ease forwards;
 }
 
-.nav-region.is-opening .mega-panel.is-active .mega-column > :nth-child(1) { transition-delay: 0s; }
-.nav-region.is-opening .mega-panel.is-active .mega-column > :nth-child(2) { transition-delay: 0.015s; }
-.nav-region.is-opening .mega-panel.is-active .mega-column > :nth-child(3) { transition-delay: 0.03s; }
-.nav-region.is-opening .mega-panel.is-active .mega-column > :nth-child(4) { transition-delay: 0.045s; }
-.nav-region.is-opening .mega-panel.is-active .mega-column > :nth-child(5) { transition-delay: 0.06s; }
-.nav-region.is-opening .mega-panel.is-active .mega-column > :nth-child(6) { transition-delay: 0.075s; }
-.nav-region.is-opening .mega-panel.is-active .mega-column > :nth-child(7) { transition-delay: 0.09s; }
+.nav-region.is-opening .mega-panel.is-active .mega-column > :nth-child(1) { animation-delay: 0s; }
+.nav-region.is-opening .mega-panel.is-active .mega-column > :nth-child(2) { animation-delay: 0.035s; }
+.nav-region.is-opening .mega-panel.is-active .mega-column > :nth-child(3) { animation-delay: 0.07s; }
+.nav-region.is-opening .mega-panel.is-active .mega-column > :nth-child(4) { animation-delay: 0.105s; }
+.nav-region.is-opening .mega-panel.is-active .mega-column > :nth-child(5) { animation-delay: 0.14s; }
+.nav-region.is-opening .mega-panel.is-active .mega-column > :nth-child(6) { animation-delay: 0.175s; }
+.nav-region.is-opening .mega-panel.is-active .mega-column > :nth-child(7) { animation-delay: 0.21s; }
 
 .nav-region.is-open:not(.is-opening) .mega-panel.is-active .mega-column > * {
   opacity: 1;
-  transform: translateY(0);
+  animation: none;
   transition-delay: 0s;
+}
+
+@keyframes mega-item-rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .mega-column-primary {

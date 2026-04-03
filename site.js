@@ -11,7 +11,7 @@
   const navTriggers = Array.from(document.querySelectorAll(".nav-trigger[data-menu]"));
   const navPanels = Array.from(document.querySelectorAll(".mega-panel[data-panel]"));
   const fadeDuration = 220;
-  const openingClassDuration = 140;
+  const openingClassDuration = 520;
   let closeTimer = null;
   let openingTimer = null;
   let firstOpenAfterEnter = true;
