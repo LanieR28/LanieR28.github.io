@@ -68,15 +68,6 @@ body {
 }
 
 .hero,
-.section,
-.project-card,
-.hero-card,
-.info-panel,
-.contact-card {
-  backdrop-filter: blur(14px);
-}
-
-.hero,
 .section {
   border: none;
   border-radius: 0;
