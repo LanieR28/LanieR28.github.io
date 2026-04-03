@@ -240,7 +240,7 @@ img[data-light][data-dark].is-fading,
   margin: 0 auto;
   padding: 28px 8px 34px;
   overflow: hidden;
-  transition: height 0.18s linear;
+  transition: height 0.09s linear;
   will-change: height;
 }
 
