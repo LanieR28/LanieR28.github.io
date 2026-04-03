@@ -63,11 +63,14 @@ body {
 }
 
 .hero {
-  padding: 0 0 28px;
+  padding: 68px 0 28px;
 }
 
 .nav-region {
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
   z-index: 30;
 }
 
