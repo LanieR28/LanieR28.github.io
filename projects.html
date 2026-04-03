@@ -3,12 +3,13 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>LanieR | Projects</title>
+    <title>LanieR | アーカイブ</title>
     <meta
       name="description"
-      content="LanieR のプロジェクト一覧ページ。CHUNITHM Bot System を中心に、画像レンダリングや譜面表示フローを整理して紹介します。"
+      content="LanieR の制作物アーカイブ。CHUNITHM Bot System を中心に、画像レンダリングや譜面表示フローを整理して紹介します。"
     />
     <link rel="stylesheet" href="./styles.css" />
+    <script src="./site.js" defer></script>
   </head>
   <body>
     <div class="site-shell">
@@ -16,26 +17,34 @@
         <nav class="topbar">
           <a class="brand" href="./index.html">LanieR</a>
           <div class="nav-links">
-            <a href="./index.html#about">About</a>
-            <a href="./index.html#projects">Home Projects</a>
-            <a href="./index.html#contact">Contact</a>
+            <a href="./index.html">ホーム</a>
+            <a href="./projects.html">アーカイブ</a>
+            <a href="./index.html#projects">プロジェクト</a>
+            <a href="./index.html#contact">連絡先</a>
           </div>
+          <form class="search-box" id="site-search-form">
+            <input id="site-search-input" type="search" placeholder="ページ内検索" />
+            <button type="submit">検索</button>
+          </form>
+          <button class="theme-toggle" id="theme-toggle" type="button" aria-label="表示モード切替">
+            夜間
+          </button>
         </nav>
 
         <div class="subhero-copy">
-          <p class="eyebrow">Project Archive</p>
-          <h1>Projects and systems I am currently building.</h1>
+          <p class="eyebrow">アーカイブ</p>
+          <h1>制作物とシステムの記録</h1>
           <p class="hero-text">
             個人サイトから見える制作物を、もう少しだけプロジェクト寄りに整理したページです。
-            現時点では CHUNITHM Bot System が中心ですが、今後ここに増やしていく前提のアーカイブとして使います。
+            現時点では CHUNITHM Bot System が中心ですが、今後ここに少しずつ増やしていく前提のアーカイブとして使います。
           </p>
         </div>
       </header>
 
       <main>
-        <section class="section project-detail" id="chunithm-bot">
+        <section class="section project-detail" id="chunithm-bot" data-search="CHUNITHM Bot System アーカイブ">
           <div class="section-heading">
-            <p class="eyebrow">Featured Project</p>
+            <p class="eyebrow">主力プロジェクト</p>
             <h2>CHUNITHM Bot System</h2>
           </div>
 
@@ -54,19 +63,19 @@
 
               <div class="mini-grid">
                 <div class="mini-card">
-                  <span class="mini-label">Input</span>
+                  <span class="mini-label">入力</span>
                   <strong>QQ コマンド / 公式サイトデータ / 手動登録</strong>
                 </div>
                 <div class="mini-card">
-                  <span class="mini-label">Output</span>
+                  <span class="mini-label">出力</span>
                   <strong>画像カード / 譜面表示 / 集計データ</strong>
                 </div>
                 <div class="mini-card">
-                  <span class="mini-label">Core</span>
+                  <span class="mini-label">中核</span>
                   <strong>Bot Bridge / Renderers / Sync Scripts</strong>
                 </div>
                 <div class="mini-card">
-                  <span class="mini-label">Focus</span>
+                  <span class="mini-label">重視点</span>
                   <strong>見た目・使いやすさ・データ整理</strong>
                 </div>
               </div>
@@ -81,10 +90,10 @@
           </div>
         </section>
 
-        <section class="section project-detail">
+        <section class="section project-detail" data-search="譜面プレビュー フロー">
           <div class="section-heading">
-            <p class="eyebrow">Secondary Piece</p>
-            <h2>Chart Preview Flow</h2>
+            <p class="eyebrow">周辺機能</p>
+            <h2>譜面プレビュー表示フロー</h2>
           </div>
 
           <div class="detail-grid reverse">

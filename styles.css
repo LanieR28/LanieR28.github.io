@@ -10,6 +10,18 @@
   --shadow: 0 24px 60px rgba(16, 35, 61, 0.12);
 }
 
+:root[data-theme="dark"] {
+  --bg: #0d1728;
+  --panel: rgba(18, 31, 52, 0.88);
+  --panel-strong: #10203a;
+  --text: #eff5ff;
+  --muted: #a8b8d3;
+  --line: rgba(222, 236, 255, 0.12);
+  --blue: #7ab8ff;
+  --blue-2: #4ae0ff;
+  --shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+}
+
 * {
   box-sizing: border-box;
 }
@@ -60,6 +72,7 @@ body {
   align-items: center;
   justify-content: space-between;
   gap: 16px;
+  flex-wrap: wrap;
 }
 
 .brand {
@@ -79,6 +92,37 @@ body {
   color: var(--muted);
   text-decoration: none;
   font-weight: 600;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.search-box input {
+  width: 170px;
+  height: 40px;
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.78);
+  color: var(--text);
+  font: inherit;
+}
+
+.search-box button,
+.theme-toggle {
+  height: 40px;
+  padding: 0 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.78);
+  color: var(--text);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
 }
 
 .hero-grid {
@@ -396,6 +440,11 @@ main {
   text-decoration: none;
 }
 
+.search-hit {
+  outline: 2px solid rgba(31, 120, 216, 0.38);
+  outline-offset: 6px;
+}
+
 .subhero {
   padding-bottom: 24px;
 }
@@ -467,5 +516,14 @@ main {
   .topbar {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .search-box {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .search-box input {
+    width: 100%;
   }
 }
