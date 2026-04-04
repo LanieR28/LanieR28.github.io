@@ -14,7 +14,9 @@
   const productHero = document.getElementById("chunithm-bot");
   const fadeDuration = 220;
   const openingClassDuration = 1040;
-  const isProjectPage = document.body.classList.contains("project-page-view");
+  const isDarkDefaultPage =
+    document.body.classList.contains("project-page-view") ||
+    document.body.classList.contains("tech-page-view");
   let closeTimer = null;
   let openingTimer = null;
   let firstOpenAfterEnter = true;
@@ -55,7 +57,7 @@
     }
   }
 
-  const initialTheme = isProjectPage ? "dark" : (localStorage.getItem(storageKey) || "light");
+  const initialTheme = isDarkDefaultPage ? "dark" : (localStorage.getItem(storageKey) || "light");
   applyTheme(initialTheme);
 
   if (toggleButton) {
