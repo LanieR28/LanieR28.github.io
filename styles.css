@@ -1212,6 +1212,8 @@ main {
 .tech-page-view {
   background: #f5f5f7;
   color: #111;
+  --blue: #ccaa88;
+  --blue-2: #ccaa88;
 }
 
 .tech-page-view .hero,
