@@ -213,6 +213,46 @@
           </article>
         </section>
 
+        <section class="section tech-section" id="research">
+          <div class="section-heading">
+            <p class="eyebrow">調査と立ち上げ</p>
+            <h2>最初に決めたのは、<br />“どの体験を 1 つに束ねるか”。</h2>
+          </div>
+          <div class="tech-columns">
+            <article class="tech-note-card">
+              <h3>出発点</h3>
+              <p>
+                最初は単発の画像生成やスコア表示から始まりましたが、使っていくうちに
+                「B30」「楽曲情報」「レベル別の進行確認」「ボーダー計算」「同期」が
+                ばらばらに存在していること自体が使いにくさだと分かりました。
+              </p>
+            </article>
+            <article class="tech-note-card">
+              <h3>調査の軸</h3>
+              <p>
+                先に画面を作るのではなく、実際にどの場面で使うかを整理しました。
+                何をすぐ確認したいか、どこが手入力だとつらいか、どの画面は静的にしてよいかを
+                先に切り分けてから設計しています。
+              </p>
+            </article>
+            <article class="tech-note-card">
+              <h3>立項の判断</h3>
+              <p>
+                その結果、単なる QQ Bot ではなく、
+                「入力を受ける入口」「画像として返す出力」「データを同期する裏側」を
+                まとめて 1 つのシステムとして扱う方針に変えました。
+              </p>
+            </article>
+            <article class="tech-note-card">
+              <h3>見せたい価値</h3>
+              <p>
+                この作品で見せたいのは、機能を足したことではなく、
+                必要な処理を責務ごとに分けて、最後に 1 つの操作体験として再構成した点です。
+              </p>
+            </article>
+          </div>
+        </section>
+
         <section class="section tech-section" id="architecture">
           <div class="section-heading">
             <p class="eyebrow">システム構成</p>
@@ -238,6 +278,46 @@
               <span>04</span>
               <h3>返信・運用</h3>
               <p>生成物を Bot 返信に戻し、キャッシュ・送信品質・失敗時の保守も含めてシステム化しています。</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="section tech-section tech-section-alt" id="data-collection">
+          <div class="section-heading">
+            <p class="eyebrow">データ収集と整形</p>
+            <h2>一番手間がかかったのは、<br />“画像” ではなく “入力データ” の扱い。</h2>
+          </div>
+          <div class="tech-columns">
+            <article class="tech-note-card">
+              <h3>公式サイト同期</h3>
+              <p>
+                CHUNITHM-NET から記録を取得する経路を整え、
+                成績、プレイ回数、プロフィール情報を Bot 側で再利用できる形式に変換しています。
+                単に取得するだけでなく、あとで描画系が扱いやすい形に落とすことを重視しました。
+              </p>
+            </article>
+            <article class="tech-note-card">
+              <h3>手動入力との統合</h3>
+              <p>
+                公式データだけでは埋まらないケースがあるため、
+                手動アップロードや PC 入力も同じプレイヤーモデルに流し込んでいます。
+                同点時の優先順位や、公式由来と手動由来の扱いも整理しています。
+              </p>
+            </article>
+            <article class="tech-note-card">
+              <h3>別名と入力揺れ</h3>
+              <p>
+                曲名の別名、短縮入力、難易度略称、色プレフィックスなど、
+                人間側の入力の雑さを吸収する処理を先に挟むことで、
+                Bot が現実の使われ方に耐えるようにしています。
+              </p>
+            </article>
+            <article class="tech-note-card">
+              <h3>静的資産の整備</h3>
+              <p>
+                譜面プレビューやレベル一覧のような重い表示は、
+                その場で毎回ゼロから作るのではなく、静的に持てる部分を切り出して再利用しています。
+              </p>
             </article>
           </div>
         </section>
@@ -274,6 +354,45 @@
               <p>
                 サーバ同期、Bot 切替、画像キャッシュ、品質プリセット、エラーハンドリングなど、
                 実際に運用し続ける前提で調整しています。
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <section class="section tech-section" id="problems">
+          <div class="section-heading">
+            <p class="eyebrow">途中でぶつかった問題</p>
+            <h2>作った機能より、<br />途中で壊れた部分の方が設計を育てた。</h2>
+          </div>
+          <div class="tech-columns">
+            <article class="tech-note-card">
+              <h3>画像サイズと返信速度</h3>
+              <p>
+                画像を綺麗にしすぎると送信が遅くなり、Bot らしい体験を壊します。
+                そのため、通常品質・高品質・超高品質を分け、
+                特に譜面画像だけは別扱いにするなど、用途別の出力戦略を作りました。
+              </p>
+            </article>
+            <article class="tech-note-card">
+              <h3>プラットフォーム差</h3>
+              <p>
+                QQ 公式 Bot と NapCat では、同じ画像送信でも制限や挙動が異なります。
+                その差を実地で確認しながら、送信方式と返し方を切り替えられるようにしています。
+              </p>
+            </article>
+            <article class="tech-note-card">
+              <h3>重い描画処理</h3>
+              <p>
+                特にレベル一覧や複数分割画像は、描画時間そのものが長くなりやすく、
+                単純な再計算では待ち時間が大きくなります。
+                そのため静的底図・動的差分・出力キャッシュに寄せる方向で整理しました。
+              </p>
+            </article>
+            <article class="tech-note-card">
+              <h3>運用中のバグ修正</h3>
+              <p>
+                別名認識、難易度解釈、誤爆しやすい部分一致、送信失敗時の再試行など、
+                実際に使ってもらって初めて見える問題を継続的に回収しています。
               </p>
             </article>
           </div>
@@ -324,7 +443,7 @@
         <section class="section tech-section tech-section-alt" id="operations">
           <div class="section-heading">
             <p class="eyebrow">運用設計</p>
-            <h2>作って終わりではなく、<br />継続運用できる構造にする。</h2>
+            <h2>サーバに載せて初めて見える、<br />公開運用の問題まで含めて設計する。</h2>
           </div>
           <div class="tech-columns">
             <article class="tech-note-card">
@@ -343,13 +462,28 @@
               <h3>複数 Bot 経路</h3>
               <p>QQ 公式 Bot と NapCat の両系統を扱い、表現力と安定性のバランスを見ながら運用しています。</p>
             </article>
+            <article class="tech-note-card">
+              <h3>サーバ環境の整理</h3>
+              <p>
+                同期用サービス、Bot 本体、補助的な配備スクリプトを分けて運用し、
+                画像資産や CSV データも含めて、どこまでを同期し、どこからを再生成にするかを決めています。
+              </p>
+            </article>
+            <article class="tech-note-card">
+              <h3>落ちた時の復旧</h3>
+              <p>
+                Bot 側の接続失敗、同期失敗、サービス再起動、ログ確認など、
+                壊れた時にどこを見ればよいかまで整理して、
+                作ったあとも保守できる状態を目指しています。
+              </p>
+            </article>
           </div>
         </section>
 
         <section class="section tech-section" id="presentation">
           <div class="section-heading">
             <p class="eyebrow">この作品で見せたいこと</p>
-            <h2>この作品は、<br />“何が作れるか” より “どう設計できるか” を見せやすい。</h2>
+            <h2>この作品は、<br />“何ができるか” より “どう作り上げたか” を見せやすい。</h2>
           </div>
           <div class="tech-presentation-grid">
             <article class="tech-presentation-card">
