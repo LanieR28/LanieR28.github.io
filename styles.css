@@ -1250,6 +1250,11 @@ main {
   border-color: rgba(255, 255, 255, 0.1);
 }
 
+:root[data-theme="dark"] .tech-page-view .tech-proof-card {
+  background: transparent;
+  border-color: transparent;
+}
+
 :root[data-theme="dark"] .tech-page-view .tech-metric-card p,
 :root[data-theme="dark"] .tech-page-view .tech-note-card p,
 :root[data-theme="dark"] .tech-page-view .tech-flow-card p,
@@ -1395,10 +1400,10 @@ main {
   grid-template-columns: 0.95fr 1.05fr;
   gap: 24px;
   align-items: center;
-  padding: 28px;
-  border-radius: 30px;
-  background: #fff;
-  border: 1px solid rgba(15, 23, 42, 0.08);
+  padding: 20px 0;
+  border-radius: 0;
+  background: transparent;
+  border: none;
 }
 
 .tech-proof-card img {
