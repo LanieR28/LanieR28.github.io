@@ -803,7 +803,7 @@ h3 {
   font-size: 19px;
   font-weight: 400;
   font-family: "Novecento Sans Wide", "Endfield PingFang SC", "PingFang SC", sans-serif;
-  line-height: 46px;
+  line-height: 44px;
   vertical-align: middle;
   outline: none;
   transition:
@@ -986,7 +986,7 @@ h3 {
   font-weight: 400;
   display: inline-block;
   line-height: 1;
-  transform: translateY(-1px);
+  transform: translateY(-3px);
 }
 
 .gacha-source-dot {
