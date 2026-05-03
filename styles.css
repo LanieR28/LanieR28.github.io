@@ -956,15 +956,15 @@ h3 {
 
 .gacha-pool-button span {
   display: block;
-  font-size: 17px;
-  font-weight: 600;
+  font-size: 27px;
+  font-weight: 700;
   line-height: 1.2;
 }
 
 .gacha-pool-button strong {
   display: block;
-  font-size: 22px;
-  font-weight: 500;
+  font-size: 17px;
+  font-weight: 700;
   letter-spacing: 0.08em;
   line-height: 1.1;
 }
