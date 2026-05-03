@@ -212,9 +212,9 @@
     const gachaDailyCurrency = 200;
     const gachaWeeklyCurrency = 500;
     const gachaPaidPackages = {
-      "package-hongyuan": { pullsPerPurchase: 6 },
+      "package-hongyuan": { originium: 6 },
       "package-talent": { pullsPerPurchase: 10 },
-      "package-hr": { pullsPerPurchase: 10 },
+      "package-hr": { singlePulls: 10 },
       "package-agreement": { pullsPerPurchase: 10 },
       "package-xinghuo": { pullsPerPurchase: 10 },
       "package-weapon-full": { weaponQuota: 3 },
@@ -501,7 +501,10 @@
       const selectedPaidMonthCardOriginium = gachaPaidState.monthCardSelected ? paidMonthCardOriginium : 0;
 
       const paidPackagePulls = Object.entries(gachaPaidPackages).reduce((total, [key, config]) => {
-        return total + (gachaPaidState.packageSelections[key] ? config.pullsPerPurchase || 0 : 0);
+        if (!gachaPaidState.packageSelections[key]) {
+          return total;
+        }
+        return total + (config.pullsPerPurchase || 0);
       }, 0);
       const paidWeaponQuota =
         (gachaPaidState.originiumShopQuantities["package-weapon"] || 0) * 9 +
@@ -512,7 +515,11 @@
       const normalOriginiumTotal = Object.entries(gachaOriginiumShopTiers).reduce((total, [key, config]) => {
         return total + (gachaPaidState.originiumShopQuantities[key] || 0) * config.originium;
       }, 0);
-      const paidOriginiumTotal = selectedPaidMonthCardOriginium + paidMonthlyOriginium + firstChargeOriginiumTotal + normalOriginiumTotal;
+      const paidPackageOriginium = Object.entries(gachaPaidPackages).reduce((total, [key, config]) => {
+        return total + (gachaPaidState.packageSelections[key] ? config.originium || 0 : 0);
+      }, 0);
+      const paidOriginiumTotal =
+        selectedPaidMonthCardOriginium + paidMonthlyOriginium + paidPackageOriginium + firstChargeOriginiumTotal + normalOriginiumTotal;
       const paidFeaturedPullsFromOriginium = Math.floor((paidOriginiumTotal * gachaOriginiumToCurrency) / gachaCurrencyPerPull);
       const paidFeaturedPullsFromCurrency = Math.floor(selectedPaidMonthCardCurrency / gachaCurrencyPerPull);
       const paidFeaturedPulls = paidFeaturedPullsFromOriginium + paidFeaturedPullsFromCurrency + paidPackagePulls;
