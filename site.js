@@ -397,28 +397,46 @@
     };
 
     function parseGachaDate(value) {
-      return new Date(`${value}T00:00:00`);
+      const [year, month, day] = value.split("-").map(Number);
+      return { year, month, day, dayNumber: Date.UTC(year, month - 1, day) / 86400000 };
     }
 
     function getTodayAtStart() {
-      const today = new Date();
-      if (today.getHours() < 5) {
-        today.setDate(today.getDate() - 1);
+      const now = new Date();
+      const tokyoParts = new Intl.DateTimeFormat("en-CA", {
+        timeZone: "Asia/Tokyo",
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        hour12: false,
+      }).formatToParts(now);
+      const partValues = Object.fromEntries(tokyoParts.map((part) => [part.type, part.value]));
+      let year = Number(partValues.year);
+      let month = Number(partValues.month);
+      let day = Number(partValues.day);
+      const hour = Number(partValues.hour);
+      let dayNumber = Date.UTC(year, month - 1, day) / 86400000;
+      if (hour < 5) {
+        dayNumber -= 1;
       }
-      today.setHours(0, 0, 0, 0);
-      return today;
+      const effectiveDate = new Date(dayNumber * 86400000);
+      year = effectiveDate.getUTCFullYear();
+      month = effectiveDate.getUTCMonth() + 1;
+      day = effectiveDate.getUTCDate();
+      return { year, month, day, dayNumber };
     }
 
     function formatGachaDate(date) {
-      const year = date.getFullYear();
-      const month = `${date.getMonth() + 1}`.padStart(2, "0");
-      const day = `${date.getDate()}`.padStart(2, "0");
+      const year = date.year;
+      const month = `${date.month}`.padStart(2, "0");
+      const day = `${date.day}`.padStart(2, "0");
       return `${year}.${month}.${day}`;
     }
 
     function getGachaDayDiff(fromDate, toDate) {
-      const diff = toDate.getTime() - fromDate.getTime();
-      return diff > 0 ? Math.floor(diff / 86400000) : 0;
+      const diff = toDate.dayNumber - fromDate.dayNumber;
+      return diff > 0 ? Math.floor(diff) : 0;
     }
 
     function getNonNegativeNumber(input) {
@@ -570,24 +588,30 @@
     }
 
     function getNextWeekStart(fromDate) {
-      const nextWeekStart = new Date(fromDate);
-      const day = fromDate.getDay();
+      const utcDate = new Date(fromDate.dayNumber * 86400000);
+      const day = utcDate.getUTCDay();
       const daysUntilNextMonday = ((8 - day) % 7) || 7;
-      nextWeekStart.setDate(fromDate.getDate() + daysUntilNextMonday);
-      return nextWeekStart;
+      const nextWeekDayNumber = fromDate.dayNumber + daysUntilNextMonday;
+      const nextWeekDate = new Date(nextWeekDayNumber * 86400000);
+      return {
+        year: nextWeekDate.getUTCFullYear(),
+        month: nextWeekDate.getUTCMonth() + 1,
+        day: nextWeekDate.getUTCDate(),
+        dayNumber: nextWeekDayNumber,
+      };
     }
 
     function getWeeklyRefreshCount(today, cutoffDate) {
-      if (cutoffDate <= today) {
+      if (cutoffDate.dayNumber <= today.dayNumber) {
         return 0;
       }
 
       let count = 0;
       const nextWeekStart = getNextWeekStart(today);
 
-      while (nextWeekStart <= cutoffDate) {
+      while (nextWeekStart.dayNumber <= cutoffDate.dayNumber) {
         count += 1;
-        nextWeekStart.setDate(nextWeekStart.getDate() + 7);
+        nextWeekStart.dayNumber += 7;
       }
 
       return count;
@@ -595,13 +619,13 @@
 
     function getAvailableGachas(today) {
       return Object.values(gachaCatalog).filter(function (gachaItem) {
-        return parseGachaDate(gachaItem.endDate) >= today;
+        return parseGachaDate(gachaItem.endDate).dayNumber >= today.dayNumber;
       });
     }
 
     function getDefaultGachaMode(selectedGacha, today) {
       const gachaStartDate = parseGachaDate(selectedGacha.startDate);
-      return gachaStartDate > today ? "release" : "end";
+      return gachaStartDate.dayNumber > today.dayNumber ? "release" : "end";
     }
 
     function getSelectedGacha(today) {
@@ -615,7 +639,7 @@
       const gachaEndDate = parseGachaDate(selectedGacha.endDate);
 
       if (gachaState.settlementMode === "release") {
-        return gachaStartDate > today ? gachaStartDate : today;
+        return gachaStartDate.dayNumber > today.dayNumber ? gachaStartDate : today;
       }
 
       return gachaEndDate;
