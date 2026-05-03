@@ -231,11 +231,6 @@
       settlementMode: "release",
     };
 
-    const gachaFeaturedPulls = document.getElementById("gacha-featured-pulls");
-    const gachaFeaturedBreakdown = document.getElementById("gacha-featured-breakdown");
-    const gachaBasicPulls = document.getElementById("gacha-basic-pulls");
-    const gachaProjectedCurrency = document.getElementById("gacha-projected-currency");
-    const gachaProjectedBreakdown = document.getElementById("gacha-projected-breakdown");
     const gachaWeaponPulls = document.getElementById("gacha-weapon-pulls");
     const gachaWeaponHelper = document.getElementById("gacha-weapon-helper");
     const gachaSelector = document.getElementById("gacha-selector");
@@ -356,23 +351,6 @@
 
       if (gachaDaysBadge) {
         gachaDaysBadge.textContent = `${gachaDays}天`;
-      }
-      if (gachaFeaturedPulls) {
-        gachaFeaturedPulls.textContent = `${featuredPullsTotal}`;
-      }
-      if (gachaFeaturedBreakdown) {
-        gachaFeaturedBreakdown.textContent =
-          `${currentFeaturedPullsTotal} 来自当前库存 + ${projectedFeaturedPullsTotal} 来自后续累计`;
-      }
-      if (gachaBasicPulls) {
-        gachaBasicPulls.textContent = `${currentBasicPermits}`;
-      }
-      if (gachaProjectedCurrency) {
-        gachaProjectedCurrency.textContent = `${projectedCurrencyTotal}`;
-      }
-      if (gachaProjectedBreakdown) {
-        gachaProjectedBreakdown.textContent =
-          `日常 ${projectedDailyCurrency} + 周常 ${projectedWeeklyCurrency} + 活动 ${eventCurrency}`;
       }
       if (gachaWeaponPulls) {
         gachaWeaponPulls.textContent = "待补武器抽公式";
