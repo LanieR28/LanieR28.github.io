@@ -709,7 +709,7 @@ h3 {
   display: grid;
   gap: 28px;
   min-height: 620px;
-  padding: 56px 44px 0;
+  padding: 28px 44px 0;
   border: none;
   background: #f5f5f7;
   text-align: center;
@@ -718,7 +718,7 @@ h3 {
 
 .gacha-hero-card-head {
   display: grid;
-  gap: 40px;
+  gap: 22px;
   justify-items: center;
 }
 
@@ -729,7 +729,7 @@ h3 {
 }
 
 .gacha-hero-card-head .eyebrow {
-  margin: 0 0 29px;
+  margin: 0 0 14px;
 }
 
 .gacha-hero-metrics {
