@@ -1383,6 +1383,7 @@ h3 {
   align-items: end;
   gap: 22px;
   margin-top: -58px;
+  transform: translateY(-40px);
 }
 
 .gacha-weapon-inputs {
