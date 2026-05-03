@@ -892,7 +892,7 @@ h3 {
   overflow-x: hidden;
   overscroll-behavior: contain;
   -webkit-overflow-scrolling: touch;
-  padding: 18px 18px 118px;
+  padding: 18px 18px 76px;
 }
 
 .gacha-scroll-content {
@@ -1297,14 +1297,15 @@ h3 {
   position: absolute;
   left: 18px;
   right: 18px;
-  bottom: 34px;
+  bottom: 18px;
   z-index: 3;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 18px;
   margin: 0;
-  padding: 22px 34px 24px;
+  min-height: 72px;
+  padding: 0 34px;
   border-top: 1px solid rgba(19, 36, 61, 0.1);
   background: rgba(245, 245, 247, 0.96);
   backdrop-filter: blur(14px);
@@ -1315,8 +1316,8 @@ h3 {
   position: absolute;
   left: 0;
   right: 0;
-  bottom: -34px;
-  height: 34px;
+  bottom: -18px;
+  height: 18px;
   background: inherit;
 }
 
