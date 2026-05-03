@@ -222,7 +222,6 @@
     const gachaEventRewards = {
       "event-wuling-chef": { currency: 1200 },
       "event-xirang": { currency: 1200 },
-      "event-huiguang-signin": { specialPulls: 5 },
       "event-survey": { currency: 300 },
       "event-yiliu": { currency: 1200 },
       "event-zhangzhong": { currency: 1600 },
@@ -232,6 +231,7 @@
     const gachaStepperLimits = {
       "package-weapon": 7,
       "package-weapon-full": 3,
+      "event-huiguang-signin": 5,
     };
     const gachaFirstChargeTiers = {
       "firstcharge-6": { originium: 6, price: 6 },
@@ -259,8 +259,8 @@
       },
       nextGacha: {
         key: "nextGacha",
-        tabLabel: "辉光庆时卡池",
-        name: "辉光庆时卡池",
+        tabLabel: "辉光庆典卡池",
+        name: "辉光庆典卡池",
         startDate: "2026-05-14",
         endDate: "2026-06-05",
       },
@@ -324,6 +324,7 @@
       "originium-198": document.getElementById("gacha-originium-198-qty"),
       "originium-328": document.getElementById("gacha-originium-328-qty"),
       "originium-648": document.getElementById("gacha-originium-648-qty"),
+      "event-huiguang-signin": document.getElementById("gacha-event-huiguang-signin-qty"),
     };
     const gachaFirstChargeToggleNodes = {
       monthcard: document.querySelector('[data-toggle-key="monthcard"]'),
@@ -342,7 +343,6 @@
     const gachaEventToggleNodes = {
       "event-wuling-chef": document.querySelector('[data-toggle-key="event-wuling-chef"]'),
       "event-xirang": document.querySelector('[data-toggle-key="event-xirang"]'),
-      "event-huiguang-signin": document.querySelector('[data-toggle-key="event-huiguang-signin"]'),
       "event-survey": document.querySelector('[data-toggle-key="event-survey"]'),
       "event-yiliu": document.querySelector('[data-toggle-key="event-yiliu"]'),
       "event-zhangzhong": document.querySelector('[data-toggle-key="event-zhangzhong"]'),
@@ -355,7 +355,6 @@
       eventSelections: {
         "event-wuling-chef": false,
         "event-xirang": false,
-        "event-huiguang-signin": false,
         "event-survey": false,
         "event-yiliu": false,
         "event-zhangzhong": false,
@@ -386,6 +385,7 @@
         "originium-198": 0,
         "originium-328": 0,
         "originium-648": 0,
+        "event-huiguang-signin": 0,
       },
     };
 
@@ -662,7 +662,7 @@
       }, 0);
       const selectedEventSpecialPulls = Object.entries(gachaEventRewards).reduce((total, [key, config]) => {
         return total + (gachaPaidState.eventSelections[key] ? config.specialPulls || 0 : 0);
-      }, 0);
+      }, 0) + (gachaPaidState.originiumShopQuantities["event-huiguang-signin"] || 0);
       const eventCurrencyTotal = eventCurrency + selectedEventCurrency;
       const eventPermitPullsTotal = eventFeaturedPermits + selectedEventSpecialPulls;
       const dailyPermitPulls = gachaDailyFixedPermits;

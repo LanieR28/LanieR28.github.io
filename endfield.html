@@ -12,7 +12,7 @@
     <link rel="apple-touch-icon" href="./assets/lr-web-icon.png" />
     <meta name="theme-color" content="#ffffff" />
     <link rel="stylesheet" href="./styles.css" />
-    <script src="./site.js?v=20260503-daily-permit" defer></script>
+    <script src="./site.js?v=20260503-huiguang-celebration" defer></script>
   </head>
   <body class="endfield-page endfield-gacha-page">
     <div class="site-shell">
@@ -105,7 +105,7 @@
                         <strong>4/17~5/22</strong>
                       </button>
                       <button class="gacha-pill-button gacha-pill-button-secondary gacha-pool-button" type="button" data-gacha-key="nextGacha">
-                        <span>辉光庆时卡池</span>
+                        <span>辉光庆典卡池</span>
                         <strong>5/14~6/5</strong>
                       </button>
                     </div>
@@ -260,7 +260,7 @@
 
                         <article class="gacha-income-item">
                           <div class="gacha-income-copy">
-                            <strong>辉光庆时卡池集成配额兑换</strong>
+                            <strong>辉光庆典卡池集成配额兑换</strong>
                           </div>
                           <span class="gacha-income-reward">
                             <img src="./assets/endfield/limited-pull.webp" alt="" />
@@ -317,14 +317,18 @@
 
                         <article class="gacha-paid-item">
                           <div class="gacha-paid-copy">
-                            <strong>辉光庆时卡池签到</strong>
+                            <strong>辉光庆典卡池签到</strong>
                           </div>
                           <div class="gacha-paid-item-meta">
                             <span class="gacha-paid-reward">
                               <img src="./assets/endfield/limited-pull.webp" alt="" />
                               <strong>5</strong>
                             </span>
-                            <button class="gacha-toggle-button" type="button" data-toggle-key="event-huiguang-signin" aria-pressed="false">未选</button>
+                            <div class="gacha-stepper" data-stepper="event-huiguang-signin">
+                              <button type="button" data-stepper-action="decrease" data-stepper-key="event-huiguang-signin">−</button>
+                              <span id="gacha-event-huiguang-signin-qty">0</span>
+                              <button type="button" data-stepper-action="increase" data-stepper-key="event-huiguang-signin">+</button>
+                            </div>
                           </div>
                         </article>
 
