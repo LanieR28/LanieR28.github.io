@@ -738,22 +738,24 @@
       const totalSpecialPermits = paidPackageSpecialPermits + selectedEventSpecialPulls + dailyPermitPulls;
 
       const currentOriginiumPullCurrency = gachaPaidState.disableOriginiumPulls ? 0 : currentOriginium * gachaOriginiumToCurrency;
-      const currentFeaturedPullsFromOriginium = Math.floor(currentOriginiumPullCurrency / gachaCurrencyPerPull);
-      const currentFeaturedPullsFromCurrency = Math.floor(currentCurrency / gachaCurrencyPerPull);
-      const dailyFeaturedPulls = Math.floor(dailyCurrencyTotal / gachaCurrencyPerPull) + dailyPermitPulls;
-      const eventFeaturedPullsFromCurrency = Math.floor(eventCurrencyTotal / gachaCurrencyPerPull);
+      const totalOriginiumPullCurrency = gachaPaidState.disableOriginiumPulls ? 0 : totalOriginium * gachaOriginiumToCurrency;
+      const totalCurrencyPulls = Math.floor((totalOriginiumPullCurrency + totalCurrency) / gachaCurrencyPerPull);
+      const inventoryPullShareValue = (currentOriginiumPullCurrency + currentCurrency) / gachaCurrencyPerPull + currentFeaturedPermits;
+      const dailyPullShareValue = dailyCurrencyTotal / gachaCurrencyPerPull + dailyPermitPulls;
+      const eventPullShareValue = eventCurrencyTotal / gachaCurrencyPerPull + eventPermitPullsTotal;
+      const paidPullShareValue =
+        (originiumPullCurrencyTotal + selectedPaidMonthCardCurrency) / gachaCurrencyPerPull + paidPackagePulls + paidPackageSpecialPermits;
       const weaponTicketBonus = weaponFeaturedTickets >= 30 ? 10 : 0;
       const weaponTicketQuota = (weaponBlueTickets + weaponFeaturedTickets + weaponTicketBonus) * 50;
       const currentWeaponTenPulls = Math.floor(currentWeaponQuota / gachaWeaponQuotaPerTenPull);
 
-      const inventoryFeaturedPullsTotal = currentFeaturedPullsFromOriginium + currentFeaturedPullsFromCurrency + currentFeaturedPermits;
-      const eventFeaturedPullsTotal = eventFeaturedPullsFromCurrency + eventPermitPullsTotal;
-      const characterTotalPulls = inventoryFeaturedPullsTotal + dailyFeaturedPulls + eventFeaturedPullsTotal + paidFeaturedPulls;
+      const characterTotalPulls = totalCurrencyPulls + totalFeaturedPermits + totalSpecialPermits;
       const weaponQuotaTotal = currentWeaponQuota + paidWeaponQuota + weaponTicketQuota;
-      const inventoryShare = characterTotalPulls > 0 ? (inventoryFeaturedPullsTotal / characterTotalPulls) * 100 : 0;
-      const dailyShare = characterTotalPulls > 0 ? (dailyFeaturedPulls / characterTotalPulls) * 100 : 0;
-      const eventShare = characterTotalPulls > 0 ? (eventFeaturedPullsTotal / characterTotalPulls) * 100 : 0;
-      const paidShare = characterTotalPulls > 0 ? (paidFeaturedPulls / characterTotalPulls) * 100 : 0;
+      const sourceShareTotal = inventoryPullShareValue + dailyPullShareValue + eventPullShareValue + paidPullShareValue;
+      const inventoryShare = sourceShareTotal > 0 ? (inventoryPullShareValue / sourceShareTotal) * 100 : 0;
+      const dailyShare = sourceShareTotal > 0 ? (dailyPullShareValue / sourceShareTotal) * 100 : 0;
+      const eventShare = sourceShareTotal > 0 ? (eventPullShareValue / sourceShareTotal) * 100 : 0;
+      const paidShare = sourceShareTotal > 0 ? (paidPullShareValue / sourceShareTotal) * 100 : 0;
       updateGachaButtons(today);
 
       if (gachaDaysBadge) {
