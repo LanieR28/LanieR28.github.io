@@ -810,7 +810,7 @@ h3 {
 
 .gacha-hero-card {
   display: grid;
-  gap: 10px;
+  gap: 6px;
   min-height: 620px;
   padding: 20px 44px 0;
   border: none;
@@ -852,9 +852,9 @@ h3 {
 .gacha-source-module {
   display: grid;
   justify-items: center;
-  gap: 4px;
+  gap: 2px;
   width: 100%;
-  margin-top: -54px;
+  margin-top: -132px;
 }
 
 .gacha-source-total {
@@ -900,7 +900,7 @@ h3 {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 2px 14px;
+  gap: 0 12px;
   width: 100%;
   color: var(--muted);
   font-size: 14px;
@@ -926,8 +926,8 @@ h3 {
 
 .gacha-hero-card-head-weapon {
   gap: 8px;
-  align-self: center;
-  margin-top: 22px;
+  align-self: start;
+  margin-top: 0;
 }
 
 .gacha-card-head {
