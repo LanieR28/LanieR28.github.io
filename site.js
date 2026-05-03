@@ -231,11 +231,18 @@
       settlementMode: "release",
     };
 
-    const gachaWeaponPulls = document.getElementById("gacha-weapon-pulls");
-    const gachaWeaponHelper = document.getElementById("gacha-weapon-helper");
     const gachaSelector = document.getElementById("gacha-selector");
     const gachaModeSelector = document.getElementById("gacha-mode-selector");
     const gachaDaysBadge = document.getElementById("gacha-days-badge");
+    const gachaCharacterTotalPulls = document.getElementById("gacha-character-total-pulls");
+    const gachaSourceInventoryBar = document.getElementById("gacha-source-inventory-bar");
+    const gachaSourceDailyBar = document.getElementById("gacha-source-daily-bar");
+    const gachaSourceEventBar = document.getElementById("gacha-source-event-bar");
+    const gachaSourcePaidBar = document.getElementById("gacha-source-paid-bar");
+    const gachaSourceInventoryShare = document.getElementById("gacha-source-inventory-share");
+    const gachaSourceDailyShare = document.getElementById("gacha-source-daily-share");
+    const gachaSourceEventShare = document.getElementById("gacha-source-event-share");
+    const gachaSourcePaidShare = document.getElementById("gacha-source-paid-share");
 
     const gachaInputs = {
       currentOriginium: document.getElementById("gacha-current-originium"),
@@ -271,6 +278,13 @@
     function getNonNegativeNumber(input) {
       const value = Number.parseFloat(input.value);
       return Number.isFinite(value) && value > 0 ? value : 0;
+    }
+
+    function setSegmentWidth(node, share) {
+      if (!node) {
+        return;
+      }
+      node.style.width = `${share}%`;
     }
 
     function getAvailableGachas(today) {
@@ -329,31 +343,53 @@
       const gachaDays = getGachaDayDiff(today, gachaCutoff);
       const gachaWeeks = Math.floor(gachaDays / 7);
 
+      const currentOriginium = getNonNegativeNumber(gachaInputs.currentOriginium);
       const currentCurrency = getNonNegativeNumber(gachaInputs.currentCurrency);
       const currentFeaturedPermits = getNonNegativeNumber(gachaInputs.currentFeaturedPermits);
       const eventCurrency = getNonNegativeNumber(gachaInputs.eventCurrency);
       const eventFeaturedPermits = getNonNegativeNumber(gachaInputs.eventFeaturedPermits);
+      const paidFeaturedPulls = 0;
 
       const projectedDailyCurrency = gachaDays * gachaDailyCurrency;
       const projectedWeeklyCurrency = gachaWeeks * gachaWeeklyCurrency;
-      const projectedCurrencyTotal = projectedDailyCurrency + projectedWeeklyCurrency + eventCurrency;
+      const dailyCurrencyTotal = projectedDailyCurrency + projectedWeeklyCurrency;
 
+      const currentFeaturedPullsFromOriginium = Math.floor((currentOriginium * 180) / gachaCurrencyPerPull);
       const currentFeaturedPullsFromCurrency = Math.floor(currentCurrency / gachaCurrencyPerPull);
-      const projectedFeaturedPullsFromCurrency = Math.floor(projectedCurrencyTotal / gachaCurrencyPerPull);
+      const dailyFeaturedPulls = Math.floor(dailyCurrencyTotal / gachaCurrencyPerPull);
+      const eventFeaturedPullsFromCurrency = Math.floor(eventCurrency / gachaCurrencyPerPull);
 
-      const currentFeaturedPullsTotal = currentFeaturedPullsFromCurrency + currentFeaturedPermits;
-      const projectedFeaturedPullsTotal = projectedFeaturedPullsFromCurrency + eventFeaturedPermits;
+      const inventoryFeaturedPullsTotal =
+        currentFeaturedPullsFromOriginium + currentFeaturedPullsFromCurrency + currentFeaturedPermits;
+      const eventFeaturedPullsTotal = eventFeaturedPullsFromCurrency + eventFeaturedPermits;
+      const characterTotalPulls = inventoryFeaturedPullsTotal + dailyFeaturedPulls + eventFeaturedPullsTotal + paidFeaturedPulls;
+      const inventoryShare = characterTotalPulls > 0 ? (inventoryFeaturedPullsTotal / characterTotalPulls) * 100 : 0;
+      const dailyShare = characterTotalPulls > 0 ? (dailyFeaturedPulls / characterTotalPulls) * 100 : 0;
+      const eventShare = characterTotalPulls > 0 ? (eventFeaturedPullsTotal / characterTotalPulls) * 100 : 0;
+      const paidShare = characterTotalPulls > 0 ? (paidFeaturedPulls / characterTotalPulls) * 100 : 0;
       updateGachaButtons(today);
 
       if (gachaDaysBadge) {
         gachaDaysBadge.textContent = `${gachaDays}天`;
       }
-      if (gachaWeaponPulls) {
-        gachaWeaponPulls.textContent = "待补武器抽公式";
+      if (gachaCharacterTotalPulls) {
+        gachaCharacterTotalPulls.textContent = `${characterTotalPulls} 抽`;
       }
-      if (gachaWeaponHelper) {
-        gachaWeaponHelper.textContent =
-          `当前先保留武库配额的位置。等你下一步把武器抽的规则给我，我们就直接接在 ${selectedGacha.name} 这一套结算逻辑下面。`;
+      setSegmentWidth(gachaSourceInventoryBar, inventoryShare);
+      setSegmentWidth(gachaSourceDailyBar, dailyShare);
+      setSegmentWidth(gachaSourceEventBar, eventShare);
+      setSegmentWidth(gachaSourcePaidBar, paidShare);
+      if (gachaSourceInventoryShare) {
+        gachaSourceInventoryShare.textContent = `${Math.round(inventoryShare)}%`;
+      }
+      if (gachaSourceDailyShare) {
+        gachaSourceDailyShare.textContent = `${Math.round(dailyShare)}%`;
+      }
+      if (gachaSourceEventShare) {
+        gachaSourceEventShare.textContent = `${Math.round(eventShare)}%`;
+      }
+      if (gachaSourcePaidShare) {
+        gachaSourcePaidShare.textContent = `${Math.round(paidShare)}%`;
       }
     }
 

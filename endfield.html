@@ -159,21 +159,32 @@
                     <h3>寻访次数</h3>
                   </div>
                 </div>
-              </article>
 
-              <article class="gacha-hero-card gacha-hero-card-weapon">
-                <div class="gacha-hero-card-head">
-                  <div>
-                    <p class="eyebrow">WEAPON</p>
-                    <h3>武库配额</h3>
+                <div class="gacha-source-module">
+                  <strong class="gacha-source-total" id="gacha-character-total-pulls">0 抽</strong>
+
+                  <div class="gacha-source-progress" aria-label="资源来源分布">
+                    <span class="gacha-source-segment gacha-source-segment-inventory" id="gacha-source-inventory-bar"></span>
+                    <span class="gacha-source-segment gacha-source-segment-daily" id="gacha-source-daily-bar"></span>
+                    <span class="gacha-source-segment gacha-source-segment-event" id="gacha-source-event-bar"></span>
+                    <span class="gacha-source-segment gacha-source-segment-paid" id="gacha-source-paid-bar"></span>
+                  </div>
+
+                  <div class="gacha-source-legend">
+                    <span><i class="gacha-source-dot gacha-source-segment-inventory"></i>库存 <strong id="gacha-source-inventory-share">0%</strong></span>
+                    <span><i class="gacha-source-dot gacha-source-segment-daily"></i>日常 <strong id="gacha-source-daily-share">0%</strong></span>
+                    <span><i class="gacha-source-dot gacha-source-segment-event"></i>活动 <strong id="gacha-source-event-share">0%</strong></span>
+                    <span><i class="gacha-source-dot gacha-source-segment-paid"></i>氪金 <strong id="gacha-source-paid-share">0%</strong></span>
                   </div>
                 </div>
 
-                <div class="gacha-weapon-placeholder">
-                  <strong id="gacha-weapon-pulls">准备中</strong>
-                  <p id="gacha-weapon-helper">
-                    这一块先保留为主结果位，后面我们再按你的规则把武器卡池的资源来源和折算方式单独补齐。
-                  </p>
+                <div class="gacha-inline-weapon">
+                  <div class="gacha-hero-card-head gacha-hero-card-head-weapon">
+                    <div>
+                      <p class="eyebrow">WEAPON</p>
+                      <h3>武库配额</h3>
+                    </div>
+                  </div>
                 </div>
               </article>
             </section>

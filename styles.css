@@ -796,9 +796,7 @@ h3 {
 }
 
 .gacha-hero-panels {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 22px;
+  display: block;
   grid-column: 1 / -1;
 }
 
@@ -811,6 +809,10 @@ h3 {
   background: #f5f5f7;
   text-align: center;
   overflow: hidden;
+}
+
+.gacha-hero-card-character {
+  width: min(70%, 760px);
 }
 
 .gacha-hero-card-head {
@@ -829,59 +831,89 @@ h3 {
   margin: 0 0 14px;
 }
 
-.gacha-hero-metrics {
+.gacha-source-module {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 14px;
-  align-self: start;
-}
-
-.gacha-hero-metric {
-  padding: 18px;
-  border: 1px solid var(--line);
-  background: rgba(255, 255, 255, 0.72);
-  text-align: left;
-}
-
-.gacha-hero-metric span {
-  display: block;
-  margin-bottom: 10px;
-  font-size: 12px;
-  color: rgba(95, 99, 104, 0.88);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.gacha-hero-metric strong {
-  display: block;
-  font-size: clamp(26px, 3vw, 40px);
-  line-height: 1.1;
-}
-
-.gacha-hero-meta {
-  border-top: 1px solid var(--line);
-  padding-top: 6px;
-  text-align: left;
-}
-
-.gacha-weapon-placeholder {
-  display: grid;
-  gap: 14px;
-  align-content: start;
-  min-height: 220px;
   justify-items: center;
+  gap: 24px;
+  width: 100%;
+  margin-top: 8px;
 }
 
-.gacha-weapon-placeholder strong {
-  font-size: clamp(28px, 3.3vw, 46px);
-  line-height: 1.08;
+.gacha-source-total {
+  display: block;
+  font-size: clamp(34px, 3.2vw, 56px);
+  line-height: 1;
   font-family: "Futura", "Avenir Next", sans-serif;
 }
 
-.gacha-weapon-placeholder p {
-  max-width: 44ch;
+.gacha-source-progress {
+  display: flex;
+  width: min(100%, 560px);
+  height: 22px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.82);
+}
+
+.gacha-source-segment {
+  display: block;
+  height: 100%;
+  min-width: 0;
+  transition: width 0.28s ease;
+}
+
+.gacha-source-segment-inventory {
+  background: #ccaa88;
+}
+
+.gacha-source-segment-daily {
+  background: #7db7ff;
+}
+
+.gacha-source-segment-event {
+  background: #9fd39d;
+}
+
+.gacha-source-segment-paid {
+  background: #2c2c2e;
+}
+
+.gacha-source-legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px 22px;
+  width: 100%;
   color: var(--muted);
-  line-height: 1.85;
+  font-size: 14px;
+}
+
+.gacha-source-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.gacha-source-legend strong {
+  font-family: "Futura", "Avenir Next", sans-serif;
+  color: var(--text);
+}
+
+.gacha-source-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  flex: 0 0 auto;
+}
+
+.gacha-inline-weapon {
+  display: grid;
+  justify-items: center;
+  margin-top: 18px;
+}
+
+.gacha-hero-card-head-weapon {
+  gap: 14px;
 }
 
 .gacha-card-head {
@@ -2074,6 +2106,10 @@ main {
 
   .gacha-card {
     padding: 20px;
+  }
+
+  .gacha-hero-card-character {
+    width: 100%;
   }
 
   .gacha-toolbar-shell,
