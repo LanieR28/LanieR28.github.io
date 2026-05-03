@@ -1398,12 +1398,12 @@ h3 {
 }
 
 .gacha-weapon-quota-pulls {
-  align-self: center;
+  align-self: end;
   justify-self: center;
   font-family: "Novecento Sans Wide", "Endfield PingFang SC", "PingFang SC", sans-serif;
-  font-size: 32px;
-  font-weight: 400;
-  line-height: 1;
+  font-size: clamp(32px, 3vw, 50px);
+  line-height: 1.08;
+  transform: translateY(-22px);
 }
 
 .gacha-weapon-inputs {
