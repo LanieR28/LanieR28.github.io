@@ -1415,6 +1415,10 @@ h3 {
   gap: 18px;
 }
 
+.gacha-originium-toggle {
+  white-space: nowrap;
+}
+
 .gacha-toolbar-card .gacha-label {
   margin-bottom: 10px;
 }

@@ -262,6 +262,7 @@
 
     const gachaSelector = document.getElementById("gacha-selector");
     const gachaModeSelector = document.getElementById("gacha-mode-selector");
+    const gachaDisableOriginiumPulls = document.getElementById("gacha-disable-originium-pulls");
     const gachaDaysBadge = document.getElementById("gacha-days-badge");
     const gachaCharacterTotalPulls = document.getElementById("gacha-character-total-pulls");
     const gachaSourceInventoryBar = document.getElementById("gacha-source-inventory-bar");
@@ -325,6 +326,7 @@
       "firstcharge-648": document.querySelector('[data-toggle-key="firstcharge-648"]'),
     };
     const gachaPaidState = {
+      disableOriginiumPulls: false,
       monthCardSelected: false,
       packageSelections: {
         "package-hongyuan": false,
@@ -398,6 +400,11 @@
     }
 
     function syncPaidControls() {
+      if (gachaDisableOriginiumPulls) {
+        gachaDisableOriginiumPulls.classList.toggle("is-active", gachaPaidState.disableOriginiumPulls);
+        gachaDisableOriginiumPulls.setAttribute("aria-pressed", gachaPaidState.disableOriginiumPulls ? "true" : "false");
+      }
+
       Object.entries(gachaOriginiumShopQuantityNodes).forEach(([key, node]) => {
         if (node) {
           const value = gachaPaidState.originiumShopQuantities[key];
@@ -588,7 +595,8 @@
       }, 0);
       const paidOriginiumTotal =
         selectedPaidMonthCardOriginium + paidMonthlyOriginium + paidPackageOriginium + firstChargeOriginiumTotal + normalOriginiumTotal;
-      const paidFeaturedPullsFromOriginium = Math.floor((paidOriginiumTotal * gachaOriginiumToCurrency) / gachaCurrencyPerPull);
+      const originiumPullCurrencyTotal = gachaPaidState.disableOriginiumPulls ? 0 : paidOriginiumTotal * gachaOriginiumToCurrency;
+      const paidFeaturedPullsFromOriginium = Math.floor(originiumPullCurrencyTotal / gachaCurrencyPerPull);
       const paidFeaturedPullsFromCurrency = Math.floor(selectedPaidMonthCardCurrency / gachaCurrencyPerPull);
       const paidFeaturedPulls = paidFeaturedPullsFromOriginium + paidFeaturedPullsFromCurrency + paidPackagePulls;
       const paidPriceTotal =
@@ -604,7 +612,8 @@
       const totalFeaturedPermits = currentFeaturedPermits + eventFeaturedPermits + paidPackageFeaturedPermits;
       const totalSpecialPermits = paidPackageSpecialPermits;
 
-      const currentFeaturedPullsFromOriginium = Math.floor((currentOriginium * gachaOriginiumToCurrency) / gachaCurrencyPerPull);
+      const currentOriginiumPullCurrency = gachaPaidState.disableOriginiumPulls ? 0 : currentOriginium * gachaOriginiumToCurrency;
+      const currentFeaturedPullsFromOriginium = Math.floor(currentOriginiumPullCurrency / gachaCurrencyPerPull);
       const currentFeaturedPullsFromCurrency = Math.floor(currentCurrency / gachaCurrencyPerPull);
       const dailyFeaturedPulls = Math.floor(dailyCurrencyTotal / gachaCurrencyPerPull);
       const eventFeaturedPullsFromCurrency = Math.floor(eventCurrency / gachaCurrencyPerPull);
@@ -726,6 +735,12 @@
       const toggleButton = event.target.closest("[data-toggle-key]");
       if (toggleButton) {
         const { toggleKey } = toggleButton.dataset;
+        if (toggleButton === gachaDisableOriginiumPulls) {
+          gachaPaidState.disableOriginiumPulls = !gachaPaidState.disableOriginiumPulls;
+          renderGachaCalculator();
+          return;
+        }
+
         if (toggleKey === "monthcard") {
           gachaPaidState.monthCardSelected = !gachaPaidState.monthCardSelected;
           renderGachaCalculator();
