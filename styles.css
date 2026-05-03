@@ -1220,7 +1220,7 @@ h3 {
   display: flex;
   width: min(100%, 560px);
   height: 22px;
-  margin-top: -30px;
+  margin-top: -6px;
   overflow: hidden;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.82);
@@ -1255,7 +1255,7 @@ h3 {
   justify-content: center;
   gap: 0 12px;
   width: 100%;
-  margin-top: -40px;
+  margin-top: -12px;
   color: var(--muted);
   font-size: 16px;
 }
