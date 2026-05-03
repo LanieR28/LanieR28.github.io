@@ -312,6 +312,7 @@
     const gachaPaidStickyTotal = document.getElementById("gacha-paid-sticky-total");
     const gachaScrollPanel = document.querySelector(".gacha-scroll-panel");
     const gachaWeaponQuotaTotal = document.getElementById("gacha-weapon-quota-total");
+    const gachaWeaponQuotaPulls = document.getElementById("gacha-weapon-quota-pulls");
 
     const gachaInputs = {
       currentOriginium: document.getElementById("gacha-current-originium"),
@@ -774,10 +775,9 @@
         (originiumPullCurrencyTotal + selectedPaidMonthCardCurrency) / gachaCurrencyPerPull + paidPackagePulls + paidPackageSpecialPermits;
       const weaponTicketBonus = weaponFeaturedTickets >= 30 ? 10 : 0;
       const weaponTicketQuota = (weaponBlueTickets + weaponFeaturedTickets + weaponTicketBonus) * 50;
-      const currentWeaponTenPulls = Math.floor(currentWeaponQuota / gachaWeaponQuotaPerTenPull);
-
       const characterTotalPulls = totalCurrencyPulls + totalFeaturedPermits + totalSpecialPermits;
       const weaponQuotaTotal = currentWeaponQuota + paidWeaponQuota + weaponTicketQuota;
+      const weaponQuotaPulls = Math.floor(weaponQuotaTotal / gachaWeaponQuotaPerTenPull);
       const sourceShareTotal = inventoryPullShareValue + dailyPullShareValue + eventPullShareValue + paidPullShareValue;
       const inventoryShare = sourceShareTotal > 0 ? (inventoryPullShareValue / sourceShareTotal) * 100 : 0;
       const dailyShare = sourceShareTotal > 0 ? (dailyPullShareValue / sourceShareTotal) * 100 : 0;
@@ -826,6 +826,9 @@
       }
       if (gachaWeaponQuotaTotal) {
         gachaWeaponQuotaTotal.textContent = `${weaponQuotaTotal}`;
+      }
+      if (gachaWeaponQuotaPulls) {
+        gachaWeaponQuotaPulls.textContent = `${weaponQuotaPulls}次`;
       }
       if (gachaTotalOriginium) {
         gachaTotalOriginium.textContent = `${totalOriginium}`;
