@@ -655,6 +655,7 @@ h3 {
   max-width: none;
   justify-self: start;
   text-align: left;
+  padding-left: 30px;
 }
 
 .endfield-gacha-page .hero-copy h1 {
@@ -669,7 +670,7 @@ h3 {
 }
 
 .endfield-section-head {
-  margin-top: 120px;
+  margin-top: 30px;
   margin-bottom: 0;
 }
 
@@ -722,7 +723,7 @@ h3 {
 }
 
 .gacha-hero-card-head h3 {
-  font-size: clamp(19px, 2.1vw, 31px);
+  font-size: clamp(19px, 2.1vw, 50px);
   line-height: 1.05;
   letter-spacing: -0.04em;
 }
