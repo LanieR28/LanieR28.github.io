@@ -796,13 +796,16 @@ h3 {
 }
 
 .gacha-hero-panels {
-  display: block;
+  display: grid;
+  grid-template-columns: minmax(0, 560px) minmax(0, 560px);
+  justify-content: space-between;
+  align-items: start;
   grid-column: 1 / -1;
 }
 
 .gacha-hero-card {
   display: grid;
-  gap: 18px;
+  gap: 14px;
   min-height: 620px;
   padding: 28px 44px 0;
   border: none;
@@ -812,7 +815,11 @@ h3 {
 }
 
 .gacha-hero-card-character {
-  width: min(49%, 560px);
+  width: 100%;
+}
+
+.gacha-hero-card-placeholder {
+  width: 100%;
 }
 
 .gacha-hero-card-head {
@@ -834,9 +841,9 @@ h3 {
 .gacha-source-module {
   display: grid;
   justify-items: center;
-  gap: 12px;
+  gap: 8px;
   width: 100%;
-  margin-top: -8px;
+  margin-top: -22px;
 }
 
 .gacha-source-total {
@@ -882,7 +889,7 @@ h3 {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 10px 18px;
+  gap: 6px 16px;
   width: 100%;
   color: var(--muted);
   font-size: 14px;
@@ -909,11 +916,11 @@ h3 {
 .gacha-inline-weapon {
   display: grid;
   justify-items: center;
-  margin-top: 6px;
+  margin-top: -8px;
 }
 
 .gacha-hero-card-head-weapon {
-  gap: 10px;
+  gap: 6px;
 }
 
 .gacha-card-head {
