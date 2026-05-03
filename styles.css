@@ -1302,7 +1302,7 @@ h3 {
   justify-content: space-between;
   gap: 18px;
   margin: 18px -22px -156px;
-  padding: 58px 22px 40px;
+  padding: 138px 22px 0;
   border-top: 1px solid rgba(19, 36, 61, 0.1);
   background: rgba(245, 245, 247, 0.96);
   backdrop-filter: blur(14px);
@@ -1313,8 +1313,8 @@ h3 {
   position: absolute;
   left: 0;
   right: 0;
-  bottom: -40px;
-  height: 40px;
+  bottom: -90px;
+  height: 90px;
   background: inherit;
 }
 
