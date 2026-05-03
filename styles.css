@@ -83,7 +83,7 @@
 
 @font-face {
   font-family: "Novecento Sans Wide";
-  src: url("./assets/fonts/novecento/Novecentosanswide-DemiBold.otf") format("opentype");
+  src: url("./assets/fonts/novecento/Novecentosanswide-Medium.otf") format("opentype");
   font-weight: 600;
   font-style: normal;
   font-display: swap;
@@ -91,7 +91,7 @@
 
 @font-face {
   font-family: "Novecento Sans Wide";
-  src: url("./assets/fonts/novecento/Novecentosanswide-Bold.otf") format("opentype");
+  src: url("./assets/fonts/novecento/Novecentosanswide-Medium.otf") format("opentype");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -549,8 +549,8 @@ img[data-light][data-dark].is-fading,
 .eyebrow {
   margin: 0 0 10px;
   color: var(--blue);
-  font-size: 12px;
-  font-weight: 700;
+  font-size: 13px;
+  font-weight: 500;
   letter-spacing: 0.22em;
   text-transform: uppercase;
 }
@@ -566,18 +566,18 @@ h1 {
   font-size: clamp(20px, 3.1vw, 34px);
   line-height: 1.72;
   letter-spacing: -0.025em;
-  font-weight: 600;
+  font-weight: 500;
 }
 
 h2 {
   font-size: clamp(26px, 4.2vw, 38px);
   line-height: 1.14;
   letter-spacing: -0.02em;
-  font-weight: 600;
+  font-weight: 500;
 }
 
 h3 {
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .hero-text,
@@ -800,9 +800,10 @@ h3 {
   background: rgba(255, 255, 255, 0.92);
   color: var(--text);
   text-align: center;
-  font-size: 18px;
-  font-weight: 500;
+  font-size: 19px;
+  font-weight: 400;
   font-family: "Novecento Sans Wide", "Endfield PingFang SC", "PingFang SC", sans-serif;
+  line-height: 1.15;
   outline: none;
   transition:
     border-color 0.22s ease,
@@ -923,8 +924,8 @@ h3 {
 
 .gacha-source-total {
   display: block;
-  font-size: clamp(34px, 3.2vw, 56px);
-  line-height: 1;
+  font-size: clamp(36px, 3.35vw, 60px);
+  line-height: 1.08;
   font-family: "Novecento Sans Wide", "Endfield PingFang SC", "PingFang SC", sans-serif;
 }
 
@@ -981,6 +982,7 @@ h3 {
 .gacha-source-legend strong {
   font-family: "Novecento Sans Wide", "Endfield PingFang SC", "PingFang SC", sans-serif;
   color: var(--text);
+  font-weight: 400;
 }
 
 .gacha-source-dot {
@@ -1051,7 +1053,8 @@ h3 {
   background: var(--blue);
   color: #fff;
   font: inherit;
-  font-weight: 500;
+  font-weight: 400;
+  line-height: 1.1;
   cursor: pointer;
   text-align: center;
   transition:
@@ -1076,17 +1079,17 @@ h3 {
 
 .gacha-pool-button span {
   display: block;
-  font-size: 27px;
-  font-weight: 700;
-  line-height: 1.2;
+  font-size: 29px;
+  font-weight: 500;
+  line-height: 1.28;
 }
 
 .gacha-pool-button strong {
   display: block;
-  font-size: 17px;
-  font-weight: 700;
+  font-size: 18px;
+  font-weight: 400;
   letter-spacing: 0.08em;
-  line-height: 1.1;
+  line-height: 1.2;
   font-family: "Novecento Sans Wide", "Endfield PingFang SC", "PingFang SC", sans-serif;
 }
 
@@ -1135,9 +1138,10 @@ h3 {
 .gacha-result-tile strong,
 .gacha-rate-item strong {
   display: block;
-  font-size: clamp(22px, 2.5vw, 32px);
-  line-height: 1.15;
+  font-size: clamp(23px, 2.6vw, 34px);
+  line-height: 1.22;
   font-family: "Novecento Sans Wide", "Endfield PingFang SC", "PingFang SC", sans-serif;
+  font-weight: 400;
 }
 
 .gacha-result-tile p {
@@ -1155,10 +1159,10 @@ h3 {
   border-radius: 999px;
   background: #3a3a3c;
   color: #f5f5f7;
-  font-size: 18px;
-  font-weight: 500;
+  font-size: 19px;
+  font-weight: 400;
   font-family: "Novecento Sans Wide", "Endfield PingFang SC", "PingFang SC", sans-serif;
-  line-height: 1;
+  line-height: 1.1;
   white-space: nowrap;
 }
 
