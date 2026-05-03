@@ -212,15 +212,15 @@
     const gachaCatalog = {
       currentGacha: {
         key: "currentGacha",
-        tabLabel: "当前 gacha",
-        name: "庄方宜 gacha",
+        tabLabel: "庄方宜卡池",
+        name: "庄方宜卡池",
         startDate: "2026-04-17",
         endDate: "2026-05-22",
       },
       nextGacha: {
         key: "nextGacha",
-        tabLabel: "下一个 gacha",
-        name: "辉光庆时 gacha",
+        tabLabel: "辉光庆时卡池",
+        name: "辉光庆时卡池",
         startDate: "2026-05-14",
         endDate: "2026-06-05",
       },
@@ -360,9 +360,9 @@
       if (gachaCutoffNote) {
         if (gachaState.settlementMode === "release") {
           gachaCutoffNote.textContent =
-            gachaStartDate > today ? "还没开始，按 gacha 开幕当天结算" : "已经开始，开幕模式自动改按今天结算";
+            gachaStartDate > today ? "还没开始，按卡池开启当天结算" : "已经开始，开幕模式自动改按今天结算";
         } else {
-          gachaCutoffNote.textContent = "按 gacha 结束当天结算";
+          gachaCutoffNote.textContent = "按卡池结束当天结算";
         }
       }
       if (gachaDaysLeft) {
@@ -411,13 +411,13 @@
       }
       if (gachaWeaponHelper) {
         gachaWeaponHelper.textContent =
-          `当前先保留武库配额估算的位置。等你下一步把武器抽的规则给我，我们就直接接在 ${selectedGacha.name} 这一套结算逻辑下面。`;
+          `当前先保留武库配额的位置。等你下一步把武器抽的规则给我，我们就直接接在 ${selectedGacha.name} 这一套结算逻辑下面。`;
       }
       if (gachaModeHelper) {
         gachaModeHelper.textContent =
           gachaState.settlementMode === "release"
-            ? "现在是开幕全抽模式。未开 gacha 算到开始日，已开 gacha 自动算到今天。"
-            : "现在是结束日模式。适合看这个 gacha 一直攒到最后能有多少抽。";
+            ? "现在是开幕全抽模式。未开卡池算到开始日，已开卡池自动算到今天。"
+            : "现在是结束日模式。";
       }
     }
 

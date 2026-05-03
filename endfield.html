@@ -82,26 +82,16 @@
 
         <div class="hero-grid">
           <div class="hero-copy" data-search="ENDFIELD 終末地 攒抽計算機 gacha">
-            <p class="eyebrow">ENDFIELD</p>
             <h1>攒抽計算器</h1>
-            <p class="hero-text">
-              まずは「現在の gacha」と「次の gacha」を見ながら、
-              いつ全力で引くかに合わせて資源計画を組める最初の版から作っています。
-              特に次の gacha を第一候補として見たい人向けに、開幕即全力の計算も切り替えられるようにしています。
-            </p>
-            <div class="hero-actions">
-              <a class="button primary" href="#gacha-calculator">計算器を見る</a>
-              <a class="button secondary" href="./index.html">ホームへ戻る</a>
-            </div>
           </div>
 
           <div class="hero-card" data-search="ENDFIELD next gacha focus">
             <p class="eyebrow">FOCUS</p>
-            <h2>次の gacha を優先して見る</h2>
+            <h2>优先看下一个卡池</h2>
             <ul class="hero-points">
-              <li>デフォルトでは「次の gacha」を選択</li>
-              <li>「終了日まで」か「開始日まで」かを切替</li>
-              <li>開始済みの gacha は開幕計算時に自動で今日基準へ補正</li>
+              <li>默认直接落在下一个卡池</li>
+              <li>支持切换到开幕全抽的口径</li>
+              <li>已经开池时自动按今天结算</li>
             </ul>
           </div>
         </div>
@@ -111,28 +101,29 @@
         <section class="endfield-section">
           <div class="endfield-section-head">
             <p class="eyebrow">CALCULATOR</p>
-            <h2>gacha 结算模式</h2>
-            <p class="body-text">
-              默认按 gacha 结束日估算。切到「开幕全抽」之后，如果 gacha 还没开始，就算到开始日；
-              如果 gacha 已经开始，就自动按今天结算，不再回算到过去。
-            </p>
           </div>
 
           <div class="gacha-layout">
-            <section class="gacha-card gacha-card-primary">
-              <div class="gacha-control-group">
-                <span class="gacha-label">选择 gacha</span>
-                <div class="gacha-chip-row" id="gacha-selector">
-                  <button class="gacha-chip" type="button" data-gacha-key="currentGacha">当前 gacha</button>
-                  <button class="gacha-chip" type="button" data-gacha-key="nextGacha">下一个 gacha</button>
+            <section class="gacha-card gacha-card-primary gacha-toolbar-card">
+              <div class="gacha-toolbar-group">
+                <span class="gacha-label">选择卡池</span>
+                <div class="gacha-pill-row" id="gacha-selector">
+                  <button class="gacha-pill-button gacha-pool-button" type="button" data-gacha-key="currentGacha">
+                    <span>庄方宜卡池</span>
+                    <strong>0417-0522</strong>
+                  </button>
+                  <button class="gacha-pill-button gacha-pill-button-secondary gacha-pool-button" type="button" data-gacha-key="nextGacha">
+                    <span>辉光庆时卡池</span>
+                    <strong>0514-0605</strong>
+                  </button>
                 </div>
               </div>
 
-              <div class="gacha-control-group">
+              <div class="gacha-toolbar-group">
                 <span class="gacha-label">结算模式</span>
-                <div class="gacha-chip-row" id="gacha-mode-selector">
-                  <button class="gacha-chip" type="button" data-gacha-mode="end">算到结束当天</button>
-                  <button class="gacha-chip" type="button" data-gacha-mode="release">开幕全抽</button>
+                <div class="gacha-pill-row" id="gacha-mode-selector">
+                  <button class="gacha-pill-button" type="button" data-gacha-mode="end">结束日</button>
+                  <button class="gacha-pill-button gacha-pill-button-secondary" type="button" data-gacha-mode="release">开始日</button>
                 </div>
               </div>
 
@@ -160,10 +151,10 @@
                 <div class="gacha-hero-card-head">
                   <div>
                     <p class="eyebrow">CHARACTER</p>
-                    <h3>角色抽</h3>
+                    <h3>寻访次数</h3>
                   </div>
                   <p class="gacha-hero-copy">
-                    先把角色 gacha 能动用的总抽数放在最显眼的位置，第一眼就能看到自己离目标还有多远。
+                    把角色池能动用的核心结果直接放在最显眼的位置，一眼就知道自己现在能不能冲。
                   </p>
                 </div>
 
@@ -202,17 +193,17 @@
                 <div class="gacha-hero-card-head">
                   <div>
                     <p class="eyebrow">WEAPON</p>
-                    <h3>武库配额估算</h3>
+                    <h3>武库配额</h3>
                   </div>
                   <p class="gacha-hero-copy">
-                    武器抽保留成独立的大卡区域。先把位置和视觉层级定下来，下一步再逐条补武库配额的细算逻辑。
+                    武器池保留同样层级的大板块，视觉上和寻访次数并列，后面再把武器配额的细算规则逐条补齐。
                   </p>
                 </div>
 
                 <div class="gacha-weapon-placeholder">
                   <strong id="gacha-weapon-pulls">准备中</strong>
                   <p id="gacha-weapon-helper">
-                    这一块先保留为主结果位，后面我们再按你的规则把武器 gacha 的资源来源和折算方式单独补齐。
+                    这一块先保留为主结果位，后面我们再按你的规则把武器卡池的资源来源和折算方式单独补齐。
                   </p>
                 </div>
               </article>
@@ -221,7 +212,7 @@
             <section class="gacha-card gacha-card-results">
               <div class="gacha-card-head">
                 <h3>结果汇总</h3>
-                <p>先把角色抽和武器抽都保留在主界面里，但信息呈现改得更直接一点。</p>
+                <p>主界面先只保留最关键的结果块，细节都收进下面的展开区域。</p>
               </div>
 
               <div class="gacha-results-grid">
@@ -242,9 +233,6 @@
                 </article>
               </div>
 
-              <p class="gacha-helper-text" id="gacha-mode-helper">
-                默认按结束当天结算，适合看这个 gacha 到最后能攒多少。
-              </p>
             </section>
 
             <details class="gacha-accordion">
