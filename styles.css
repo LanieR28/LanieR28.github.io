@@ -744,8 +744,8 @@ h3 {
 .gacha-inventory-item input {
   width: 100%;
   min-width: 0;
-  height: 52px;
-  padding: 0 18px;
+  height: 46px;
+  padding: 0 14px;
   border: 1px solid rgba(204, 170, 136, 0.34);
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.92);
