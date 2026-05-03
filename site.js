@@ -217,6 +217,7 @@
       "package-hr": { pullsPerPurchase: 10 },
       "package-agreement": { pullsPerPurchase: 10 },
       "package-xinghuo": { pullsPerPurchase: 10 },
+      "package-weapon-full": { weaponQuota: 3 },
     };
     const gachaFirstChargeTiers = {
       "firstcharge-6": { originium: 6 },
@@ -290,6 +291,7 @@
       eventFeaturedPermits: document.getElementById("gacha-event-featured-permits"),
     };
     const gachaOriginiumShopQuantityNodes = {
+      "package-weapon": document.getElementById("gacha-package-weapon-qty"),
       "originium-6": document.getElementById("gacha-originium-6-qty"),
       "originium-30": document.getElementById("gacha-originium-30-qty"),
       "originium-98": document.getElementById("gacha-originium-98-qty"),
@@ -304,6 +306,7 @@
       "package-hr": document.querySelector('[data-toggle-key="package-hr"]'),
       "package-agreement": document.querySelector('[data-toggle-key="package-agreement"]'),
       "package-xinghuo": document.querySelector('[data-toggle-key="package-xinghuo"]'),
+      "package-weapon-full": document.querySelector('[data-toggle-key="package-weapon-full"]'),
       "firstcharge-6": document.querySelector('[data-toggle-key="firstcharge-6"]'),
       "firstcharge-30": document.querySelector('[data-toggle-key="firstcharge-30"]'),
       "firstcharge-98": document.querySelector('[data-toggle-key="firstcharge-98"]'),
@@ -319,6 +322,7 @@
         "package-hr": false,
         "package-agreement": false,
         "package-xinghuo": false,
+        "package-weapon-full": false,
       },
       firstChargeSelections: {
         "firstcharge-6": false,
@@ -329,6 +333,7 @@
         "firstcharge-648": false,
       },
       originiumShopQuantities: {
+        "package-weapon": 0,
         "originium-6": 0,
         "originium-30": 0,
         "originium-98": 0,
@@ -496,8 +501,11 @@
       const selectedPaidMonthCardOriginium = gachaPaidState.monthCardSelected ? paidMonthCardOriginium : 0;
 
       const paidPackagePulls = Object.entries(gachaPaidPackages).reduce((total, [key, config]) => {
-        return total + (gachaPaidState.packageSelections[key] ? config.pullsPerPurchase : 0);
+        return total + (gachaPaidState.packageSelections[key] ? config.pullsPerPurchase || 0 : 0);
       }, 0);
+      const paidWeaponQuota =
+        (gachaPaidState.originiumShopQuantities["package-weapon"] || 0) * 9 +
+        (gachaPaidState.packageSelections["package-weapon-full"] ? 3 : 0);
       const firstChargeOriginiumTotal = Object.entries(gachaFirstChargeTiers).reduce((total, [key, config]) => {
         return total + (gachaPaidState.firstChargeSelections[key] ? config.originium : 0);
       }, 0);
@@ -519,6 +527,7 @@
         currentFeaturedPullsFromOriginium + currentFeaturedPullsFromCurrency + currentFeaturedPermits + currentSinglePull;
       const eventFeaturedPullsTotal = eventFeaturedPullsFromCurrency + eventFeaturedPermits;
       const characterTotalPulls = inventoryFeaturedPullsTotal + dailyFeaturedPulls + eventFeaturedPullsTotal + paidFeaturedPulls;
+      const weaponQuotaTotal = currentWeaponQuota + paidWeaponQuota;
       const inventoryShare = characterTotalPulls > 0 ? (inventoryFeaturedPullsTotal / characterTotalPulls) * 100 : 0;
       const dailyShare = characterTotalPulls > 0 ? (dailyFeaturedPulls / characterTotalPulls) * 100 : 0;
       const eventShare = characterTotalPulls > 0 ? (eventFeaturedPullsTotal / characterTotalPulls) * 100 : 0;
@@ -607,7 +616,8 @@
         const { stepperAction, stepperKey } = stepperButton.dataset;
         if (stepperKey in gachaPaidState.originiumShopQuantities) {
           const nextValue = gachaPaidState.originiumShopQuantities[stepperKey] + (stepperAction === "increase" ? 1 : -1);
-          gachaPaidState.originiumShopQuantities[stepperKey] = Math.max(0, nextValue);
+          const maxValue = stepperKey === "package-weapon" ? 9 : Number.POSITIVE_INFINITY;
+          gachaPaidState.originiumShopQuantities[stepperKey] = Math.min(maxValue, Math.max(0, nextValue));
           renderGachaCalculator();
           return;
         }
