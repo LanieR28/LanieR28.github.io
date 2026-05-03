@@ -657,6 +657,9 @@ h3 {
 
 .endfield-gacha-page .hero-copy h1 {
   margin: 0;
+  font-size: clamp(48px, 5.8vw, 96px);
+  line-height: 1.03;
+  letter-spacing: -0.05em;
 }
 
 .endfield-section {
@@ -711,21 +714,18 @@ h3 {
 
 .gacha-hero-card-head {
   display: grid;
-  gap: 14px;
+  gap: 22px;
   justify-items: center;
 }
 
 .gacha-hero-card-head h3 {
-  font-size: clamp(38px, 4.2vw, 64px);
+  font-size: clamp(27px, 2.95vw, 45px);
   line-height: 1.05;
   letter-spacing: -0.04em;
 }
 
-.gacha-hero-copy {
-  max-width: 20ch;
-  color: var(--muted);
-  line-height: 1.4;
-  font-size: clamp(20px, 2vw, 28px);
+.gacha-hero-card-head .eyebrow {
+  margin: 0 0 16px;
 }
 
 .gacha-hero-metrics {
