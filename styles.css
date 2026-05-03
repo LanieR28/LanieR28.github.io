@@ -646,16 +646,16 @@ h3 {
 }
 
 .endfield-gacha-page .hero-grid {
+  width: min(1440px, calc(100vw - 48px));
   grid-template-columns: 1fr;
   gap: 0;
-  margin-top: 18px;
+  margin: 18px auto 0;
 }
 
 .endfield-gacha-page .hero-copy {
   max-width: none;
   justify-self: start;
   text-align: left;
-  padding-left: 30px;
 }
 
 .endfield-gacha-page .hero-copy h1 {

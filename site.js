@@ -234,14 +234,8 @@
     const gachaFeaturedPulls = document.getElementById("gacha-featured-pulls");
     const gachaFeaturedBreakdown = document.getElementById("gacha-featured-breakdown");
     const gachaBasicPulls = document.getElementById("gacha-basic-pulls");
-    const gachaCharacterFeaturedPulls = document.getElementById("gacha-character-featured-pulls");
-    const gachaCharacterBasicPermits = document.getElementById("gacha-character-basic-permits");
-    const gachaCharacterPaidRmb = document.getElementById("gacha-character-paid-rmb");
     const gachaProjectedCurrency = document.getElementById("gacha-projected-currency");
     const gachaProjectedBreakdown = document.getElementById("gacha-projected-breakdown");
-    const gachaCurrentFeaturedPulls = document.getElementById("gacha-current-featured-pulls");
-    const gachaProjectedFeaturedPulls = document.getElementById("gacha-projected-featured-pulls");
-    const gachaCustomPullsOutput = document.getElementById("gacha-custom-pulls-output");
     const gachaWeaponPulls = document.getElementById("gacha-weapon-pulls");
     const gachaWeaponHelper = document.getElementById("gacha-weapon-helper");
     const gachaSelector = document.getElementById("gacha-selector");
@@ -373,30 +367,12 @@
       if (gachaBasicPulls) {
         gachaBasicPulls.textContent = `${currentBasicPermits}`;
       }
-      if (gachaCharacterFeaturedPulls) {
-        gachaCharacterFeaturedPulls.textContent = `${featuredPullsTotal}`;
-      }
-      if (gachaCharacterBasicPermits) {
-        gachaCharacterBasicPermits.textContent = `${currentBasicPermits}`;
-      }
-      if (gachaCharacterPaidRmb) {
-        gachaCharacterPaidRmb.textContent = "0";
-      }
       if (gachaProjectedCurrency) {
         gachaProjectedCurrency.textContent = `${projectedCurrencyTotal}`;
       }
       if (gachaProjectedBreakdown) {
         gachaProjectedBreakdown.textContent =
           `日常 ${projectedDailyCurrency} + 周常 ${projectedWeeklyCurrency} + 活动 ${eventCurrency}`;
-      }
-      if (gachaCurrentFeaturedPulls) {
-        gachaCurrentFeaturedPulls.textContent = `${currentFeaturedPullsTotal}`;
-      }
-      if (gachaProjectedFeaturedPulls) {
-        gachaProjectedFeaturedPulls.textContent = `${projectedFeaturedPullsTotal}`;
-      }
-      if (gachaCustomPullsOutput) {
-        gachaCustomPullsOutput.textContent = `${customFeaturedPulls}`;
       }
       if (gachaWeaponPulls) {
         gachaWeaponPulls.textContent = "待补武器抽公式";
