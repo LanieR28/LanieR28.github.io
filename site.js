@@ -541,7 +541,7 @@
         return total + (gachaPaidState.originiumShopQuantities[key] || 0) * (config.price || 0);
       }, 0);
       const weaponPackagePrice = getWeaponPackagePrice(gachaPaidState.originiumShopQuantities["package-weapon"] || 0);
-      const weaponFullPackagePrice = (gachaPaidState.originiumShopQuantities["package-weapon-full"] || 0) * 0;
+      const weaponFullPackagePrice = (gachaPaidState.originiumShopQuantities["package-weapon-full"] || 0) * 328;
 
       const paidPackagePulls = Object.entries(gachaPaidPackages).reduce((total, [key, config]) => {
         if (!gachaPaidState.packageSelections[key]) {
