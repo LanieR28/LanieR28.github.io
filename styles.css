@@ -1391,7 +1391,7 @@ h3 {
 .gacha-weapon-quota-module {
   display: grid;
   grid-template-columns: 1fr auto;
-  align-items: center;
+  align-items: end;
   gap: 22px;
   margin-top: -58px;
   transform: translateY(-32px);
@@ -1401,7 +1401,6 @@ h3 {
   display: grid;
   gap: 12px;
   justify-items: start;
-  align-content: center;
 }
 
 .gacha-weapon-input {
@@ -1423,7 +1422,6 @@ h3 {
 .gacha-weapon-quota-total {
   display: grid;
   justify-items: center;
-  align-content: center;
   gap: 6px;
 }
 
@@ -1439,10 +1437,6 @@ h3 {
   font-weight: 400;
   line-height: 1;
   transform: translateY(-4px);
-}
-
-.gacha-weapon-quota-pulls {
-  font-size: 32px;
 }
 
 .gacha-card-head {
