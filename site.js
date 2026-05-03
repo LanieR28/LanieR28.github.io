@@ -789,7 +789,7 @@
         gachaDaysBadge.textContent = `${gachaDays}天`;
       }
       if (gachaCharacterTotalPulls) {
-        gachaCharacterTotalPulls.textContent = `${characterTotalPulls} 抽`;
+        gachaCharacterTotalPulls.textContent = `${characterTotalPulls}抽`;
       }
       if (gachaDailyDays) {
         gachaDailyDays.textContent = `${gachaDays}`;
@@ -828,7 +828,7 @@
         gachaWeaponQuotaTotal.textContent = `${weaponQuotaTotal}`;
       }
       if (gachaWeaponQuotaPulls) {
-        gachaWeaponQuotaPulls.textContent = `${weaponQuotaPulls}次`;
+        gachaWeaponQuotaPulls.textContent = `${weaponQuotaPulls} 次`;
       }
       if (gachaTotalOriginium) {
         gachaTotalOriginium.textContent = `${totalOriginium}`;

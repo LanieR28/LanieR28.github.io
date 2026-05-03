@@ -1242,7 +1242,7 @@ h3 {
 
 .gacha-source-total {
   display: block;
-  font-size: clamp(32px, 3vw, 50px);
+  font-size: clamp(38px, 3.35vw, 56px);
   line-height: 1.08;
   font-family: "Novecento Sans Wide", "Endfield PingFang SC", "PingFang SC", sans-serif;
   transform: translateY(var(--gacha-source-total-y));
@@ -1401,7 +1401,7 @@ h3 {
   align-self: end;
   justify-self: center;
   font-family: "Novecento Sans Wide", "Endfield PingFang SC", "PingFang SC", sans-serif;
-  font-size: clamp(32px, 3vw, 50px);
+  font-size: clamp(38px, 3.35vw, 56px);
   line-height: 1.08;
   transform: translateY(-22px);
 }
