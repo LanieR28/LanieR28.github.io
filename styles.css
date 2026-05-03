@@ -794,7 +794,7 @@ h3 {
   width: 100%;
   min-width: 0;
   height: 46px;
-  padding: 0 14px;
+  padding: 0 14px 4px;
   border: 1px solid rgba(204, 170, 136, 0.34);
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.92);
@@ -803,7 +803,7 @@ h3 {
   font-size: 22px;
   font-weight: 400;
   font-family: "Novecento Sans Wide", "Endfield PingFang SC", "PingFang SC", sans-serif;
-  line-height: 42px;
+  line-height: 1;
   vertical-align: middle;
   outline: none;
   transition:
