@@ -228,7 +228,7 @@
 
     const gachaState = {
       selectedGachaKey: "nextGacha",
-      settlementMode: "end",
+      settlementMode: "release",
     };
 
     const gachaName = document.getElementById("gacha-name");
