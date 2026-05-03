@@ -218,6 +218,16 @@
       "package-agreement": { pullsPerPurchase: 10, price: 198 },
       "package-xinghuo": { specialPulls: 10, pullsPerPurchase: 10, price: 98 },
     };
+    const gachaEventRewards = {
+      "event-wuling-chef": { currency: 1200 },
+      "event-xirang": { currency: 1200 },
+      "event-huiguang-signin": { specialPulls: 5 },
+      "event-survey": { currency: 300 },
+      "event-yiliu": { currency: 1200 },
+      "event-zhangzhong": { currency: 1600 },
+      "event-keyu": { currency: 1400 },
+      "event-zhensui": { currency: 1200 },
+    };
     const gachaStepperLimits = {
       "package-weapon": 7,
       "package-weapon-full": 3,
@@ -328,9 +338,29 @@
       "firstcharge-328": document.querySelector('[data-toggle-key="firstcharge-328"]'),
       "firstcharge-648": document.querySelector('[data-toggle-key="firstcharge-648"]'),
     };
+    const gachaEventToggleNodes = {
+      "event-wuling-chef": document.querySelector('[data-toggle-key="event-wuling-chef"]'),
+      "event-xirang": document.querySelector('[data-toggle-key="event-xirang"]'),
+      "event-huiguang-signin": document.querySelector('[data-toggle-key="event-huiguang-signin"]'),
+      "event-survey": document.querySelector('[data-toggle-key="event-survey"]'),
+      "event-yiliu": document.querySelector('[data-toggle-key="event-yiliu"]'),
+      "event-zhangzhong": document.querySelector('[data-toggle-key="event-zhangzhong"]'),
+      "event-keyu": document.querySelector('[data-toggle-key="event-keyu"]'),
+      "event-zhensui": document.querySelector('[data-toggle-key="event-zhensui"]'),
+    };
     const gachaPaidState = {
       disableOriginiumPulls: false,
       monthCardSelected: false,
+      eventSelections: {
+        "event-wuling-chef": false,
+        "event-xirang": false,
+        "event-huiguang-signin": false,
+        "event-survey": false,
+        "event-yiliu": false,
+        "event-zhangzhong": false,
+        "event-keyu": false,
+        "event-zhensui": false,
+      },
       packageSelections: {
         "package-hongyuan": false,
         "package-talent": false,
@@ -441,6 +471,17 @@
             : key in gachaPaidState.packageSelections
               ? gachaPaidState.packageSelections[key]
               : gachaPaidState.firstChargeSelections[key];
+        node.classList.toggle("is-active", isSelected);
+        node.setAttribute("aria-pressed", isSelected ? "true" : "false");
+        node.textContent = isSelected ? "已选" : "未选";
+      });
+
+      Object.entries(gachaEventToggleNodes).forEach(([key, node]) => {
+        if (!node) {
+          return;
+        }
+
+        const isSelected = gachaPaidState.eventSelections[key];
         node.classList.toggle("is-active", isSelected);
         node.setAttribute("aria-pressed", isSelected ? "true" : "false");
         node.textContent = isSelected ? "已选" : "未选";
@@ -615,23 +656,31 @@
         normalOriginiumPrice +
         weaponPackagePrice +
         weaponFullPackagePrice;
+      const selectedEventCurrency = Object.entries(gachaEventRewards).reduce((total, [key, config]) => {
+        return total + (gachaPaidState.eventSelections[key] ? config.currency || 0 : 0);
+      }, 0);
+      const selectedEventSpecialPulls = Object.entries(gachaEventRewards).reduce((total, [key, config]) => {
+        return total + (gachaPaidState.eventSelections[key] ? config.specialPulls || 0 : 0);
+      }, 0);
+      const eventCurrencyTotal = eventCurrency + selectedEventCurrency;
+      const eventPermitPullsTotal = eventFeaturedPermits + selectedEventSpecialPulls;
       const totalOriginium = currentOriginium + paidOriginiumTotal;
-      const totalCurrency = currentCurrency + dailyCurrencyTotal + eventCurrency + selectedPaidMonthCardCurrency;
+      const totalCurrency = currentCurrency + dailyCurrencyTotal + eventCurrencyTotal + selectedPaidMonthCardCurrency;
       const totalFeaturedPermits = currentFeaturedPermits + eventFeaturedPermits + paidPackageFeaturedPermits;
-      const totalSpecialPermits = paidPackageSpecialPermits;
+      const totalSpecialPermits = paidPackageSpecialPermits + selectedEventSpecialPulls;
 
       const currentOriginiumPullCurrency = gachaPaidState.disableOriginiumPulls ? 0 : currentOriginium * gachaOriginiumToCurrency;
       const currentFeaturedPullsFromOriginium = Math.floor(currentOriginiumPullCurrency / gachaCurrencyPerPull);
       const currentFeaturedPullsFromCurrency = Math.floor(currentCurrency / gachaCurrencyPerPull);
       const dailyFeaturedPulls = Math.floor(dailyCurrencyTotal / gachaCurrencyPerPull);
-      const eventFeaturedPullsFromCurrency = Math.floor(eventCurrency / gachaCurrencyPerPull);
+      const eventFeaturedPullsFromCurrency = Math.floor(eventCurrencyTotal / gachaCurrencyPerPull);
       const weaponTicketBonus = weaponFeaturedTickets >= 30 ? 10 : 0;
       const weaponTicketQuota = (weaponBlueTickets + weaponFeaturedTickets + weaponTicketBonus) * 50;
       const currentWeaponTenPulls = Math.floor(currentWeaponQuota / gachaWeaponQuotaPerTenPull);
 
       const inventoryFeaturedPullsTotal =
         currentFeaturedPullsFromOriginium + currentFeaturedPullsFromCurrency + currentFeaturedPermits + currentSinglePull;
-      const eventFeaturedPullsTotal = eventFeaturedPullsFromCurrency + eventFeaturedPermits;
+      const eventFeaturedPullsTotal = eventFeaturedPullsFromCurrency + eventPermitPullsTotal;
       const characterTotalPulls = inventoryFeaturedPullsTotal + dailyFeaturedPulls + eventFeaturedPullsTotal + paidFeaturedPulls;
       const weaponQuotaTotal = currentWeaponQuota + paidWeaponQuota + weaponTicketQuota;
       const inventoryShare = characterTotalPulls > 0 ? (inventoryFeaturedPullsTotal / characterTotalPulls) * 100 : 0;
@@ -762,6 +811,12 @@
 
         if (toggleKey in gachaPaidState.packageSelections) {
           gachaPaidState.packageSelections[toggleKey] = !gachaPaidState.packageSelections[toggleKey];
+          renderGachaCalculator();
+          return;
+        }
+
+        if (toggleKey in gachaPaidState.eventSelections) {
+          gachaPaidState.eventSelections[toggleKey] = !gachaPaidState.eventSelections[toggleKey];
           renderGachaCalculator();
           return;
         }
