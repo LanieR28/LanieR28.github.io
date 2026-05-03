@@ -378,6 +378,9 @@
     }
 
     function getNonNegativeNumber(input) {
+      if (!input) {
+        return 0;
+      }
       const value = Number.parseFloat(input.value);
       return Number.isFinite(value) && value > 0 ? value : 0;
     }
