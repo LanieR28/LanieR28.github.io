@@ -885,13 +885,14 @@ h3 {
 }
 
 .gacha-scroll-panel {
+  position: relative;
   width: 100%;
   height: 620px;
   overflow-y: auto;
   overflow-x: hidden;
   overscroll-behavior: contain;
   -webkit-overflow-scrolling: touch;
-  padding: 18px 18px 24px;
+  padding: 18px 18px 78px;
 }
 
 .gacha-scroll-content {
@@ -905,8 +906,7 @@ h3 {
 }
 
 .gacha-scroll-card:has(.gacha-paid-groups) {
-  position: relative;
-  padding-bottom: 96px;
+  padding-bottom: 24px;
 }
 
 .gacha-scroll-card-head {
@@ -1301,9 +1301,9 @@ h3 {
 
 .gacha-paid-sticky-total {
   position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 18px;
+  left: 18px;
+  right: 18px;
+  bottom: 10px;
   z-index: 3;
   display: flex;
   align-items: center;
@@ -1315,6 +1315,13 @@ h3 {
   border-top: 1px solid rgba(19, 36, 61, 0.1);
   background: rgba(245, 245, 247, 0.96);
   backdrop-filter: blur(14px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.16s ease;
+}
+
+.gacha-paid-sticky-total.is-visible {
+  opacity: 1;
 }
 
 .gacha-paid-sticky-total::after {
@@ -1322,8 +1329,8 @@ h3 {
   position: absolute;
   left: 0;
   right: 0;
-  bottom: -18px;
-  height: 18px;
+  bottom: -10px;
+  height: 10px;
   background: inherit;
 }
 
