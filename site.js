@@ -228,10 +228,18 @@
       "event-keyu": { currency: 1400 },
       "event-zhensui": { currency: 1200 },
     };
+    const gachaEventCurrencyKeys = Object.keys(gachaEventRewards);
     const gachaStepperLimits = {
       "package-weapon": 7,
       "package-weapon-full": 3,
+      "event-wuling-chef": 1200,
+      "event-xirang": 1200,
       "event-huiguang-signin": 5,
+      "event-survey": 300,
+      "event-yiliu": 1200,
+      "event-zhangzhong": 1600,
+      "event-keyu": 1400,
+      "event-zhensui": 1200,
     };
     const gachaFirstChargeTiers = {
       "firstcharge-6": { originium: 6, price: 6 },
@@ -324,7 +332,14 @@
       "originium-198": document.getElementById("gacha-originium-198-qty"),
       "originium-328": document.getElementById("gacha-originium-328-qty"),
       "originium-648": document.getElementById("gacha-originium-648-qty"),
+      "event-wuling-chef": document.getElementById("gacha-event-wuling-chef-qty"),
+      "event-xirang": document.getElementById("gacha-event-xirang-qty"),
       "event-huiguang-signin": document.getElementById("gacha-event-huiguang-signin-qty"),
+      "event-survey": document.getElementById("gacha-event-survey-qty"),
+      "event-yiliu": document.getElementById("gacha-event-yiliu-qty"),
+      "event-zhangzhong": document.getElementById("gacha-event-zhangzhong-qty"),
+      "event-keyu": document.getElementById("gacha-event-keyu-qty"),
+      "event-zhensui": document.getElementById("gacha-event-zhensui-qty"),
     };
     const gachaFirstChargeToggleNodes = {
       monthcard: document.querySelector('[data-toggle-key="monthcard"]'),
@@ -340,27 +355,9 @@
       "firstcharge-328": document.querySelector('[data-toggle-key="firstcharge-328"]'),
       "firstcharge-648": document.querySelector('[data-toggle-key="firstcharge-648"]'),
     };
-    const gachaEventToggleNodes = {
-      "event-wuling-chef": document.querySelector('[data-toggle-key="event-wuling-chef"]'),
-      "event-xirang": document.querySelector('[data-toggle-key="event-xirang"]'),
-      "event-survey": document.querySelector('[data-toggle-key="event-survey"]'),
-      "event-yiliu": document.querySelector('[data-toggle-key="event-yiliu"]'),
-      "event-zhangzhong": document.querySelector('[data-toggle-key="event-zhangzhong"]'),
-      "event-keyu": document.querySelector('[data-toggle-key="event-keyu"]'),
-      "event-zhensui": document.querySelector('[data-toggle-key="event-zhensui"]'),
-    };
     const gachaPaidState = {
       disableOriginiumPulls: false,
       monthCardSelected: false,
-      eventSelections: {
-        "event-wuling-chef": false,
-        "event-xirang": false,
-        "event-survey": false,
-        "event-yiliu": false,
-        "event-zhangzhong": false,
-        "event-keyu": false,
-        "event-zhensui": false,
-      },
       packageSelections: {
         "package-hongyuan": false,
         "package-talent": false,
@@ -385,7 +382,14 @@
         "originium-198": 0,
         "originium-328": 0,
         "originium-648": 0,
+        "event-wuling-chef": 0,
+        "event-xirang": 0,
         "event-huiguang-signin": 0,
+        "event-survey": 0,
+        "event-yiliu": 0,
+        "event-zhangzhong": 0,
+        "event-keyu": 0,
+        "event-zhensui": 0,
       },
     };
 
@@ -477,16 +481,6 @@
         node.textContent = isSelected ? "已选" : "未选";
       });
 
-      Object.entries(gachaEventToggleNodes).forEach(([key, node]) => {
-        if (!node) {
-          return;
-        }
-
-        const isSelected = gachaPaidState.eventSelections[key];
-        node.classList.toggle("is-active", isSelected);
-        node.setAttribute("aria-pressed", isSelected ? "true" : "false");
-        node.textContent = isSelected ? "已选" : "未选";
-      });
     }
 
     function syncPaidStickyTotalVisibility() {
@@ -657,12 +651,10 @@
         normalOriginiumPrice +
         weaponPackagePrice +
         weaponFullPackagePrice;
-      const selectedEventCurrency = Object.entries(gachaEventRewards).reduce((total, [key, config]) => {
-        return total + (gachaPaidState.eventSelections[key] ? config.currency || 0 : 0);
+      const selectedEventCurrency = Object.entries(gachaEventRewards).reduce((total, [key]) => {
+        return total + (gachaPaidState.originiumShopQuantities[key] || 0);
       }, 0);
-      const selectedEventSpecialPulls = Object.entries(gachaEventRewards).reduce((total, [key, config]) => {
-        return total + (gachaPaidState.eventSelections[key] ? config.specialPulls || 0 : 0);
-      }, 0) + (gachaPaidState.originiumShopQuantities["event-huiguang-signin"] || 0);
+      const selectedEventSpecialPulls = gachaPaidState.originiumShopQuantities["event-huiguang-signin"] || 0;
       const eventCurrencyTotal = eventCurrency + selectedEventCurrency;
       const eventPermitPullsTotal = eventFeaturedPermits + selectedEventSpecialPulls;
       const dailyPermitPulls = gachaDailyFixedPermits;
@@ -788,7 +780,8 @@
       if (stepperButton) {
         const { stepperAction, stepperKey } = stepperButton.dataset;
         if (stepperKey in gachaPaidState.originiumShopQuantities) {
-          const nextValue = gachaPaidState.originiumShopQuantities[stepperKey] + (stepperAction === "increase" ? 1 : -1);
+          const stepValue = gachaEventCurrencyKeys.includes(stepperKey) ? 100 : 1;
+          const nextValue = gachaPaidState.originiumShopQuantities[stepperKey] + (stepperAction === "increase" ? stepValue : -stepValue);
           const maxValue = gachaStepperLimits[stepperKey] || Number.POSITIVE_INFINITY;
           gachaPaidState.originiumShopQuantities[stepperKey] = Math.min(maxValue, Math.max(0, nextValue));
           renderGachaCalculator();
@@ -813,12 +806,6 @@
 
         if (toggleKey in gachaPaidState.packageSelections) {
           gachaPaidState.packageSelections[toggleKey] = !gachaPaidState.packageSelections[toggleKey];
-          renderGachaCalculator();
-          return;
-        }
-
-        if (toggleKey in gachaPaidState.eventSelections) {
-          gachaPaidState.eventSelections[toggleKey] = !gachaPaidState.eventSelections[toggleKey];
           renderGachaCalculator();
           return;
         }
