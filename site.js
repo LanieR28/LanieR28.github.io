@@ -211,6 +211,7 @@
     const gachaWeaponQuotaPerTenPull = 1980;
     const gachaDailyCurrency = 200;
     const gachaWeeklyCurrency = 500;
+    const gachaDailyFixedPermits = 5;
     const gachaPaidPackages = {
       "package-hongyuan": { originium: 6, price: 6 },
       "package-talent": { pullsPerPurchase: 10, price: 128 },
@@ -672,7 +673,7 @@
       const currentOriginiumPullCurrency = gachaPaidState.disableOriginiumPulls ? 0 : currentOriginium * gachaOriginiumToCurrency;
       const currentFeaturedPullsFromOriginium = Math.floor(currentOriginiumPullCurrency / gachaCurrencyPerPull);
       const currentFeaturedPullsFromCurrency = Math.floor(currentCurrency / gachaCurrencyPerPull);
-      const dailyFeaturedPulls = Math.floor(dailyCurrencyTotal / gachaCurrencyPerPull);
+      const dailyFeaturedPulls = Math.floor(dailyCurrencyTotal / gachaCurrencyPerPull) + gachaDailyFixedPermits;
       const eventFeaturedPullsFromCurrency = Math.floor(eventCurrencyTotal / gachaCurrencyPerPull);
       const weaponTicketBonus = weaponFeaturedTickets >= 30 ? 10 : 0;
       const weaponTicketQuota = (weaponBlueTickets + weaponFeaturedTickets + weaponTicketBonus) * 50;
