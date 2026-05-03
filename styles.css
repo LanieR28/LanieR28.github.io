@@ -637,7 +637,7 @@ h3 {
 }
 
 .endfield-main {
-  width: min(1440px, calc(100vw - 48px));
+  width: min(1360px, calc(100vw - 72px));
   margin: 0 auto;
 }
 
@@ -646,7 +646,7 @@ h3 {
 }
 
 .endfield-gacha-page .hero-grid {
-  width: min(1440px, calc(100vw - 48px));
+  width: min(1360px, calc(100vw - 72px));
   grid-template-columns: 1fr;
   gap: 0;
   margin: 18px auto 0;
@@ -718,18 +718,18 @@ h3 {
 
 .gacha-hero-card-head {
   display: grid;
-  gap: 44px;
+  gap: 40px;
   justify-items: center;
 }
 
 .gacha-hero-card-head h3 {
-  font-size: clamp(19px, 2.1vw, 50px);
+  font-size: clamp(21px, 2.3vw, 55px);
   line-height: 1.05;
   letter-spacing: -0.04em;
 }
 
 .gacha-hero-card-head .eyebrow {
-  margin: 0 0 32px;
+  margin: 0 0 29px;
 }
 
 .gacha-hero-metrics {
