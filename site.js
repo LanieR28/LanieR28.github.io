@@ -299,8 +299,10 @@
     const gachaTotalSpecialPermits = document.getElementById("gacha-total-special-permits");
     const gachaDailyDays = document.getElementById("gacha-daily-days");
     const gachaWeeklyCycles = document.getElementById("gacha-weekly-cycles");
+    const gachaRefreshMonthCardDays = document.getElementById("gacha-refresh-month-card-days");
     const gachaDailyCurrencyTotal = document.getElementById("gacha-daily-currency-total");
     const gachaWeeklyCurrencyTotal = document.getElementById("gacha-weekly-currency-total");
+    const gachaRefreshMonthCardCurrencyTotal = document.getElementById("gacha-refresh-month-card-currency-total");
     const gachaDailySectionTotal = document.getElementById("gacha-daily-section-total");
     const gachaMonthCardLabel = document.getElementById("gacha-month-card-label");
     const gachaMonthCardCurrency = document.getElementById("gacha-month-card-currency");
@@ -658,7 +660,8 @@
 
       const projectedDailyCurrency = gachaDays * gachaDailyCurrency;
       const projectedWeeklyCurrency = gachaWeeks * gachaWeeklyCurrency;
-      const dailyCurrencyTotal = projectedDailyCurrency + projectedWeeklyCurrency + monthlyPassCurrency;
+      const refreshMonthCardCurrency = gachaDays * gachaDailyCurrency;
+      const dailyCurrencyTotal = projectedDailyCurrency + projectedWeeklyCurrency + refreshMonthCardCurrency + monthlyPassCurrency;
       const monthCardCount = gachaDays > 0 ? Math.ceil(gachaDays / 30) : 0;
       const paidMonthCardCurrency = gachaDays * 200;
       const paidMonthCardOriginium = Math.max(monthCardCount - 1, 0) * 6;
@@ -763,11 +766,17 @@
       if (gachaWeeklyCycles) {
         gachaWeeklyCycles.textContent = `${gachaWeeks}`;
       }
+      if (gachaRefreshMonthCardDays) {
+        gachaRefreshMonthCardDays.textContent = `${gachaDays}`;
+      }
       if (gachaDailyCurrencyTotal) {
         gachaDailyCurrencyTotal.textContent = `${projectedDailyCurrency}`;
       }
       if (gachaWeeklyCurrencyTotal) {
         gachaWeeklyCurrencyTotal.textContent = `${projectedWeeklyCurrency}`;
+      }
+      if (gachaRefreshMonthCardCurrencyTotal) {
+        gachaRefreshMonthCardCurrencyTotal.textContent = `${refreshMonthCardCurrency}`;
       }
       if (gachaDailySectionTotal) {
         gachaDailySectionTotal.textContent = `${dailyCurrencyTotal}`;
