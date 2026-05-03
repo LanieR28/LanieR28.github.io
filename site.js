@@ -289,13 +289,6 @@
       eventCurrency: document.getElementById("gacha-event-currency"),
       eventFeaturedPermits: document.getElementById("gacha-event-featured-permits"),
     };
-    const gachaPackageQuantityNodes = {
-      "package-hongyuan": document.getElementById("gacha-package-hongyuan-qty"),
-      "package-talent": document.getElementById("gacha-package-talent-qty"),
-      "package-hr": document.getElementById("gacha-package-hr-qty"),
-      "package-agreement": document.getElementById("gacha-package-agreement-qty"),
-      "package-xinghuo": document.getElementById("gacha-package-xinghuo-qty"),
-    };
     const gachaOriginiumShopQuantityNodes = {
       "originium-6": document.getElementById("gacha-originium-6-qty"),
       "originium-30": document.getElementById("gacha-originium-30-qty"),
@@ -306,6 +299,11 @@
     };
     const gachaFirstChargeToggleNodes = {
       monthcard: document.querySelector('[data-toggle-key="monthcard"]'),
+      "package-hongyuan": document.querySelector('[data-toggle-key="package-hongyuan"]'),
+      "package-talent": document.querySelector('[data-toggle-key="package-talent"]'),
+      "package-hr": document.querySelector('[data-toggle-key="package-hr"]'),
+      "package-agreement": document.querySelector('[data-toggle-key="package-agreement"]'),
+      "package-xinghuo": document.querySelector('[data-toggle-key="package-xinghuo"]'),
       "firstcharge-6": document.querySelector('[data-toggle-key="firstcharge-6"]'),
       "firstcharge-30": document.querySelector('[data-toggle-key="firstcharge-30"]'),
       "firstcharge-98": document.querySelector('[data-toggle-key="firstcharge-98"]'),
@@ -315,12 +313,12 @@
     };
     const gachaPaidState = {
       monthCardSelected: false,
-      packageQuantities: {
-        "package-hongyuan": 0,
-        "package-talent": 0,
-        "package-hr": 0,
-        "package-agreement": 0,
-        "package-xinghuo": 0,
+      packageSelections: {
+        "package-hongyuan": false,
+        "package-talent": false,
+        "package-hr": false,
+        "package-agreement": false,
+        "package-xinghuo": false,
       },
       firstChargeSelections: {
         "firstcharge-6": false,
@@ -375,12 +373,6 @@
     }
 
     function syncPaidControls() {
-      Object.entries(gachaPackageQuantityNodes).forEach(([key, node]) => {
-        if (node) {
-          node.textContent = `${gachaPaidState.packageQuantities[key]}`;
-        }
-      });
-
       Object.entries(gachaOriginiumShopQuantityNodes).forEach(([key, node]) => {
         if (node) {
           node.textContent = `${gachaPaidState.originiumShopQuantities[key]}`;
@@ -392,7 +384,12 @@
           return;
         }
 
-        const isSelected = key === "monthcard" ? gachaPaidState.monthCardSelected : gachaPaidState.firstChargeSelections[key];
+        const isSelected =
+          key === "monthcard"
+            ? gachaPaidState.monthCardSelected
+            : key in gachaPaidState.packageSelections
+              ? gachaPaidState.packageSelections[key]
+              : gachaPaidState.firstChargeSelections[key];
         node.classList.toggle("is-active", isSelected);
         node.setAttribute("aria-pressed", isSelected ? "true" : "false");
         node.textContent = isSelected ? "已选" : "未选";
@@ -499,7 +496,7 @@
       const selectedPaidMonthCardOriginium = gachaPaidState.monthCardSelected ? paidMonthCardOriginium : 0;
 
       const paidPackagePulls = Object.entries(gachaPaidPackages).reduce((total, [key, config]) => {
-        return total + (gachaPaidState.packageQuantities[key] || 0) * config.pullsPerPurchase;
+        return total + (gachaPaidState.packageSelections[key] ? config.pullsPerPurchase : 0);
       }, 0);
       const firstChargeOriginiumTotal = Object.entries(gachaFirstChargeTiers).reduce((total, [key, config]) => {
         return total + (gachaPaidState.firstChargeSelections[key] ? config.originium : 0);
@@ -608,13 +605,6 @@
       const stepperButton = event.target.closest("[data-stepper-action]");
       if (stepperButton) {
         const { stepperAction, stepperKey } = stepperButton.dataset;
-        if (stepperKey in gachaPaidState.packageQuantities) {
-          const nextValue = gachaPaidState.packageQuantities[stepperKey] + (stepperAction === "increase" ? 1 : -1);
-          gachaPaidState.packageQuantities[stepperKey] = Math.max(0, nextValue);
-          renderGachaCalculator();
-          return;
-        }
-
         if (stepperKey in gachaPaidState.originiumShopQuantities) {
           const nextValue = gachaPaidState.originiumShopQuantities[stepperKey] + (stepperAction === "increase" ? 1 : -1);
           gachaPaidState.originiumShopQuantities[stepperKey] = Math.max(0, nextValue);
@@ -628,6 +618,12 @@
         const { toggleKey } = toggleButton.dataset;
         if (toggleKey === "monthcard") {
           gachaPaidState.monthCardSelected = !gachaPaidState.monthCardSelected;
+          renderGachaCalculator();
+          return;
+        }
+
+        if (toggleKey in gachaPaidState.packageSelections) {
+          gachaPaidState.packageSelections[toggleKey] = !gachaPaidState.packageSelections[toggleKey];
           renderGachaCalculator();
           return;
         }

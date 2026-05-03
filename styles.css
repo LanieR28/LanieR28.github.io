@@ -1067,34 +1067,40 @@ h3 {
   display: inline-flex;
   align-items: center;
   justify-content: flex-end;
-  gap: 12px;
+  gap: 16px;
   flex-wrap: wrap;
 }
 
 .gacha-paid-reward-stack {
-  display: grid;
-  gap: 8px;
-  justify-items: end;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 14px;
+  flex-wrap: wrap;
 }
 
 .gacha-paid-reward {
   display: inline-flex;
   align-items: center;
-  gap: 7px;
+  gap: 9px;
   white-space: nowrap;
 }
 
 .gacha-paid-reward img {
-  width: 23px;
-  height: 23px;
+  width: 34px;
+  height: 34px;
   object-fit: contain;
+  flex: 0 0 auto;
 }
 
 .gacha-paid-reward strong {
   font-family: "Novecento Sans Wide", "Endfield PingFang SC", "PingFang SC", sans-serif;
-  font-size: 18px;
+  font-size: 28px;
   font-weight: 400;
   line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
 }
 
 .gacha-stepper {
