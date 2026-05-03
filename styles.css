@@ -1138,6 +1138,11 @@ h3 {
   font-size: 18px;
   line-height: 1;
   cursor: pointer;
+  transition: opacity 0.18s ease;
+}
+
+.gacha-stepper button.is-disabled {
+  opacity: 0.24;
 }
 
 .gacha-stepper span {
