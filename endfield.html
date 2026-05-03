@@ -111,28 +111,13 @@
 
               <div class="gacha-toolbar-group">
                 <span class="gacha-label">结算模式</span>
-                <div class="gacha-pill-row" id="gacha-mode-selector">
-                  <button class="gacha-pill-button gacha-pill-button-secondary" type="button" data-gacha-mode="release">开始日</button>
-                  <button class="gacha-pill-button" type="button" data-gacha-mode="end">结束日</button>
+                <div class="gacha-mode-row">
+                  <div class="gacha-pill-row" id="gacha-mode-selector">
+                    <button class="gacha-pill-button gacha-pill-button-secondary" type="button" data-gacha-mode="release">开始日</button>
+                    <button class="gacha-pill-button" type="button" data-gacha-mode="end">结束日</button>
+                  </div>
+                  <span class="gacha-days-badge" id="gacha-days-badge">0天</span>
                 </div>
-              </div>
-
-              <div class="gacha-summary-grid">
-                <article class="gacha-summary-item">
-                  <span class="gacha-summary-kicker">当前目标</span>
-                  <strong id="gacha-name">-</strong>
-                  <p id="gacha-window">-</p>
-                </article>
-                <article class="gacha-summary-item">
-                  <span class="gacha-summary-kicker">实际结算日</span>
-                  <strong id="gacha-cutoff-date">-</strong>
-                  <p id="gacha-cutoff-note">-</p>
-                </article>
-                <article class="gacha-summary-item">
-                  <span class="gacha-summary-kicker">还能累计</span>
-                  <strong id="gacha-days-left">0 天</strong>
-                  <p id="gacha-weeks-left">0 周奖励</p>
-                </article>
               </div>
             </section>
 
@@ -196,7 +181,6 @@
             <section class="gacha-card gacha-card-results">
               <div class="gacha-card-head">
                 <h3>结果汇总</h3>
-                <p>主界面先只保留最关键的结果块，细节都收进下面的展开区域。</p>
               </div>
 
               <div class="gacha-results-grid">

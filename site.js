@@ -231,12 +231,6 @@
       settlementMode: "release",
     };
 
-    const gachaName = document.getElementById("gacha-name");
-    const gachaWindow = document.getElementById("gacha-window");
-    const gachaCutoffDate = document.getElementById("gacha-cutoff-date");
-    const gachaCutoffNote = document.getElementById("gacha-cutoff-note");
-    const gachaDaysLeft = document.getElementById("gacha-days-left");
-    const gachaWeeksLeft = document.getElementById("gacha-weeks-left");
     const gachaFeaturedPulls = document.getElementById("gacha-featured-pulls");
     const gachaFeaturedBreakdown = document.getElementById("gacha-featured-breakdown");
     const gachaBasicPulls = document.getElementById("gacha-basic-pulls");
@@ -248,11 +242,11 @@
     const gachaCurrentFeaturedPulls = document.getElementById("gacha-current-featured-pulls");
     const gachaProjectedFeaturedPulls = document.getElementById("gacha-projected-featured-pulls");
     const gachaCustomPullsOutput = document.getElementById("gacha-custom-pulls-output");
-    const gachaModeHelper = document.getElementById("gacha-mode-helper");
     const gachaWeaponPulls = document.getElementById("gacha-weapon-pulls");
     const gachaWeaponHelper = document.getElementById("gacha-weapon-helper");
     const gachaSelector = document.getElementById("gacha-selector");
     const gachaModeSelector = document.getElementById("gacha-mode-selector");
+    const gachaDaysBadge = document.getElementById("gacha-days-badge");
 
     const gachaInputs = {
       currentCurrency: document.getElementById("gacha-current-currency"),
@@ -290,8 +284,21 @@
       return Number.isFinite(value) && value > 0 ? value : 0;
     }
 
-    function getSelectedGacha() {
-      return gachaCatalog[gachaState.selectedGachaKey];
+    function getAvailableGachas(today) {
+      return Object.values(gachaCatalog).filter(function (gachaItem) {
+        return parseGachaDate(gachaItem.endDate) >= today;
+      });
+    }
+
+    function getDefaultGachaMode(selectedGacha, today) {
+      const gachaStartDate = parseGachaDate(selectedGacha.startDate);
+      return gachaStartDate > today ? "release" : "end";
+    }
+
+    function getSelectedGacha(today) {
+      const availableGachas = getAvailableGachas(today);
+      const matchedGacha = availableGachas.find((gachaItem) => gachaItem.key === gachaState.selectedGachaKey);
+      return matchedGacha || availableGachas[0] || null;
     }
 
     function getGachaCutoff(selectedGacha, today) {
@@ -305,9 +312,12 @@
       return gachaEndDate;
     }
 
-    function updateGachaButtons() {
+    function updateGachaButtons(today) {
+      const availableGachas = getAvailableGachas(today);
       if (gachaSelector) {
         Array.from(gachaSelector.querySelectorAll("[data-gacha-key]")).forEach((button) => {
+          const isVisible = availableGachas.some((gachaItem) => gachaItem.key === button.dataset.gachaKey);
+          button.hidden = !isVisible;
           button.classList.toggle("is-active", button.dataset.gachaKey === gachaState.selectedGachaKey);
         });
       }
@@ -320,10 +330,12 @@
     }
 
     function renderGachaCalculator() {
-      const selectedGacha = getSelectedGacha();
       const today = getTodayAtStart();
-      const gachaStartDate = parseGachaDate(selectedGacha.startDate);
-      const gachaEndDate = parseGachaDate(selectedGacha.endDate);
+      const selectedGacha = getSelectedGacha(today);
+      if (!selectedGacha) {
+        return;
+      }
+      gachaState.selectedGachaKey = selectedGacha.key;
       const gachaCutoff = getGachaCutoff(selectedGacha, today);
       const gachaDays = getGachaDayDiff(today, gachaCutoff);
       const gachaWeeks = Math.floor(gachaDays / 7);
@@ -346,30 +358,10 @@
       const projectedFeaturedPullsTotal = projectedFeaturedPullsFromCurrency + eventFeaturedPermits;
       const featuredPullsTotal = currentFeaturedPullsTotal + projectedFeaturedPullsTotal + customFeaturedPulls;
 
-      updateGachaButtons();
+      updateGachaButtons(today);
 
-      if (gachaName) {
-        gachaName.textContent = selectedGacha.name;
-      }
-      if (gachaWindow) {
-        gachaWindow.textContent = `${formatGachaDate(gachaStartDate)} - ${formatGachaDate(gachaEndDate)}`;
-      }
-      if (gachaCutoffDate) {
-        gachaCutoffDate.textContent = formatGachaDate(gachaCutoff);
-      }
-      if (gachaCutoffNote) {
-        if (gachaState.settlementMode === "release") {
-          gachaCutoffNote.textContent =
-            gachaStartDate > today ? "还没开始，按卡池开启当天结算" : "已经开始，开幕模式自动改按今天结算";
-        } else {
-          gachaCutoffNote.textContent = "按卡池结束当天结算";
-        }
-      }
-      if (gachaDaysLeft) {
-        gachaDaysLeft.textContent = `${gachaDays} 天`;
-      }
-      if (gachaWeeksLeft) {
-        gachaWeeksLeft.textContent = `${gachaWeeks} 周奖励`;
+      if (gachaDaysBadge) {
+        gachaDaysBadge.textContent = `${gachaDays}天`;
       }
       if (gachaFeaturedPulls) {
         gachaFeaturedPulls.textContent = `${featuredPullsTotal}`;
@@ -413,12 +405,6 @@
         gachaWeaponHelper.textContent =
           `当前先保留武库配额的位置。等你下一步把武器抽的规则给我，我们就直接接在 ${selectedGacha.name} 这一套结算逻辑下面。`;
       }
-      if (gachaModeHelper) {
-        gachaModeHelper.textContent =
-          gachaState.settlementMode === "release"
-            ? "现在是开幕全抽模式。未开卡池算到开始日，已开卡池自动算到今天。"
-            : "现在是结束日模式。";
-      }
     }
 
     if (gachaSelector) {
@@ -428,6 +414,7 @@
           return;
         }
         gachaState.selectedGachaKey = nextButton.dataset.gachaKey;
+        gachaState.settlementMode = getDefaultGachaMode(gachaCatalog[gachaState.selectedGachaKey], getTodayAtStart());
         renderGachaCalculator();
       });
     }

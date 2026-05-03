@@ -637,7 +637,7 @@ h3 {
 }
 
 .endfield-main {
-  width: min(1180px, calc(100vw - 32px));
+  width: min(1440px, calc(100vw - 48px));
   margin: 0 auto;
 }
 
@@ -657,7 +657,7 @@ h3 {
 
 .endfield-gacha-page .hero-copy h1 {
   margin: 0;
-  font-size: clamp(48px, 5.8vw, 96px);
+  font-size: clamp(38px, 4.7vw, 76px);
   line-height: 1.03;
   letter-spacing: -0.05em;
 }
@@ -667,7 +667,7 @@ h3 {
 }
 
 .endfield-section-head {
-  margin-bottom: 12px;
+  margin-bottom: 0;
 }
 
 .gacha-layout {
@@ -714,18 +714,18 @@ h3 {
 
 .gacha-hero-card-head {
   display: grid;
-  gap: 22px;
+  gap: 44px;
   justify-items: center;
 }
 
 .gacha-hero-card-head h3 {
-  font-size: clamp(27px, 2.95vw, 45px);
+  font-size: clamp(19px, 2.1vw, 31px);
   line-height: 1.05;
   letter-spacing: -0.04em;
 }
 
 .gacha-hero-card-head .eyebrow {
-  margin: 0 0 16px;
+  margin: 0 0 32px;
 }
 
 .gacha-hero-metrics {
@@ -800,6 +800,13 @@ h3 {
 
 .gacha-toolbar-group + .gacha-toolbar-group {
   margin-top: 18px;
+}
+
+.gacha-mode-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
 }
 
 .gacha-toolbar-card .gacha-label {
@@ -880,14 +887,6 @@ h3 {
   color: #fff;
 }
 
-.gacha-summary-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 18px;
-  margin-top: 28px;
-}
-
-.gacha-summary-item,
 .gacha-result-tile,
 .gacha-rate-item {
   padding: 18px;
@@ -895,7 +894,6 @@ h3 {
   background: rgba(255, 255, 255, 0.88);
 }
 
-.gacha-summary-kicker,
 .gacha-result-tile span,
 .gacha-rate-item span {
   display: block;
@@ -906,19 +904,6 @@ h3 {
   text-transform: uppercase;
 }
 
-.gacha-summary-item {
-  min-height: 280px;
-  padding: 34px 30px 28px;
-  border: none;
-  background: #f5f5f7;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  text-align: left;
-}
-
-.gacha-summary-item strong,
 .gacha-result-tile strong,
 .gacha-rate-item strong {
   display: block;
@@ -926,25 +911,25 @@ h3 {
   line-height: 1.15;
 }
 
-.gacha-summary-item p,
 .gacha-result-tile p {
   margin-top: 10px;
   color: var(--muted);
   line-height: 1.7;
 }
 
-.gacha-summary-item strong {
-  margin-top: 6px;
-  font-size: clamp(24px, 2.5vw, 39px);
-  line-height: 1.06;
-  letter-spacing: -0.04em;
+.gacha-days-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 18px;
+  border-radius: 999px;
+  background: #3a3a3c;
+  color: #f5f5f7;
+  font-size: 18px;
   font-weight: 500;
-}
-
-.gacha-summary-item p {
-  margin-top: 16px;
-  font-size: 13px;
-  line-height: 1.55;
+  line-height: 1;
+  white-space: nowrap;
 }
 
 .gacha-form-grid {
@@ -1036,7 +1021,6 @@ h3 {
 :root[data-theme="dark"] .gacha-hero-card,
 :root[data-theme="dark"] .gacha-hero-metric,
 :root[data-theme="dark"] .gacha-accordion,
-:root[data-theme="dark"] .gacha-summary-item,
 :root[data-theme="dark"] .gacha-result-tile,
 :root[data-theme="dark"] .gacha-rate-item {
   background: rgba(255, 255, 255, 0.02);
@@ -1898,7 +1882,6 @@ main {
   .gacha-hero-panels,
   .gacha-layout,
   .gacha-hero-metrics,
-  .gacha-summary-grid,
   .gacha-results-grid,
   .gacha-rate-grid,
   .gacha-form-grid,
@@ -1975,14 +1958,18 @@ main {
     padding: 20px;
   }
 
-  .gacha-summary-item {
-    min-height: 200px;
-    padding: 24px 22px;
-  }
-
   .gacha-detail-row {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .gacha-mode-row {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .endfield-main {
+    width: min(100%, calc(100vw - 24px));
   }
 
   .gacha-pill-button {
