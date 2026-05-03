@@ -1290,6 +1290,7 @@ h3 {
   height: 40px;
   font-size: 19px;
   line-height: 1;
+  transform: translateY(-8px);
 }
 
 .gacha-paid-sticky-total {
