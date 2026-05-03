@@ -49,6 +49,54 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: "Novecento Sans Wide";
+  src: url("./assets/fonts/novecento/Novecentosanswide-Light.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Novecento Sans Wide";
+  src: url("./assets/fonts/novecento/Novecentosanswide-Book.otf") format("opentype");
+  font-weight: 350;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Novecento Sans Wide";
+  src: url("./assets/fonts/novecento/Novecentosanswide-Normal.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Novecento Sans Wide";
+  src: url("./assets/fonts/novecento/Novecentosanswide-Medium.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Novecento Sans Wide";
+  src: url("./assets/fonts/novecento/Novecentosanswide-DemiBold.otf") format("opentype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Novecento Sans Wide";
+  src: url("./assets/fonts/novecento/Novecentosanswide-Bold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -60,7 +108,8 @@ html {
 body {
   margin: 0;
   color: var(--text);
-  font-family: "Avenir Next", "Hiragino Sans", "Yu Gothic", sans-serif;
+  font-family: "Novecento Sans Wide", "Endfield PingFang SC", "PingFang SC", "PingFangSC-Regular",
+    "PingFangSC-Medium", "PingFangSC-Semibold", "Hiragino Sans", "Yu Gothic", "Microsoft YaHei", sans-serif;
   background: var(--bg);
   transition: background-color 0.42s ease, color 0.42s ease;
 }
@@ -753,7 +802,7 @@ h3 {
   text-align: center;
   font-size: 18px;
   font-weight: 500;
-  font-family: "Futura", "Avenir Next", sans-serif;
+  font-family: "Novecento Sans Wide", "Endfield PingFang SC", "PingFang SC", sans-serif;
   outline: none;
   transition:
     border-color 0.22s ease,
@@ -876,7 +925,7 @@ h3 {
   display: block;
   font-size: clamp(34px, 3.2vw, 56px);
   line-height: 1;
-  font-family: "Futura", "Avenir Next", sans-serif;
+  font-family: "Novecento Sans Wide", "Endfield PingFang SC", "PingFang SC", sans-serif;
 }
 
 .gacha-source-progress {
@@ -930,7 +979,7 @@ h3 {
 }
 
 .gacha-source-legend strong {
-  font-family: "Futura", "Avenir Next", sans-serif;
+  font-family: "Novecento Sans Wide", "Endfield PingFang SC", "PingFang SC", sans-serif;
   color: var(--text);
 }
 
@@ -1038,7 +1087,7 @@ h3 {
   font-weight: 700;
   letter-spacing: 0.08em;
   line-height: 1.1;
-  font-family: "Futura", "Avenir Next", sans-serif;
+  font-family: "Novecento Sans Wide", "Endfield PingFang SC", "PingFang SC", sans-serif;
 }
 
 .gacha-pill-button:hover,
@@ -1088,7 +1137,7 @@ h3 {
   display: block;
   font-size: clamp(22px, 2.5vw, 32px);
   line-height: 1.15;
-  font-family: "Futura", "Avenir Next", sans-serif;
+  font-family: "Novecento Sans Wide", "Endfield PingFang SC", "PingFang SC", sans-serif;
 }
 
 .gacha-result-tile p {
@@ -1108,7 +1157,7 @@ h3 {
   color: #f5f5f7;
   font-size: 18px;
   font-weight: 500;
-  font-family: "Futura", "Avenir Next", sans-serif;
+  font-family: "Novecento Sans Wide", "Endfield PingFang SC", "PingFang SC", sans-serif;
   line-height: 1;
   white-space: nowrap;
 }
@@ -1208,9 +1257,8 @@ h3 {
 }
 
 .endfield-gacha-page {
-  font-family: "Avenir Next", "SF Pro Display", "SF Pro Text", "Helvetica Neue", "Endfield PingFang SC",
-    "PingFang SC", "PingFangSC-Regular", "PingFangSC-Medium", "PingFangSC-Semibold", "Hiragino Sans GB",
-    "Microsoft YaHei", sans-serif;
+  font-family: "Novecento Sans Wide", "Endfield PingFang SC", "PingFang SC", "PingFangSC-Regular",
+    "PingFangSC-Medium", "PingFangSC-Semibold", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
 }
 
 :root[data-theme="dark"] .gacha-field input {
