@@ -217,7 +217,7 @@
       "package-hongyuan": { originium: 6, price: 6 },
       "package-talent": { pullsPerPurchase: 10, price: 128 },
       "package-hr": { singlePulls: 10, price: 98 },
-      "package-agreement": { pullsPerPurchase: 10, price: 198 },
+      "package-agreement": { pullsPerPurchase: 10, weaponQuota: 2000, price: 198 },
       "package-xinghuo": { specialPulls: 10, price: 98 },
     };
     const gachaEventRewards = {
@@ -689,7 +689,10 @@
       }, 0);
       const paidWeaponQuota =
         (gachaPaidState.originiumShopQuantities["package-weapon"] || 0) * 2000 +
-        (gachaPaidState.originiumShopQuantities["package-weapon-full"] || 0) * 5280;
+        (gachaPaidState.originiumShopQuantities["package-weapon-full"] || 0) * 5280 +
+        Object.entries(gachaPaidPackages).reduce((total, [key, config]) => {
+          return total + (gachaPaidState.packageSelections[key] ? config.weaponQuota || 0 : 0);
+        }, 0);
       const firstChargeOriginiumTotal = Object.entries(gachaFirstChargeTiers).reduce((total, [key, config]) => {
         return total + (gachaPaidState.firstChargeSelections[key] ? config.originium : 0);
       }, 0);
