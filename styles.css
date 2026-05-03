@@ -917,7 +917,7 @@ h3 {
 
 .gacha-income-list {
   display: grid;
-  gap: 12px;
+  gap: 8px;
 }
 
 .gacha-income-item {
@@ -925,7 +925,7 @@ h3 {
   align-items: center;
   justify-content: space-between;
   gap: 18px;
-  padding: 14px 0;
+  padding: 11px 0;
   border-top: 1px solid rgba(19, 36, 61, 0.08);
 }
 
@@ -936,19 +936,19 @@ h3 {
 
 .gacha-income-copy {
   display: grid;
-  gap: 4px;
+  gap: 2px;
   text-align: left;
 }
 
 .gacha-income-copy strong {
-  font-size: 17px;
+  font-size: 19px;
   font-weight: 500;
 }
 
 .gacha-income-copy p {
   color: var(--muted);
-  font-size: 14px;
-  line-height: 1.5;
+  font-size: 15px;
+  line-height: 1.35;
 }
 
 .gacha-income-value,
