@@ -728,7 +728,7 @@
       const toggleButton = event.target.closest("[data-toggle-key]");
       if (toggleButton) {
         const { toggleKey } = toggleButton.dataset;
-        if (toggleButton === gachaDisableOriginiumPulls) {
+        if (toggleKey === "disable-originium-pulls") {
           gachaPaidState.disableOriginiumPulls = !gachaPaidState.disableOriginiumPulls;
           renderGachaCalculator();
           return;
