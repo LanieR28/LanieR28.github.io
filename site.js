@@ -206,6 +206,7 @@
   }
 
   if (document.body.classList.contains("endfield-gacha-page")) {
+    const gachaStorageKey = "lanier28:endfield-gacha:v1";
     const gachaOriginiumToCurrency = 75;
     const gachaCurrencyPerPull = 500;
     const gachaWeaponQuotaPerTenPull = 1980;
@@ -421,6 +422,73 @@
       }
       const value = Number.parseFloat(input.value);
       return Number.isFinite(value) && value > 0 ? value : 0;
+    }
+
+    function saveGachaLocalState() {
+      try {
+        const inputValues = Object.fromEntries(
+          Object.entries(gachaInputs).map(([key, input]) => [key, input ? input.value : ""]),
+        );
+        window.localStorage.setItem(
+          gachaStorageKey,
+          JSON.stringify({
+            selectedGachaKey: gachaState.selectedGachaKey,
+            settlementMode: gachaState.settlementMode,
+            disableOriginiumPulls: gachaPaidState.disableOriginiumPulls,
+            monthCardSelected: gachaPaidState.monthCardSelected,
+            packageSelections: gachaPaidState.packageSelections,
+            firstChargeSelections: gachaPaidState.firstChargeSelections,
+            originiumShopQuantities: gachaPaidState.originiumShopQuantities,
+            inputValues,
+          }),
+        );
+      } catch (error) {
+        return;
+      }
+    }
+
+    function restoreGachaLocalState() {
+      try {
+        const rawValue = window.localStorage.getItem(gachaStorageKey);
+        if (!rawValue) {
+          return;
+        }
+
+        const savedState = JSON.parse(rawValue);
+        if (savedState.selectedGachaKey in gachaCatalog) {
+          gachaState.selectedGachaKey = savedState.selectedGachaKey;
+        }
+        if (savedState.settlementMode === "release" || savedState.settlementMode === "end") {
+          gachaState.settlementMode = savedState.settlementMode;
+        }
+        gachaPaidState.disableOriginiumPulls = Boolean(savedState.disableOriginiumPulls);
+        gachaPaidState.monthCardSelected = Boolean(savedState.monthCardSelected);
+
+        Object.keys(gachaPaidState.packageSelections).forEach((key) => {
+          if (savedState.packageSelections && key in savedState.packageSelections) {
+            gachaPaidState.packageSelections[key] = Boolean(savedState.packageSelections[key]);
+          }
+        });
+        Object.keys(gachaPaidState.firstChargeSelections).forEach((key) => {
+          if (savedState.firstChargeSelections && key in savedState.firstChargeSelections) {
+            gachaPaidState.firstChargeSelections[key] = Boolean(savedState.firstChargeSelections[key]);
+          }
+        });
+        Object.keys(gachaPaidState.originiumShopQuantities).forEach((key) => {
+          const savedValue = savedState.originiumShopQuantities ? Number(savedState.originiumShopQuantities[key]) : 0;
+          const maxValue = gachaStepperLimits[key] || Number.POSITIVE_INFINITY;
+          if (Number.isFinite(savedValue)) {
+            gachaPaidState.originiumShopQuantities[key] = Math.min(maxValue, Math.max(0, savedValue));
+          }
+        });
+        Object.entries(gachaInputs).forEach(([key, input]) => {
+          if (input && savedState.inputValues && key in savedState.inputValues) {
+            input.value = savedState.inputValues[key];
+          }
+        });
+      } catch (error) {
+        return;
+      }
     }
 
     function setSegmentWidth(node, share) {
@@ -750,6 +818,7 @@
 
       syncPaidControls();
       syncPaidStickyTotalVisibility();
+      saveGachaLocalState();
     }
 
     if (gachaSelector) {
@@ -830,6 +899,7 @@
 
     window.addEventListener("resize", syncPaidStickyTotalVisibility);
 
+    restoreGachaLocalState();
     renderGachaCalculator();
   }
 })();
