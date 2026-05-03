@@ -1683,34 +1683,9 @@ h3 {
   font-size: 18px;
 }
 
-.gacha-accordion {
-  grid-column: 1 / -1;
-  border: 1px solid var(--line);
-  background: #f5f5f7;
-}
-
-.gacha-accordion-summary {
-  list-style: none;
-  cursor: pointer;
-  padding: 20px 24px;
-  font-size: 24px;
-  font-weight: 600;
-}
-
-.gacha-accordion-summary::-webkit-details-marker {
-  display: none;
-}
-
-.gacha-accordion-body {
-  display: grid;
-  gap: 22px;
-  padding: 0 24px 24px;
-}
-
 :root[data-theme="dark"] .gacha-card,
 :root[data-theme="dark"] .gacha-hero-card,
 :root[data-theme="dark"] .gacha-hero-metric,
-:root[data-theme="dark"] .gacha-accordion,
 :root[data-theme="dark"] .gacha-result-tile,
 :root[data-theme="dark"] .gacha-rate-item {
   background: rgba(255, 255, 255, 0.02);
