@@ -206,7 +206,9 @@
   }
 
   if (document.body.classList.contains("endfield-gacha-page")) {
+    const gachaOriginiumToCurrency = 75;
     const gachaCurrencyPerPull = 500;
+    const gachaWeaponQuotaPerTenPull = 1980;
     const gachaDailyCurrency = 200;
     const gachaWeeklyCurrency = 500;
     const gachaCatalog = {
@@ -378,6 +380,7 @@
       const currentCurrency = getNonNegativeNumber(gachaInputs.currentCurrency);
       const currentFeaturedPermits = getNonNegativeNumber(gachaInputs.currentFeaturedPermits);
       const currentSinglePull = getNonNegativeNumber(gachaInputs.currentSinglePull);
+      const currentWeaponQuota = getNonNegativeNumber(gachaInputs.currentWeaponQuota);
       const monthlyPassCurrency = getNonNegativeNumber(gachaInputs.monthlyPassCurrency);
       const eventCurrency = getNonNegativeNumber(gachaInputs.eventCurrency);
       const eventFeaturedPermits = getNonNegativeNumber(gachaInputs.eventFeaturedPermits);
@@ -387,10 +390,11 @@
       const projectedWeeklyCurrency = gachaWeeks * gachaWeeklyCurrency;
       const dailyCurrencyTotal = projectedDailyCurrency + projectedWeeklyCurrency + monthlyPassCurrency;
 
-      const currentFeaturedPullsFromOriginium = Math.floor((currentOriginium * 180) / gachaCurrencyPerPull);
+      const currentFeaturedPullsFromOriginium = Math.floor((currentOriginium * gachaOriginiumToCurrency) / gachaCurrencyPerPull);
       const currentFeaturedPullsFromCurrency = Math.floor(currentCurrency / gachaCurrencyPerPull);
       const dailyFeaturedPulls = Math.floor(dailyCurrencyTotal / gachaCurrencyPerPull);
       const eventFeaturedPullsFromCurrency = Math.floor(eventCurrency / gachaCurrencyPerPull);
+      const currentWeaponTenPulls = Math.floor(currentWeaponQuota / gachaWeaponQuotaPerTenPull);
 
       const inventoryFeaturedPullsTotal =
         currentFeaturedPullsFromOriginium + currentFeaturedPullsFromCurrency + currentFeaturedPermits + currentSinglePull;
