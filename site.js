@@ -286,6 +286,7 @@
     const gachaMonthCardCurrency = document.getElementById("gacha-month-card-currency");
     const gachaMonthCardOriginium = document.getElementById("gacha-month-card-originium");
     const gachaPaidSectionTotal = document.getElementById("gacha-paid-section-total");
+    const gachaPaidPriceTotal = document.getElementById("gacha-paid-price-total");
 
     const gachaInputs = {
       currentOriginium: document.getElementById("gacha-current-originium"),
@@ -530,6 +531,7 @@
       const paidWeaponQuota =
         (gachaPaidState.originiumShopQuantities["package-weapon"] || 0) * 2000 +
         (gachaPaidState.originiumShopQuantities["package-weapon-full"] || 0) * 5280;
+      const paidPriceTotal = 0;
       const firstChargeOriginiumTotal = Object.entries(gachaFirstChargeTiers).reduce((total, [key, config]) => {
         return total + (gachaPaidState.firstChargeSelections[key] ? config.originium : 0);
       }, 0);
@@ -608,6 +610,9 @@
       }
       if (gachaPaidSectionTotal) {
         gachaPaidSectionTotal.textContent = `${paidFeaturedPulls}`;
+      }
+      if (gachaPaidPriceTotal) {
+        gachaPaidPriceTotal.textContent = `¥${paidPriceTotal}`;
       }
       if (gachaTotalOriginium) {
         gachaTotalOriginium.textContent = `${totalOriginium}`;
