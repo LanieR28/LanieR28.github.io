@@ -698,6 +698,104 @@ h3 {
   background: transparent;
 }
 
+.gacha-toolbar-shell {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(420px, 0.9fr);
+  gap: 28px;
+  align-items: start;
+}
+
+.gacha-toolbar-column {
+  display: grid;
+  gap: 18px;
+}
+
+.gacha-inventory-panel {
+  min-height: 100%;
+  padding: 24px 26px;
+  border: 1px solid rgba(204, 170, 136, 0.28);
+  border-radius: 34px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.72) 0%, rgba(255, 255, 255, 0.34) 100%),
+    #f5f5f7;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.92);
+}
+
+.gacha-inventory-row {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.gacha-inventory-item {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 14px;
+  padding: 10px 4px 0;
+}
+
+.gacha-inventory-item img {
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+}
+
+.gacha-inventory-item input {
+  width: 100%;
+  min-width: 0;
+  height: 52px;
+  padding: 0 18px;
+  border: 1px solid rgba(204, 170, 136, 0.34);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--text);
+  text-align: center;
+  font-size: 18px;
+  font-weight: 500;
+  outline: none;
+  transition:
+    border-color 0.22s ease,
+    box-shadow 0.22s ease,
+    background-color 0.22s ease,
+    transform 0.22s ease;
+}
+
+.gacha-inventory-item:hover input,
+.gacha-inventory-item:focus-within input {
+  border-color: rgba(204, 170, 136, 0.82);
+  background: #fff;
+  box-shadow:
+    0 0 0 7px rgba(204, 170, 136, 0.12),
+    0 14px 30px rgba(204, 170, 136, 0.12);
+  transform: translateY(-1px);
+}
+
+.gacha-inventory-item input::-webkit-outer-spin-button,
+.gacha-inventory-item input::-webkit-inner-spin-button {
+  margin: 0;
+  -webkit-appearance: none;
+}
+
+.gacha-inventory-item input[type="number"] {
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 .gacha-hero-panels {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1960,6 +2058,11 @@ main {
 
   .gacha-card {
     padding: 20px;
+  }
+
+  .gacha-toolbar-shell,
+  .gacha-inventory-row {
+    grid-template-columns: 1fr;
   }
 
   .gacha-detail-row {

@@ -95,29 +95,59 @@
 
           <div class="gacha-layout">
             <section class="gacha-card gacha-card-primary gacha-toolbar-card">
-              <div class="gacha-toolbar-group">
-                <span class="gacha-label">选择卡池</span>
-                <div class="gacha-pill-row" id="gacha-selector">
-                  <button class="gacha-pill-button gacha-pool-button" type="button" data-gacha-key="currentGacha">
-                    <span>庄方宜卡池</span>
-                    <strong>0417-0522</strong>
-                  </button>
-                  <button class="gacha-pill-button gacha-pill-button-secondary gacha-pool-button" type="button" data-gacha-key="nextGacha">
-                    <span>辉光庆时卡池</span>
-                    <strong>0514-0605</strong>
-                  </button>
-                </div>
-              </div>
-
-              <div class="gacha-toolbar-group">
-                <span class="gacha-label">结算模式</span>
-                <div class="gacha-mode-row">
-                  <div class="gacha-pill-row" id="gacha-mode-selector">
-                    <button class="gacha-pill-button gacha-pill-button-secondary" type="button" data-gacha-mode="release">开始日</button>
-                    <button class="gacha-pill-button" type="button" data-gacha-mode="end">结束日</button>
+              <div class="gacha-toolbar-shell">
+                <div class="gacha-toolbar-column">
+                  <div class="gacha-toolbar-group">
+                    <span class="gacha-label">选择卡池</span>
+                    <div class="gacha-pill-row" id="gacha-selector">
+                      <button class="gacha-pill-button gacha-pool-button" type="button" data-gacha-key="currentGacha">
+                        <span>庄方宜卡池</span>
+                        <strong>0417-0522</strong>
+                      </button>
+                      <button class="gacha-pill-button gacha-pill-button-secondary gacha-pool-button" type="button" data-gacha-key="nextGacha">
+                        <span>辉光庆时卡池</span>
+                        <strong>0514-0605</strong>
+                      </button>
+                    </div>
                   </div>
-                  <span class="gacha-days-badge" id="gacha-days-badge">0天</span>
+
+                  <div class="gacha-toolbar-group">
+                    <span class="gacha-label">结算模式</span>
+                    <div class="gacha-mode-row">
+                      <div class="gacha-pill-row" id="gacha-mode-selector">
+                        <button class="gacha-pill-button gacha-pill-button-secondary" type="button" data-gacha-mode="release">开始日</button>
+                        <button class="gacha-pill-button" type="button" data-gacha-mode="end">结束日</button>
+                      </div>
+                      <span class="gacha-days-badge" id="gacha-days-badge">0天</span>
+                    </div>
+                  </div>
                 </div>
+
+                <aside class="gacha-inventory-panel" aria-label="库存">
+                  <span class="gacha-label">库存</span>
+                  <div class="gacha-inventory-row">
+                    <label class="gacha-inventory-item">
+                      <span class="visually-hidden">至纯源石</span>
+                      <img src="./assets/endfield/originium.webp" alt="" />
+                      <input id="gacha-current-originium" type="number" min="0" step="1" value="0" inputmode="numeric" />
+                    </label>
+                    <label class="gacha-inventory-item">
+                      <span class="visually-hidden">合成玉</span>
+                      <img src="./assets/endfield/synthetic-jade.webp" alt="" />
+                      <input id="gacha-current-currency" type="number" min="0" step="1" value="0" inputmode="numeric" />
+                    </label>
+                    <label class="gacha-inventory-item">
+                      <span class="visually-hidden">限定抽</span>
+                      <img src="./assets/endfield/limited-pull.webp" alt="" />
+                      <input id="gacha-current-featured-permits" type="number" min="0" step="1" value="0" inputmode="numeric" />
+                    </label>
+                    <label class="gacha-inventory-item">
+                      <span class="visually-hidden">武器配额</span>
+                      <img src="./assets/endfield/weapon-quota.webp" alt="" />
+                      <input id="gacha-current-weapon-quota" type="number" min="0" step="1" value="0" inputmode="numeric" />
+                    </label>
+                  </div>
+                </aside>
               </div>
             </section>
 
@@ -152,32 +182,6 @@
               <summary class="gacha-accordion-summary">计算详情</summary>
 
               <div class="gacha-accordion-body">
-                <section class="gacha-card">
-                  <div class="gacha-card-head">
-                    <h3>库存与自定义</h3>
-                    <p>这部分默认收起来，需要的时候再展开看和改。</p>
-                  </div>
-
-                  <div class="gacha-form-grid">
-                    <label class="gacha-field">
-                      <span>现有红色货币</span>
-                      <input id="gacha-current-currency" type="number" min="0" step="1" value="0" />
-                    </label>
-                    <label class="gacha-field">
-                      <span>现有特许凭证</span>
-                      <input id="gacha-current-featured-permits" type="number" min="0" step="1" value="0" />
-                    </label>
-                    <label class="gacha-field">
-                      <span>现有基础凭证</span>
-                      <input id="gacha-current-basic-permits" type="number" min="0" step="1" value="0" />
-                    </label>
-                    <label class="gacha-field">
-                      <span>额外自定义抽数</span>
-                      <input id="gacha-custom-featured-pulls" type="number" min="0" step="1" value="0" />
-                    </label>
-                  </div>
-                </section>
-
                 <section class="gacha-card">
                   <div class="gacha-card-head">
                     <h3>预计收入</h3>

@@ -238,10 +238,10 @@
     const gachaDaysBadge = document.getElementById("gacha-days-badge");
 
     const gachaInputs = {
+      currentOriginium: document.getElementById("gacha-current-originium"),
       currentCurrency: document.getElementById("gacha-current-currency"),
       currentFeaturedPermits: document.getElementById("gacha-current-featured-permits"),
-      currentBasicPermits: document.getElementById("gacha-current-basic-permits"),
-      customFeaturedPulls: document.getElementById("gacha-custom-featured-pulls"),
+      currentWeaponQuota: document.getElementById("gacha-current-weapon-quota"),
       eventCurrency: document.getElementById("gacha-event-currency"),
       eventFeaturedPermits: document.getElementById("gacha-event-featured-permits"),
     };
@@ -331,8 +331,6 @@
 
       const currentCurrency = getNonNegativeNumber(gachaInputs.currentCurrency);
       const currentFeaturedPermits = getNonNegativeNumber(gachaInputs.currentFeaturedPermits);
-      const currentBasicPermits = getNonNegativeNumber(gachaInputs.currentBasicPermits);
-      const customFeaturedPulls = getNonNegativeNumber(gachaInputs.customFeaturedPulls);
       const eventCurrency = getNonNegativeNumber(gachaInputs.eventCurrency);
       const eventFeaturedPermits = getNonNegativeNumber(gachaInputs.eventFeaturedPermits);
 
@@ -345,8 +343,6 @@
 
       const currentFeaturedPullsTotal = currentFeaturedPullsFromCurrency + currentFeaturedPermits;
       const projectedFeaturedPullsTotal = projectedFeaturedPullsFromCurrency + eventFeaturedPermits;
-      const featuredPullsTotal = currentFeaturedPullsTotal + projectedFeaturedPullsTotal + customFeaturedPulls;
-
       updateGachaButtons(today);
 
       if (gachaDaysBadge) {
