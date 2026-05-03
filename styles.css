@@ -612,6 +612,325 @@ h3 {
   line-height: 1.95;
 }
 
+.endfield-main {
+  width: min(1180px, calc(100vw - 32px));
+  margin: 0 auto;
+}
+
+.endfield-section {
+  padding: 24px 0 48px;
+}
+
+.endfield-section-head {
+  max-width: 760px;
+}
+
+.endfield-section-head .body-text {
+  margin-top: 18px;
+  line-height: 1.85;
+}
+
+.gacha-layout {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+  margin-top: 30px;
+}
+
+.gacha-card {
+  padding: 24px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.gacha-card-primary,
+.gacha-card-results {
+  grid-column: 1 / -1;
+}
+
+.gacha-hero-panels {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+  grid-column: 1 / -1;
+}
+
+.gacha-hero-card {
+  display: grid;
+  gap: 24px;
+  padding: 28px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.82);
+}
+
+.gacha-hero-card-head {
+  display: grid;
+  gap: 16px;
+}
+
+.gacha-hero-card-head h3 {
+  font-size: clamp(32px, 4vw, 52px);
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+}
+
+.gacha-hero-copy {
+  max-width: 44ch;
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+.gacha-hero-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.gacha-hero-metric {
+  padding: 18px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.gacha-hero-metric span {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 12px;
+  color: rgba(95, 99, 104, 0.88);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.gacha-hero-metric strong {
+  display: block;
+  font-size: clamp(26px, 3vw, 40px);
+  line-height: 1.1;
+}
+
+.gacha-hero-meta {
+  border-top: 1px solid var(--line);
+  padding-top: 6px;
+}
+
+.gacha-weapon-placeholder {
+  display: grid;
+  gap: 14px;
+  align-content: start;
+  min-height: 220px;
+}
+
+.gacha-weapon-placeholder strong {
+  font-size: clamp(28px, 3.3vw, 46px);
+  line-height: 1.08;
+}
+
+.gacha-weapon-placeholder p {
+  max-width: 44ch;
+  color: var(--muted);
+  line-height: 1.85;
+}
+
+.gacha-card-head {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.gacha-card-head h3 {
+  font-size: 22px;
+  line-height: 1.25;
+}
+
+.gacha-card-head p {
+  color: var(--muted);
+  line-height: 1.75;
+}
+
+.gacha-control-group + .gacha-control-group {
+  margin-top: 18px;
+}
+
+.gacha-label {
+  display: block;
+  margin-bottom: 12px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(95, 99, 104, 0.88);
+}
+
+.gacha-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.gacha-chip {
+  min-height: 44px;
+  padding: 0 16px;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.22s ease, background-color 0.22s ease, color 0.22s ease;
+}
+
+.gacha-chip.is-active {
+  border-color: var(--blue);
+  background: var(--blue);
+  color: #fff;
+}
+
+.gacha-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 26px;
+}
+
+.gacha-summary-item,
+.gacha-result-tile,
+.gacha-rate-item {
+  padding: 18px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.gacha-summary-kicker,
+.gacha-result-tile span,
+.gacha-rate-item span {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 12px;
+  color: rgba(95, 99, 104, 0.88);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.gacha-summary-item strong,
+.gacha-result-tile strong,
+.gacha-rate-item strong {
+  display: block;
+  font-size: clamp(22px, 2.5vw, 32px);
+  line-height: 1.15;
+}
+
+.gacha-summary-item p,
+.gacha-result-tile p {
+  margin-top: 10px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.gacha-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.gacha-field {
+  display: grid;
+  gap: 8px;
+}
+
+.gacha-field span {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.gacha-field input {
+  width: 100%;
+  min-height: 46px;
+  padding: 0 14px;
+  border: 1px solid var(--line);
+  border-radius: 0;
+  background: #fff;
+  color: var(--text);
+  font: inherit;
+}
+
+.gacha-rate-grid,
+.gacha-results-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.gacha-results-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.gacha-detail-list {
+  margin-top: 18px;
+  border-top: 1px solid var(--line);
+}
+
+.gacha-detail-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 15px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.gacha-detail-row span {
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.gacha-detail-row strong {
+  font-size: 18px;
+}
+
+.gacha-helper-text {
+  margin-top: 18px;
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+.gacha-accordion {
+  grid-column: 1 / -1;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.gacha-accordion-summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 20px 24px;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.gacha-accordion-summary::-webkit-details-marker {
+  display: none;
+}
+
+.gacha-accordion-body {
+  display: grid;
+  gap: 22px;
+  padding: 0 24px 24px;
+}
+
+:root[data-theme="dark"] .gacha-card,
+:root[data-theme="dark"] .gacha-hero-card,
+:root[data-theme="dark"] .gacha-hero-metric,
+:root[data-theme="dark"] .gacha-accordion,
+:root[data-theme="dark"] .gacha-summary-item,
+:root[data-theme="dark"] .gacha-result-tile,
+:root[data-theme="dark"] .gacha-rate-item {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+:root[data-theme="dark"] .gacha-field input {
+  background: rgba(255, 255, 255, 0.04);
+  color: #fff;
+}
+
 .bullet-list {
   display: grid;
   gap: 12px;
@@ -1454,6 +1773,13 @@ main {
   }
 
   .hero-grid,
+  .gacha-hero-panels,
+  .gacha-layout,
+  .gacha-hero-metrics,
+  .gacha-summary-grid,
+  .gacha-results-grid,
+  .gacha-rate-grid,
+  .gacha-form-grid,
   .project-grid,
   .project-card.wide,
   .split,
@@ -1521,5 +1847,19 @@ main {
 
   .search-box input {
     width: 100%;
+  }
+
+  .gacha-card {
+    padding: 20px;
+  }
+
+  .gacha-detail-row {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .gacha-chip {
+    width: 100%;
+    justify-content: center;
   }
 }

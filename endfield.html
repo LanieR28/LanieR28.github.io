@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="./styles.css" />
     <script src="./site.js" defer></script>
   </head>
-  <body class="endfield-page">
+  <body class="endfield-page endfield-gacha-page">
     <div class="site-shell">
       <header class="hero" id="top">
         <div class="nav-region" id="nav-region">
@@ -81,30 +81,235 @@
         </div>
 
         <div class="hero-grid">
-          <div class="hero-copy" data-search="ENDFIELD 終末地 攒抽計算機">
+          <div class="hero-copy" data-search="ENDFIELD 終末地 攒抽計算機 gacha">
             <p class="eyebrow">ENDFIELD</p>
-            <h1>終末地ツール置き場</h1>
+            <h1>攒抽計算器</h1>
             <p class="hero-text">
-              終末地向けの攒抽計算機や記録ツールをここにまとめていく予定です。
-              まずは入口だけ先に作ってあり、次に計算ロジックを詰めていきます。
+              まずは「現在の gacha」と「次の gacha」を見ながら、
+              いつ全力で引くかに合わせて資源計画を組める最初の版から作っています。
+              特に次の gacha を第一候補として見たい人向けに、開幕即全力の計算も切り替えられるようにしています。
             </p>
             <div class="hero-actions">
-              <a class="button primary" href="./index.html">ホームへ戻る</a>
-              <a class="button secondary" href="./projects.html">作品を見る</a>
+              <a class="button primary" href="#gacha-calculator">計算器を見る</a>
+              <a class="button secondary" href="./index.html">ホームへ戻る</a>
             </div>
           </div>
 
-          <div class="hero-card" data-search="ENDFIELD roadmap placeholder">
-            <p class="eyebrow">準備中</p>
-            <h2>最初に入れる予定</h2>
+          <div class="hero-card" data-search="ENDFIELD next gacha focus">
+            <p class="eyebrow">FOCUS</p>
+            <h2>次の gacha を優先して見る</h2>
             <ul class="hero-points">
-              <li>攒抽計算機</li>
-              <li>将来の終末地用ミニツール</li>
-              <li>個人用の進捗メモと試作 UI</li>
+              <li>デフォルトでは「次の gacha」を選択</li>
+              <li>「終了日まで」か「開始日まで」かを切替</li>
+              <li>開始済みの gacha は開幕計算時に自動で今日基準へ補正</li>
             </ul>
           </div>
         </div>
       </header>
+
+      <main class="endfield-main" id="gacha-calculator">
+        <section class="endfield-section">
+          <div class="endfield-section-head">
+            <p class="eyebrow">CALCULATOR</p>
+            <h2>gacha 结算模式</h2>
+            <p class="body-text">
+              默认按 gacha 结束日估算。切到「开幕全抽」之后，如果 gacha 还没开始，就算到开始日；
+              如果 gacha 已经开始，就自动按今天结算，不再回算到过去。
+            </p>
+          </div>
+
+          <div class="gacha-layout">
+            <section class="gacha-card gacha-card-primary">
+              <div class="gacha-control-group">
+                <span class="gacha-label">选择 gacha</span>
+                <div class="gacha-chip-row" id="gacha-selector">
+                  <button class="gacha-chip" type="button" data-gacha-key="currentGacha">当前 gacha</button>
+                  <button class="gacha-chip" type="button" data-gacha-key="nextGacha">下一个 gacha</button>
+                </div>
+              </div>
+
+              <div class="gacha-control-group">
+                <span class="gacha-label">结算模式</span>
+                <div class="gacha-chip-row" id="gacha-mode-selector">
+                  <button class="gacha-chip" type="button" data-gacha-mode="end">算到结束当天</button>
+                  <button class="gacha-chip" type="button" data-gacha-mode="release">开幕全抽</button>
+                </div>
+              </div>
+
+              <div class="gacha-summary-grid">
+                <article class="gacha-summary-item">
+                  <span class="gacha-summary-kicker">当前目标</span>
+                  <strong id="gacha-name">-</strong>
+                  <p id="gacha-window">-</p>
+                </article>
+                <article class="gacha-summary-item">
+                  <span class="gacha-summary-kicker">实际结算日</span>
+                  <strong id="gacha-cutoff-date">-</strong>
+                  <p id="gacha-cutoff-note">-</p>
+                </article>
+                <article class="gacha-summary-item">
+                  <span class="gacha-summary-kicker">还能累计</span>
+                  <strong id="gacha-days-left">0 天</strong>
+                  <p id="gacha-weeks-left">0 周奖励</p>
+                </article>
+              </div>
+            </section>
+
+            <section class="gacha-hero-panels">
+              <article class="gacha-hero-card gacha-hero-card-character">
+                <div class="gacha-hero-card-head">
+                  <div>
+                    <p class="eyebrow">CHARACTER</p>
+                    <h3>角色抽</h3>
+                  </div>
+                  <p class="gacha-hero-copy">
+                    先把角色 gacha 能动用的总抽数放在最显眼的位置，第一眼就能看到自己离目标还有多远。
+                  </p>
+                </div>
+
+                <div class="gacha-hero-metrics">
+                  <div class="gacha-hero-metric">
+                    <span>特许凭证总抽</span>
+                    <strong id="gacha-character-featured-pulls">0</strong>
+                  </div>
+                  <div class="gacha-hero-metric">
+                    <span>基础凭证</span>
+                    <strong id="gacha-character-basic-permits">0</strong>
+                  </div>
+                  <div class="gacha-hero-metric">
+                    <span>氪金人民币</span>
+                    <strong id="gacha-character-paid-rmb">0</strong>
+                  </div>
+                </div>
+
+                <div class="gacha-hero-meta">
+                  <div class="gacha-detail-row">
+                    <span>当前库存可折算特许抽数</span>
+                    <strong id="gacha-current-featured-pulls">0</strong>
+                  </div>
+                  <div class="gacha-detail-row">
+                    <span>预计新增可折算特许抽数</span>
+                    <strong id="gacha-projected-featured-pulls">0</strong>
+                  </div>
+                  <div class="gacha-detail-row">
+                    <span>自定义额外抽数</span>
+                    <strong id="gacha-custom-pulls-output">0</strong>
+                  </div>
+                </div>
+              </article>
+
+              <article class="gacha-hero-card gacha-hero-card-weapon">
+                <div class="gacha-hero-card-head">
+                  <div>
+                    <p class="eyebrow">WEAPON</p>
+                    <h3>武库配额估算</h3>
+                  </div>
+                  <p class="gacha-hero-copy">
+                    武器抽保留成独立的大卡区域。先把位置和视觉层级定下来，下一步再逐条补武库配额的细算逻辑。
+                  </p>
+                </div>
+
+                <div class="gacha-weapon-placeholder">
+                  <strong id="gacha-weapon-pulls">准备中</strong>
+                  <p id="gacha-weapon-helper">
+                    这一块先保留为主结果位，后面我们再按你的规则把武器 gacha 的资源来源和折算方式单独补齐。
+                  </p>
+                </div>
+              </article>
+            </section>
+
+            <section class="gacha-card gacha-card-results">
+              <div class="gacha-card-head">
+                <h3>结果汇总</h3>
+                <p>先把角色抽和武器抽都保留在主界面里，但信息呈现改得更直接一点。</p>
+              </div>
+
+              <div class="gacha-results-grid">
+                <article class="gacha-result-tile">
+                  <span>特许总抽数</span>
+                  <strong id="gacha-featured-pulls">0</strong>
+                  <p id="gacha-featured-breakdown">0 来自货币 + 0 来自凭证</p>
+                </article>
+                <article class="gacha-result-tile">
+                  <span>基础总抽数</span>
+                  <strong id="gacha-basic-pulls">0</strong>
+                  <p>仅统计当前基础凭证库存</p>
+                </article>
+                <article class="gacha-result-tile">
+                  <span>预计新增货币</span>
+                  <strong id="gacha-projected-currency">0</strong>
+                  <p id="gacha-projected-breakdown">日常 0 + 周常 0 + 活动 0</p>
+                </article>
+              </div>
+
+              <p class="gacha-helper-text" id="gacha-mode-helper">
+                默认按结束当天结算，适合看这个 gacha 到最后能攒多少。
+              </p>
+            </section>
+
+            <details class="gacha-accordion">
+              <summary class="gacha-accordion-summary">计算详情</summary>
+
+              <div class="gacha-accordion-body">
+                <section class="gacha-card">
+                  <div class="gacha-card-head">
+                    <h3>库存与自定义</h3>
+                    <p>这部分默认收起来，需要的时候再展开看和改。</p>
+                  </div>
+
+                  <div class="gacha-form-grid">
+                    <label class="gacha-field">
+                      <span>现有红色货币</span>
+                      <input id="gacha-current-currency" type="number" min="0" step="1" value="0" />
+                    </label>
+                    <label class="gacha-field">
+                      <span>现有特许凭证</span>
+                      <input id="gacha-current-featured-permits" type="number" min="0" step="1" value="0" />
+                    </label>
+                    <label class="gacha-field">
+                      <span>现有基础凭证</span>
+                      <input id="gacha-current-basic-permits" type="number" min="0" step="1" value="0" />
+                    </label>
+                    <label class="gacha-field">
+                      <span>额外自定义抽数</span>
+                      <input id="gacha-custom-featured-pulls" type="number" min="0" step="1" value="0" />
+                    </label>
+                  </div>
+                </section>
+
+                <section class="gacha-card">
+                  <div class="gacha-card-head">
+                    <h3>预计收入</h3>
+                    <p>第一版先用固定日常 / 周常，再给活动留手动补录入口。</p>
+                  </div>
+
+                  <div class="gacha-rate-grid">
+                    <article class="gacha-rate-item">
+                      <span>日常固定</span>
+                      <strong>200 / 天</strong>
+                    </article>
+                    <article class="gacha-rate-item">
+                      <span>周常固定</span>
+                      <strong>500 / 周</strong>
+                    </article>
+                  </div>
+
+                  <div class="gacha-form-grid">
+                    <label class="gacha-field">
+                      <span>活动额外货币</span>
+                      <input id="gacha-event-currency" type="number" min="0" step="1" value="0" />
+                    </label>
+                    <label class="gacha-field">
+                      <span>活动额外特许凭证</span>
+                      <input id="gacha-event-featured-permits" type="number" min="0" step="1" value="0" />
+                    </label>
+                  </div>
+                </section>
+              </div>
+            </details>
+          </div>
+        </section>
+      </main>
     </div>
   </body>
 </html>
