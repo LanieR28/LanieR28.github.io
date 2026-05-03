@@ -197,7 +197,62 @@
 
               <aside class="gacha-hero-card gacha-hero-card-placeholder" aria-label="右侧内容区">
                 <div class="gacha-scroll-panel">
-                  <div class="gacha-scroll-spacer"></div>
+                  <div class="gacha-scroll-content">
+                    <section class="gacha-scroll-card">
+                      <div class="gacha-scroll-card-head">
+                        <p class="eyebrow">DAILY</p>
+                        <h3>日常</h3>
+                      </div>
+
+                      <div class="gacha-income-list">
+                        <article class="gacha-income-item">
+                          <div class="gacha-income-copy">
+                            <strong>日常</strong>
+                            <p>200 x <span id="gacha-daily-days">0</span> 天</p>
+                          </div>
+                          <strong class="gacha-income-value" id="gacha-daily-currency-total">0</strong>
+                        </article>
+
+                        <article class="gacha-income-item">
+                          <div class="gacha-income-copy">
+                            <strong>周常</strong>
+                            <p>500 x <span id="gacha-weekly-cycles">0</span> 周</p>
+                          </div>
+                          <strong class="gacha-income-value" id="gacha-weekly-currency-total">0</strong>
+                        </article>
+
+                        <article class="gacha-income-item gacha-income-item-input">
+                          <div class="gacha-income-copy">
+                            <strong>大月卡</strong>
+                            <p>自行填写可拿到的合成玉</p>
+                          </div>
+                          <label class="gacha-inline-input">
+                            <span class="visually-hidden">大月卡合成玉</span>
+                            <input id="gacha-monthly-pass-currency" type="number" min="0" step="1" value="0" inputmode="numeric" />
+                          </label>
+                        </article>
+                      </div>
+
+                      <div class="gacha-income-total">
+                        <span>日常合成玉合计</span>
+                        <strong id="gacha-daily-section-total">0</strong>
+                      </div>
+                    </section>
+
+                    <section class="gacha-scroll-card">
+                      <div class="gacha-scroll-card-head">
+                        <p class="eyebrow">EVENT</p>
+                        <h3>活动</h3>
+                      </div>
+                    </section>
+
+                    <section class="gacha-scroll-card">
+                      <div class="gacha-scroll-card-head">
+                        <p class="eyebrow">PAID</p>
+                        <h3>氪金</h3>
+                      </div>
+                    </section>
+                  </div>
                 </div>
               </aside>
             </section>
