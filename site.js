@@ -743,8 +743,7 @@
       const weaponTicketQuota = (weaponBlueTickets + weaponFeaturedTickets + weaponTicketBonus) * 50;
       const currentWeaponTenPulls = Math.floor(currentWeaponQuota / gachaWeaponQuotaPerTenPull);
 
-      const inventoryFeaturedPullsTotal =
-        currentFeaturedPullsFromOriginium + currentFeaturedPullsFromCurrency + currentFeaturedPermits + currentSinglePull;
+      const inventoryFeaturedPullsTotal = currentFeaturedPullsFromOriginium + currentFeaturedPullsFromCurrency + currentFeaturedPermits;
       const eventFeaturedPullsTotal = eventFeaturedPullsFromCurrency + eventPermitPullsTotal;
       const characterTotalPulls = inventoryFeaturedPullsTotal + dailyFeaturedPulls + eventFeaturedPullsTotal + paidFeaturedPulls;
       const weaponQuotaTotal = currentWeaponQuota + paidWeaponQuota + weaponTicketQuota;
