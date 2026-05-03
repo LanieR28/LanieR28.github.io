@@ -218,7 +218,7 @@
       "package-talent": { pullsPerPurchase: 10, price: 128 },
       "package-hr": { singlePulls: 10, price: 98 },
       "package-agreement": { pullsPerPurchase: 10, price: 198 },
-      "package-xinghuo": { specialPulls: 10, pullsPerPurchase: 10, price: 98 },
+      "package-xinghuo": { specialPulls: 10, price: 98 },
     };
     const gachaEventRewards = {
       "event-wuling-chef": { currency: 1200 },
@@ -713,7 +713,7 @@
       const originiumPullCurrencyTotal = gachaPaidState.disableOriginiumPulls ? 0 : paidOriginiumTotal * gachaOriginiumToCurrency;
       const paidFeaturedPullsFromOriginium = Math.floor(originiumPullCurrencyTotal / gachaCurrencyPerPull);
       const paidFeaturedPullsFromCurrency = Math.floor(selectedPaidMonthCardCurrency / gachaCurrencyPerPull);
-      const paidFeaturedPulls = paidFeaturedPullsFromOriginium + paidFeaturedPullsFromCurrency + paidPackagePulls;
+      const paidFeaturedPulls = paidFeaturedPullsFromOriginium + paidFeaturedPullsFromCurrency + paidPackagePulls + paidPackageSpecialPermits;
       const paidPriceTotal =
         paidMonthCardPrice +
         paidMonthlyOriginiumPrice +
