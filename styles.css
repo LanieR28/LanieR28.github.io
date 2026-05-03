@@ -1168,6 +1168,7 @@ h3 {
   font-family: "Novecento Sans Wide", "Endfield PingFang SC", "PingFang SC", sans-serif;
   font-size: 18px;
   line-height: 1;
+  transform: translateY(-2px);
   cursor: pointer;
   transition: opacity 0.18s ease;
 }
@@ -1182,6 +1183,7 @@ h3 {
   font-family: "Novecento Sans Wide", "Endfield PingFang SC", "PingFang SC", sans-serif;
   font-size: 18px;
   line-height: 1;
+  transform: translateY(-2px);
 }
 
 .gacha-toggle-button {
