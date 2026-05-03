@@ -665,15 +665,16 @@
       }, 0);
       const eventCurrencyTotal = eventCurrency + selectedEventCurrency;
       const eventPermitPullsTotal = eventFeaturedPermits + selectedEventSpecialPulls;
+      const dailyPermitPulls = gachaDailyFixedPermits;
       const totalOriginium = currentOriginium + paidOriginiumTotal;
       const totalCurrency = currentCurrency + dailyCurrencyTotal + eventCurrencyTotal + selectedPaidMonthCardCurrency;
       const totalFeaturedPermits = currentFeaturedPermits + eventFeaturedPermits + paidPackageFeaturedPermits;
-      const totalSpecialPermits = paidPackageSpecialPermits + selectedEventSpecialPulls;
+      const totalSpecialPermits = paidPackageSpecialPermits + selectedEventSpecialPulls + dailyPermitPulls;
 
       const currentOriginiumPullCurrency = gachaPaidState.disableOriginiumPulls ? 0 : currentOriginium * gachaOriginiumToCurrency;
       const currentFeaturedPullsFromOriginium = Math.floor(currentOriginiumPullCurrency / gachaCurrencyPerPull);
       const currentFeaturedPullsFromCurrency = Math.floor(currentCurrency / gachaCurrencyPerPull);
-      const dailyFeaturedPulls = Math.floor(dailyCurrencyTotal / gachaCurrencyPerPull) + gachaDailyFixedPermits;
+      const dailyFeaturedPulls = Math.floor(dailyCurrencyTotal / gachaCurrencyPerPull) + dailyPermitPulls;
       const eventFeaturedPullsFromCurrency = Math.floor(eventCurrencyTotal / gachaCurrencyPerPull);
       const weaponTicketBonus = weaponFeaturedTickets >= 30 ? 10 : 0;
       const weaponTicketQuota = (weaponBlueTickets + weaponFeaturedTickets + weaponTicketBonus) * 50;
