@@ -1228,14 +1228,14 @@ h3 {
   font-size: clamp(32px, 3vw, 50px);
   line-height: 1.08;
   font-family: "Novecento Sans Wide", "Endfield PingFang SC", "PingFang SC", sans-serif;
-  transform: translateY(14px);
+  transform: translateY(30px);
 }
 
 .gacha-source-progress {
   display: flex;
   width: min(100%, 560px);
   height: 22px;
-  margin-top: -6px;
+  margin-top: 20px;
   overflow: hidden;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.82);
@@ -1270,7 +1270,7 @@ h3 {
   justify-content: center;
   gap: 0 12px;
   width: 100%;
-  margin-top: -12px;
+  margin-top: -6px;
   color: var(--muted);
   font-size: 16px;
 }
@@ -1301,7 +1301,7 @@ h3 {
   justify-content: space-between;
   gap: 18px;
   margin: 18px -22px -156px;
-  padding: 18px 22px 80px;
+  padding: 58px 22px 40px;
   border-top: 1px solid rgba(19, 36, 61, 0.1);
   background: rgba(245, 245, 247, 0.96);
   backdrop-filter: blur(14px);
@@ -1312,8 +1312,8 @@ h3 {
   position: absolute;
   left: 0;
   right: 0;
-  bottom: -80px;
-  height: 80px;
+  bottom: -40px;
+  height: 40px;
   background: inherit;
 }
 
