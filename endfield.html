@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ENDFIELD | LanieRの個人サイト</title>
+    <meta
+      name="description"
+      content="終末地向けツール置き場。攒抽計算機をはじめとした ENDFIELD 関連ページの準備中画面です。"
+    />
+    <link rel="icon" type="image/png" href="./assets/lr-web-icon.png" />
+    <link rel="apple-touch-icon" href="./assets/lr-web-icon.png" />
+    <meta name="theme-color" content="#ffffff" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="./site.js" defer></script>
+  </head>
+  <body class="project-page-view">
+    <div class="site-shell">
+      <header class="hero" id="top">
+        <div class="nav-region" id="nav-region">
+          <nav class="topbar">
+            <div class="topbar-inner">
+              <a class="brand" href="./index.html" aria-label="LanieR ホーム">
+                <img
+                  src="./assets/lr-logo.png"
+                  data-light="./assets/lr-logo.png"
+                  data-dark="./assets/lr-logo-dark.png"
+                  alt="LR"
+                />
+              </a>
+
+              <div class="nav-links">
+                <a class="nav-trigger" data-menu="home" href="./index.html">ホーム</a>
+                <a class="nav-trigger" data-menu="archive" href="./projects.html">作品</a>
+                <a class="nav-trigger" data-menu="blog" href="./index.html#top">ブログ</a>
+                <a class="nav-trigger" data-menu="projects" href="./projects.html#chunithm-bot">プロジェクト</a>
+                <a class="nav-trigger" data-menu="endfield" href="./endfield.html">ENDFIELD</a>
+                <a class="nav-trigger" data-menu="about" href="./index.html#top">私について</a>
+                <a class="nav-trigger" data-menu="videos" href="./index.html#videos">動画</a>
+              </div>
+
+              <div class="nav-actions">
+                <form class="search-box" id="site-search-form">
+                  <input id="site-search-input" type="search" placeholder="サイト内検索" />
+                  <button class="icon-button search-button" type="submit" aria-label="検索">
+                    <img
+                      src="./assets/search-icon.png"
+                      data-light="./assets/search-icon.png"
+                      data-dark="./assets/search-icon-dark.png"
+                      alt="検索"
+                    />
+                  </button>
+                </form>
+
+                <button class="icon-button theme-toggle" id="theme-toggle" type="button" aria-label="表示モード切替">
+                  <span class="theme-icon" aria-hidden="true">☀︎</span>
+                </button>
+              </div>
+            </div>
+          </nav>
+
+          <div class="nav-mega" id="nav-mega" aria-hidden="true">
+            <div class="nav-mega-inner">
+              <section class="mega-panel" data-panel="endfield">
+                <div class="mega-column mega-column-primary">
+                  <p class="mega-label">ENDFIELD</p>
+                  <a href="./endfield.html">攒抽計算器</a>
+                </div>
+                <div class="mega-column">
+                  <p class="mega-label">紹介ページ</p>
+                  <a href="./endfield.html">終末地ツール置き場</a>
+                </div>
+                <div class="mega-column">
+                  <p class="mega-label">関連ページ</p>
+                  <a href="./projects.html">作品ページ</a>
+                  <a href="./index.html#top">私について</a>
+                </div>
+              </section>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-grid">
+          <div class="hero-copy" data-search="ENDFIELD 終末地 攒抽計算機">
+            <p class="eyebrow">ENDFIELD</p>
+            <h1>終末地ツール置き場</h1>
+            <p class="hero-text">
+              終末地向けの攒抽計算機や記録ツールをここにまとめていく予定です。
+              まずは入口だけ先に作ってあり、次に計算ロジックを詰めていきます。
+            </p>
+            <div class="hero-actions">
+              <a class="button primary" href="./index.html">ホームへ戻る</a>
+              <a class="button secondary" href="./projects.html">作品を見る</a>
+            </div>
+          </div>
+
+          <div class="hero-card" data-search="ENDFIELD roadmap placeholder">
+            <p class="eyebrow">準備中</p>
+            <h2>最初に入れる予定</h2>
+            <ul class="hero-points">
+              <li>攒抽計算機</li>
+              <li>将来の終末地用ミニツール</li>
+              <li>個人用の進捗メモと試作 UI</li>
+            </ul>
+          </div>
+        </div>
+      </header>
+    </div>
+  </body>
+</html>
