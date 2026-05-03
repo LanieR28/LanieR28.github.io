@@ -1216,10 +1216,10 @@ h3 {
 }
 
 .gacha-source-module {
-  --gacha-source-total-y: 80px;
-  --gacha-source-bar-y: 95px;
+  --gacha-source-total-y: 115px;
+  --gacha-source-bar-y: 115px;
   --gacha-source-legend-y: 5px;
-  --gacha-source-percent-y: -4px;
+  --gacha-source-percent-y: -3px;
   --gacha-resource-summary-y: 8px;
   --gacha-resource-number-y: -22px;
   display: grid;

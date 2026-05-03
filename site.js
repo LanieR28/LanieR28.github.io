@@ -440,10 +440,9 @@
       }
 
       const cardTop = gachaPaidCard.offsetTop;
-      const cardBottom = cardTop + gachaPaidCard.offsetHeight;
       const viewportTop = gachaScrollPanel.scrollTop;
-      const viewportBottom = viewportTop + gachaScrollPanel.clientHeight;
-      const isPaidVisible = cardTop < viewportBottom && cardBottom > viewportTop;
+      const cardBottom = cardTop + gachaPaidCard.offsetHeight;
+      const isPaidVisible = viewportTop >= cardTop && viewportTop < cardBottom;
       gachaPaidStickyTotal.classList.toggle("is-visible", isPaidVisible);
       gachaPaidStickyTotal.setAttribute("aria-hidden", isPaidVisible ? "false" : "true");
     }
