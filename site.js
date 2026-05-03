@@ -276,7 +276,6 @@
     const gachaTotalCurrency = document.getElementById("gacha-total-currency");
     const gachaTotalFeaturedPermits = document.getElementById("gacha-total-featured-permits");
     const gachaTotalSpecialPermits = document.getElementById("gacha-total-special-permits");
-    const gachaTotalSinglePulls = document.getElementById("gacha-total-single-pulls");
     const gachaDailyDays = document.getElementById("gacha-daily-days");
     const gachaWeeklyCycles = document.getElementById("gacha-weekly-cycles");
     const gachaDailyCurrencyTotal = document.getElementById("gacha-daily-currency-total");
@@ -559,7 +558,6 @@
       const totalCurrency = currentCurrency + dailyCurrencyTotal + eventCurrency + selectedPaidMonthCardCurrency;
       const totalFeaturedPermits = currentFeaturedPermits + eventFeaturedPermits + paidPackageFeaturedPermits;
       const totalSpecialPermits = paidPackageSpecialPermits;
-      const totalSinglePulls = currentSinglePull + paidPackageSinglePulls;
 
       const currentFeaturedPullsFromOriginium = Math.floor((currentOriginium * gachaOriginiumToCurrency) / gachaCurrencyPerPull);
       const currentFeaturedPullsFromCurrency = Math.floor(currentCurrency / gachaCurrencyPerPull);
@@ -625,9 +623,6 @@
       }
       if (gachaTotalSpecialPermits) {
         gachaTotalSpecialPermits.textContent = `${totalSpecialPermits}`;
-      }
-      if (gachaTotalSinglePulls) {
-        gachaTotalSinglePulls.textContent = `${totalSinglePulls}`;
       }
       setSegmentWidth(gachaSourceInventoryBar, inventoryShare);
       setSegmentWidth(gachaSourceDailyBar, dailyShare);

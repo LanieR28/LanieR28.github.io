@@ -1203,24 +1203,24 @@ h3 {
 .gacha-source-module {
   display: grid;
   justify-items: center;
-  gap: 10px;
+  gap: 4px;
   width: 100%;
   margin-top: -128px;
 }
 
 .gacha-source-total {
   display: block;
-  font-size: clamp(30px, 2.85vw, 48px);
+  font-size: clamp(32px, 3vw, 50px);
   line-height: 1.08;
   font-family: "Novecento Sans Wide", "Endfield PingFang SC", "PingFang SC", sans-serif;
-  transform: translateY(-8px);
+  transform: translateY(4px);
 }
 
 .gacha-source-progress {
   display: flex;
   width: min(100%, 560px);
   height: 22px;
-  margin-top: -12px;
+  margin-top: -10px;
   overflow: hidden;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.82);
@@ -1255,7 +1255,7 @@ h3 {
   justify-content: center;
   gap: 0 12px;
   width: 100%;
-  margin-top: -8px;
+  margin-top: -18px;
   color: var(--muted);
   font-size: 16px;
 }
@@ -1307,10 +1307,10 @@ h3 {
 
 .gacha-resource-summary {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 10px;
   width: 100%;
-  margin-top: 6px;
+  margin-top: 2px;
 }
 
 .gacha-resource-summary span {
@@ -1328,10 +1328,10 @@ h3 {
 
 .gacha-resource-summary strong {
   font-family: "Novecento Sans Wide", "Endfield PingFang SC", "PingFang SC", sans-serif;
-  font-size: 18px;
+  font-size: 23px;
   font-weight: 400;
   line-height: 1;
-  transform: translateY(-3px);
+  transform: translateY(-7px);
 }
 
 .gacha-source-dot {
