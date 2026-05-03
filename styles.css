@@ -800,7 +800,7 @@ h3 {
   background: rgba(255, 255, 255, 0.92);
   color: var(--text);
   text-align: center;
-  font-size: 19px;
+  font-size: 22px;
   font-weight: 400;
   font-family: "Novecento Sans Wide", "Endfield PingFang SC", "PingFang SC", sans-serif;
   line-height: 44px;
@@ -985,6 +985,7 @@ h3 {
   color: var(--text);
   font-weight: 400;
   display: inline-block;
+  font-size: 17px;
   line-height: 1;
   transform: translateY(-3px);
 }
