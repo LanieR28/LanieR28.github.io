@@ -641,12 +641,30 @@ h3 {
   margin: 0 auto;
 }
 
+.endfield-gacha-page .hero {
+  padding-bottom: 0;
+}
+
+.endfield-gacha-page .hero-grid {
+  grid-template-columns: 1fr;
+  gap: 0;
+  margin-top: 18px;
+}
+
+.endfield-gacha-page .hero-copy {
+  max-width: none;
+}
+
+.endfield-gacha-page .hero-copy h1 {
+  margin: 0;
+}
+
 .endfield-section {
-  padding: 12px 0 48px;
+  padding: 0 0 48px;
 }
 
 .endfield-section-head {
-  margin-bottom: 20px;
+  margin-bottom: 12px;
 }
 
 .gacha-layout {
