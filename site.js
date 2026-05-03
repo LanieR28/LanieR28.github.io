@@ -286,9 +286,6 @@
     const gachaMonthCardCurrency = document.getElementById("gacha-month-card-currency");
     const gachaMonthCardOriginium = document.getElementById("gacha-month-card-originium");
     const gachaPaidSectionTotal = document.getElementById("gacha-paid-section-total");
-    const gachaPaidCard = document.getElementById("gacha-paid-card");
-    const gachaPaidStickyTotal = document.getElementById("gacha-paid-sticky-total");
-    const gachaScrollPanel = document.querySelector(".gacha-scroll-panel");
 
     const gachaInputs = {
       currentOriginium: document.getElementById("gacha-current-originium"),
@@ -439,20 +436,6 @@
         node.setAttribute("aria-pressed", isSelected ? "true" : "false");
         node.textContent = isSelected ? "已选" : "未选";
       });
-    }
-
-    function syncPaidStickyTotalVisibility() {
-      if (!gachaPaidCard || !gachaPaidStickyTotal || !gachaScrollPanel) {
-        return;
-      }
-
-      const cardTop = gachaPaidCard.offsetTop;
-      const cardBottom = cardTop + gachaPaidCard.offsetHeight;
-      const viewportTop = gachaScrollPanel.scrollTop;
-      const viewportBottom = viewportTop + gachaScrollPanel.clientHeight;
-      const isPaidVisible = cardTop < viewportBottom && cardBottom > viewportTop;
-      gachaPaidStickyTotal.classList.toggle("is-visible", isPaidVisible);
-      gachaPaidStickyTotal.setAttribute("aria-hidden", isPaidVisible ? "false" : "true");
     }
 
     function getNextWeekStart(fromDate) {
@@ -694,7 +677,6 @@
       }
 
       syncPaidControls();
-      syncPaidStickyTotalVisibility();
     }
 
     if (gachaSelector) {
@@ -767,12 +749,6 @@
       }
       input.addEventListener("input", renderGachaCalculator);
     });
-
-    if (gachaScrollPanel) {
-      gachaScrollPanel.addEventListener("scroll", syncPaidStickyTotalVisibility, { passive: true });
-    }
-
-    window.addEventListener("resize", syncPaidStickyTotalVisibility);
 
     renderGachaCalculator();
   }
