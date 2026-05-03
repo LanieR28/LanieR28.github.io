@@ -248,6 +248,7 @@
       currentOriginium: document.getElementById("gacha-current-originium"),
       currentCurrency: document.getElementById("gacha-current-currency"),
       currentFeaturedPermits: document.getElementById("gacha-current-featured-permits"),
+      currentSinglePull: document.getElementById("gacha-current-single-pull"),
       currentWeaponQuota: document.getElementById("gacha-current-weapon-quota"),
       eventCurrency: document.getElementById("gacha-event-currency"),
       eventFeaturedPermits: document.getElementById("gacha-event-featured-permits"),
