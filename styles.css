@@ -816,10 +816,8 @@ h3 {
 .gacha-inventory-item:hover input,
 .gacha-inventory-item:focus-within input {
   border-color: rgba(204, 170, 136, 0.82);
-  background: #fff;
-  box-shadow:
-    0 0 0 7px rgba(204, 170, 136, 0.12),
-    0 14px 30px rgba(204, 170, 136, 0.12);
+  background: rgba(204, 170, 136, 0.08);
+  box-shadow: none;
   transform: translateY(-1px);
 }
 
@@ -1101,9 +1099,8 @@ h3 {
 .gacha-pill-button:hover,
 .gacha-pill-button:focus-visible {
   opacity: 0.9;
-  box-shadow:
-    0 0 0 7px rgba(204, 170, 136, 0.12),
-    0 14px 30px rgba(204, 170, 136, 0.12);
+  background-color: rgba(204, 170, 136, 0.08);
+  box-shadow: none;
   transform: translateY(-1px);
 }
 
@@ -1114,6 +1111,14 @@ h3 {
 
 .gacha-pill-button:not(.is-active) {
   background: transparent;
+  color: var(--blue);
+}
+
+.gacha-pill-button.gacha-pill-button-secondary:hover,
+.gacha-pill-button.gacha-pill-button-secondary:focus-visible,
+.gacha-pill-button:not(.is-active):hover,
+.gacha-pill-button:not(.is-active):focus-visible {
+  background: rgba(204, 170, 136, 0.08);
   color: var(--blue);
 }
 
