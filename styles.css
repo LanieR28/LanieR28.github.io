@@ -966,6 +966,21 @@ h3 {
   transform: translateY(-4px);
 }
 
+.gacha-income-reward {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 9px;
+  white-space: nowrap;
+}
+
+.gacha-income-reward img {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+  flex: 0 0 auto;
+}
+
 .gacha-inline-input {
   display: inline-flex;
   align-items: center;
