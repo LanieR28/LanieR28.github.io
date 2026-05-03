@@ -1072,9 +1072,9 @@ h3 {
   justify-content: center;
   gap: 0 12px;
   width: 100%;
-  margin-top: -20px;
+  margin-top: -28px;
   color: var(--muted);
-  font-size: 14px;
+  font-size: 16px;
 }
 
 .gacha-source-legend span {
@@ -1088,9 +1088,9 @@ h3 {
   color: var(--text);
   font-weight: 400;
   display: inline-block;
-  font-size: 17px;
+  font-size: 19px;
   line-height: 1;
-  transform: translateY(-2px);
+  transform: translateY(-3px);
 }
 
 .gacha-source-dot {
