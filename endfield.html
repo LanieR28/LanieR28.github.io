@@ -200,6 +200,29 @@
                       <h3>武库配额</h3>
                     </div>
                   </div>
+
+                  <div class="gacha-weapon-quota-module">
+                    <div class="gacha-weapon-inputs">
+                      <label class="gacha-inline-input gacha-weapon-input">
+                        <img src="./assets/endfield/single-pull.webp" alt="" />
+                        <span class="visually-hidden">蓝票数量</span>
+                        <input id="gacha-weapon-blue-tickets" type="number" min="0" step="1" value="0" inputmode="numeric" />
+                      </label>
+                      <label class="gacha-inline-input gacha-weapon-input">
+                        <span class="gacha-weapon-ticket-stack" aria-hidden="true">
+                          <img src="./assets/endfield/limited-pull-yellow.webp" alt="" />
+                          <img src="./assets/endfield/limited-pull.webp" alt="" />
+                        </span>
+                        <span class="visually-hidden">黄票红票数量</span>
+                        <input id="gacha-weapon-featured-tickets" type="number" min="0" step="1" value="0" inputmode="numeric" />
+                      </label>
+                    </div>
+
+                    <div class="gacha-weapon-quota-total">
+                      <img src="./assets/endfield/weapon-quota.webp" alt="" />
+                      <strong id="gacha-weapon-quota-total">0</strong>
+                    </div>
+                  </div>
                 </article>
               </div>
 
@@ -241,6 +264,7 @@
                             <p>自行填写可拿到的嵌晶玉</p>
                           </div>
                           <label class="gacha-inline-input">
+                            <img src="./assets/endfield/synthetic-jade.webp" alt="" />
                             <span class="visually-hidden">大月卡嵌晶玉</span>
                             <input id="gacha-monthly-pass-currency" type="number" min="0" step="5" value="0" inputmode="numeric" />
                           </label>
@@ -304,6 +328,7 @@
                               </div>
 
                               <label class="gacha-inline-input">
+                                <img src="./assets/endfield/originium.webp" alt="" />
                                 <span class="visually-hidden">大月卡原石</span>
                                 <input id="gacha-paid-monthly-originium" type="number" min="0" step="1" value="0" inputmode="numeric" />
                               </label>

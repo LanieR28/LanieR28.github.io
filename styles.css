@@ -985,10 +985,20 @@ h3 {
   align-items: center;
   justify-content: center;
   width: 138px;
+  gap: 9px;
+}
+
+.gacha-inline-input > img,
+.gacha-weapon-ticket-stack img {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+  flex: 0 0 auto;
 }
 
 .gacha-inline-input input {
   width: 100%;
+  min-width: 0;
   height: 44px;
   padding: 0 12px 8px;
   border: 1px solid rgba(204, 170, 136, 0.34);
@@ -1376,6 +1386,56 @@ h3 {
   gap: 8px;
   align-self: start;
   margin-top: 0;
+}
+
+.gacha-weapon-quota-module {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  gap: 22px;
+  margin-top: -18px;
+}
+
+.gacha-weapon-inputs {
+  display: grid;
+  gap: 12px;
+  justify-items: start;
+}
+
+.gacha-weapon-input {
+  width: 188px;
+}
+
+.gacha-weapon-ticket-stack {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  flex: 0 0 auto;
+}
+
+.gacha-weapon-ticket-stack img {
+  width: 30px;
+  height: 30px;
+}
+
+.gacha-weapon-quota-total {
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+}
+
+.gacha-weapon-quota-total img {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+}
+
+.gacha-weapon-quota-total strong {
+  font-family: "Novecento Sans Wide", "Endfield PingFang SC", "PingFang SC", sans-serif;
+  font-size: 28px;
+  font-weight: 400;
+  line-height: 1;
+  transform: translateY(-4px);
 }
 
 .gacha-card-head {

@@ -286,6 +286,7 @@
     const gachaMonthCardCurrency = document.getElementById("gacha-month-card-currency");
     const gachaMonthCardOriginium = document.getElementById("gacha-month-card-originium");
     const gachaPaidSectionTotal = document.getElementById("gacha-paid-section-total");
+    const gachaWeaponQuotaTotal = document.getElementById("gacha-weapon-quota-total");
 
     const gachaInputs = {
       currentOriginium: document.getElementById("gacha-current-originium"),
@@ -295,6 +296,8 @@
       currentWeaponQuota: document.getElementById("gacha-current-weapon-quota"),
       monthlyPassCurrency: document.getElementById("gacha-monthly-pass-currency"),
       paidMonthlyOriginium: document.getElementById("gacha-paid-monthly-originium"),
+      weaponBlueTickets: document.getElementById("gacha-weapon-blue-tickets"),
+      weaponFeaturedTickets: document.getElementById("gacha-weapon-featured-tickets"),
       eventCurrency: document.getElementById("gacha-event-currency"),
       eventFeaturedPermits: document.getElementById("gacha-event-featured-permits"),
     };
@@ -525,6 +528,8 @@
       const currentWeaponQuota = getNonNegativeNumber(gachaInputs.currentWeaponQuota);
       const monthlyPassCurrency = getNonNegativeNumber(gachaInputs.monthlyPassCurrency);
       const paidMonthlyOriginium = getNonNegativeNumber(gachaInputs.paidMonthlyOriginium);
+      const weaponBlueTickets = getNonNegativeNumber(gachaInputs.weaponBlueTickets);
+      const weaponFeaturedTickets = getNonNegativeNumber(gachaInputs.weaponFeaturedTickets);
       const eventCurrency = getNonNegativeNumber(gachaInputs.eventCurrency);
       const eventFeaturedPermits = getNonNegativeNumber(gachaInputs.eventFeaturedPermits);
 
@@ -601,13 +606,15 @@
       const currentFeaturedPullsFromCurrency = Math.floor(currentCurrency / gachaCurrencyPerPull);
       const dailyFeaturedPulls = Math.floor(dailyCurrencyTotal / gachaCurrencyPerPull);
       const eventFeaturedPullsFromCurrency = Math.floor(eventCurrency / gachaCurrencyPerPull);
+      const weaponTicketBonus = weaponFeaturedTickets >= 30 ? 10 : 0;
+      const weaponTicketQuota = (weaponBlueTickets + weaponFeaturedTickets + weaponTicketBonus) * 50;
       const currentWeaponTenPulls = Math.floor(currentWeaponQuota / gachaWeaponQuotaPerTenPull);
 
       const inventoryFeaturedPullsTotal =
         currentFeaturedPullsFromOriginium + currentFeaturedPullsFromCurrency + currentFeaturedPermits + currentSinglePull;
       const eventFeaturedPullsTotal = eventFeaturedPullsFromCurrency + eventFeaturedPermits;
       const characterTotalPulls = inventoryFeaturedPullsTotal + dailyFeaturedPulls + eventFeaturedPullsTotal + paidFeaturedPulls;
-      const weaponQuotaTotal = currentWeaponQuota + paidWeaponQuota;
+      const weaponQuotaTotal = currentWeaponQuota + paidWeaponQuota + weaponTicketQuota;
       const inventoryShare = characterTotalPulls > 0 ? (inventoryFeaturedPullsTotal / characterTotalPulls) * 100 : 0;
       const dailyShare = characterTotalPulls > 0 ? (dailyFeaturedPulls / characterTotalPulls) * 100 : 0;
       const eventShare = characterTotalPulls > 0 ? (eventFeaturedPullsTotal / characterTotalPulls) * 100 : 0;
@@ -646,6 +653,9 @@
       }
       if (gachaPaidSectionTotal) {
         gachaPaidSectionTotal.textContent = `${paidPriceTotal}￥`;
+      }
+      if (gachaWeaponQuotaTotal) {
+        gachaWeaponQuotaTotal.textContent = `${weaponQuotaTotal}`;
       }
       if (gachaTotalOriginium) {
         gachaTotalOriginium.textContent = `${totalOriginium}`;
