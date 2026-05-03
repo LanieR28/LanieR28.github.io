@@ -807,9 +807,9 @@ h3 {
 .gacha-pill-button {
   min-height: 44px;
   padding: 0 22px;
-  border: 1px solid #0071e3;
+  border: 1px solid var(--blue);
   border-radius: 999px;
-  background: #0071e3;
+  background: var(--blue);
   color: #fff;
   font: inherit;
   font-weight: 500;
@@ -819,9 +819,9 @@ h3 {
 }
 
 .gacha-pool-button {
-  min-height: 88px;
-  min-width: 250px;
-  padding: 14px 24px;
+  min-height: 70px;
+  min-width: 200px;
+  padding: 11px 19px;
   display: inline-grid;
   gap: 4px;
   align-content: center;
@@ -829,14 +829,14 @@ h3 {
 
 .gacha-pool-button span {
   display: block;
-  font-size: 15px;
+  font-size: 17px;
   font-weight: 600;
   line-height: 1.2;
 }
 
 .gacha-pool-button strong {
   display: block;
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 500;
   letter-spacing: 0.08em;
   line-height: 1.1;
@@ -848,17 +848,17 @@ h3 {
 
 .gacha-pill-button.gacha-pill-button-secondary {
   background: transparent;
-  color: #0071e3;
+  color: var(--blue);
 }
 
 .gacha-pill-button:not(.is-active) {
   background: transparent;
-  color: #0071e3;
+  color: var(--blue);
 }
 
 .gacha-pill-button.gacha-pill-button-secondary.is-active,
 .gacha-pill-button.is-active {
-  background: #0071e3;
+  background: var(--blue);
   color: #fff;
 }
 
