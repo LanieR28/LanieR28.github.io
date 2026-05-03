@@ -251,6 +251,360 @@
                         <p class="eyebrow">PAID</p>
                         <h3>氪金</h3>
                       </div>
+
+                      <div class="gacha-paid-groups">
+                        <section class="gacha-paid-group">
+                          <div class="gacha-paid-group-head">
+                            <span>月卡</span>
+                          </div>
+
+                          <div class="gacha-paid-list">
+                            <article class="gacha-paid-item">
+                              <div class="gacha-paid-copy">
+                                <strong id="gacha-month-card-label">月卡（0天）</strong>
+                                <p>按结算日自动折算当期可拿到的资源</p>
+                              </div>
+
+                              <div class="gacha-paid-item-meta">
+                                <div class="gacha-paid-reward-stack">
+                                  <span class="gacha-paid-reward">
+                                    <img src="./assets/endfield/synthetic-jade.webp" alt="" />
+                                    <strong id="gacha-month-card-currency">0</strong>
+                                  </span>
+                                  <span class="gacha-paid-reward">
+                                    <img src="./assets/endfield/originium.webp" alt="" />
+                                    <strong id="gacha-month-card-originium">0</strong>
+                                  </span>
+                                </div>
+                                <button class="gacha-toggle-button" type="button" data-toggle-key="monthcard" aria-pressed="false">未选</button>
+                              </div>
+                            </article>
+
+                            <article class="gacha-paid-item gacha-paid-item-input">
+                              <div class="gacha-paid-copy">
+                                <strong>大月卡</strong>
+                                <p>自行填写可拿到的原石</p>
+                              </div>
+
+                              <label class="gacha-inline-input">
+                                <span class="visually-hidden">大月卡原石</span>
+                                <input id="gacha-paid-monthly-originium" type="number" min="0" step="1" value="0" inputmode="numeric" />
+                              </label>
+                            </article>
+                          </div>
+                        </section>
+
+                        <section class="gacha-paid-group">
+                          <div class="gacha-paid-group-head">
+                            <span>礼包</span>
+                          </div>
+
+                          <div class="gacha-paid-list">
+                            <article class="gacha-paid-item">
+                              <div class="gacha-paid-copy">
+                                <strong>宏愿兵装组合包</strong>
+                              </div>
+
+                              <div class="gacha-paid-item-meta">
+                                <span class="gacha-paid-reward">
+                                  <img src="./assets/endfield/limited-pull-yellow.webp" alt="" />
+                                  <strong>6</strong>
+                                </span>
+                                <div class="gacha-stepper" data-stepper="package-hongyuan">
+                                  <button type="button" data-stepper-action="decrease" data-stepper-key="package-hongyuan">−</button>
+                                  <span id="gacha-package-hongyuan-qty">0</span>
+                                  <button type="button" data-stepper-action="increase" data-stepper-key="package-hongyuan">+</button>
+                                </div>
+                              </div>
+                            </article>
+
+                            <article class="gacha-paid-item">
+                              <div class="gacha-paid-copy">
+                                <strong>全面人才组合包</strong>
+                              </div>
+
+                              <div class="gacha-paid-item-meta">
+                                <span class="gacha-paid-reward">
+                                  <img src="./assets/endfield/limited-pull-yellow.webp" alt="" />
+                                  <strong>10</strong>
+                                </span>
+                                <div class="gacha-stepper" data-stepper="package-talent">
+                                  <button type="button" data-stepper-action="decrease" data-stepper-key="package-talent">−</button>
+                                  <span id="gacha-package-talent-qty">0</span>
+                                  <button type="button" data-stepper-action="increase" data-stepper-key="package-talent">+</button>
+                                </div>
+                              </div>
+                            </article>
+
+                            <article class="gacha-paid-item">
+                              <div class="gacha-paid-copy">
+                                <strong>人事支援组合包</strong>
+                              </div>
+
+                              <div class="gacha-paid-item-meta">
+                                <span class="gacha-paid-reward">
+                                  <img src="./assets/endfield/limited-pull-yellow.webp" alt="" />
+                                  <strong>10</strong>
+                                </span>
+                                <div class="gacha-stepper" data-stepper="package-hr">
+                                  <button type="button" data-stepper-action="decrease" data-stepper-key="package-hr">−</button>
+                                  <span id="gacha-package-hr-qty">0</span>
+                                  <button type="button" data-stepper-action="increase" data-stepper-key="package-hr">+</button>
+                                </div>
+                              </div>
+                            </article>
+
+                            <article class="gacha-paid-item">
+                              <div class="gacha-paid-copy">
+                                <strong>协议源流组合包</strong>
+                              </div>
+
+                              <div class="gacha-paid-item-meta">
+                                <span class="gacha-paid-reward">
+                                  <img src="./assets/endfield/limited-pull-yellow.webp" alt="" />
+                                  <strong>10</strong>
+                                </span>
+                                <div class="gacha-stepper" data-stepper="package-agreement">
+                                  <button type="button" data-stepper-action="decrease" data-stepper-key="package-agreement">−</button>
+                                  <span id="gacha-package-agreement-qty">0</span>
+                                  <button type="button" data-stepper-action="increase" data-stepper-key="package-agreement">+</button>
+                                </div>
+                              </div>
+                            </article>
+
+                            <article class="gacha-paid-item">
+                              <div class="gacha-paid-copy">
+                                <strong>行火寻访组合包</strong>
+                              </div>
+
+                              <div class="gacha-paid-item-meta">
+                                <span class="gacha-paid-reward">
+                                  <img src="./assets/endfield/limited-pull.webp" alt="" />
+                                  <strong>1</strong>
+                                </span>
+                                <div class="gacha-stepper" data-stepper="package-xinghuo">
+                                  <button type="button" data-stepper-action="decrease" data-stepper-key="package-xinghuo">−</button>
+                                  <span id="gacha-package-xinghuo-qty">0</span>
+                                  <button type="button" data-stepper-action="increase" data-stepper-key="package-xinghuo">+</button>
+                                </div>
+                              </div>
+                            </article>
+                          </div>
+                        </section>
+
+                        <section class="gacha-paid-group">
+                          <div class="gacha-paid-group-head">
+                            <span>首充源石</span>
+                          </div>
+
+                          <div class="gacha-paid-list">
+                            <article class="gacha-paid-item">
+                              <div class="gacha-paid-copy">
+                                <strong>6元双倍源石</strong>
+                              </div>
+
+                              <div class="gacha-paid-item-meta">
+                                <span class="gacha-paid-reward">
+                                  <img src="./assets/endfield/originium.webp" alt="" />
+                                  <strong>6</strong>
+                                </span>
+                                <button class="gacha-toggle-button" type="button" data-toggle-key="firstcharge-6" aria-pressed="false">未选</button>
+                              </div>
+                            </article>
+
+                            <article class="gacha-paid-item">
+                              <div class="gacha-paid-copy">
+                                <strong>30元双倍源石</strong>
+                              </div>
+
+                              <div class="gacha-paid-item-meta">
+                                <span class="gacha-paid-reward">
+                                  <img src="./assets/endfield/originium.webp" alt="" />
+                                  <strong>24</strong>
+                                </span>
+                                <button class="gacha-toggle-button" type="button" data-toggle-key="firstcharge-30" aria-pressed="false">未选</button>
+                              </div>
+                            </article>
+
+                            <article class="gacha-paid-item">
+                              <div class="gacha-paid-copy">
+                                <strong>98元双倍源石</strong>
+                              </div>
+
+                              <div class="gacha-paid-item-meta">
+                                <span class="gacha-paid-reward">
+                                  <img src="./assets/endfield/originium.webp" alt="" />
+                                  <strong>84</strong>
+                                </span>
+                                <button class="gacha-toggle-button" type="button" data-toggle-key="firstcharge-98" aria-pressed="false">未选</button>
+                              </div>
+                            </article>
+
+                            <article class="gacha-paid-item">
+                              <div class="gacha-paid-copy">
+                                <strong>198元双倍源石</strong>
+                              </div>
+
+                              <div class="gacha-paid-item-meta">
+                                <span class="gacha-paid-reward">
+                                  <img src="./assets/endfield/originium.webp" alt="" />
+                                  <strong>170</strong>
+                                </span>
+                                <button class="gacha-toggle-button" type="button" data-toggle-key="firstcharge-198" aria-pressed="false">未选</button>
+                              </div>
+                            </article>
+
+                            <article class="gacha-paid-item">
+                              <div class="gacha-paid-copy">
+                                <strong>328元双倍源石</strong>
+                              </div>
+
+                              <div class="gacha-paid-item-meta">
+                                <span class="gacha-paid-reward">
+                                  <img src="./assets/endfield/originium.webp" alt="" />
+                                  <strong>282</strong>
+                                </span>
+                                <button class="gacha-toggle-button" type="button" data-toggle-key="firstcharge-328" aria-pressed="false">未选</button>
+                              </div>
+                            </article>
+
+                            <article class="gacha-paid-item">
+                              <div class="gacha-paid-copy">
+                                <strong>648元双倍源石</strong>
+                              </div>
+
+                              <div class="gacha-paid-item-meta">
+                                <span class="gacha-paid-reward">
+                                  <img src="./assets/endfield/originium.webp" alt="" />
+                                  <strong>560</strong>
+                                </span>
+                                <button class="gacha-toggle-button" type="button" data-toggle-key="firstcharge-648" aria-pressed="false">未选</button>
+                              </div>
+                            </article>
+                          </div>
+                        </section>
+
+                        <section class="gacha-paid-group">
+                          <div class="gacha-paid-group-head">
+                            <span>普通源石</span>
+                          </div>
+
+                          <div class="gacha-paid-list">
+                            <article class="gacha-paid-item">
+                              <div class="gacha-paid-copy">
+                                <strong>6元源石</strong>
+                              </div>
+
+                              <div class="gacha-paid-item-meta">
+                                <span class="gacha-paid-reward">
+                                  <img src="./assets/endfield/originium.webp" alt="" />
+                                  <strong>3</strong>
+                                </span>
+                                <div class="gacha-stepper" data-stepper="originium-6">
+                                  <button type="button" data-stepper-action="decrease" data-stepper-key="originium-6">−</button>
+                                  <span id="gacha-originium-6-qty">0</span>
+                                  <button type="button" data-stepper-action="increase" data-stepper-key="originium-6">+</button>
+                                </div>
+                              </div>
+                            </article>
+
+                            <article class="gacha-paid-item">
+                              <div class="gacha-paid-copy">
+                                <strong>30元源石</strong>
+                              </div>
+
+                              <div class="gacha-paid-item-meta">
+                                <span class="gacha-paid-reward">
+                                  <img src="./assets/endfield/originium.webp" alt="" />
+                                  <strong>15</strong>
+                                </span>
+                                <div class="gacha-stepper" data-stepper="originium-30">
+                                  <button type="button" data-stepper-action="decrease" data-stepper-key="originium-30">−</button>
+                                  <span id="gacha-originium-30-qty">0</span>
+                                  <button type="button" data-stepper-action="increase" data-stepper-key="originium-30">+</button>
+                                </div>
+                              </div>
+                            </article>
+
+                            <article class="gacha-paid-item">
+                              <div class="gacha-paid-copy">
+                                <strong>98元源石</strong>
+                              </div>
+
+                              <div class="gacha-paid-item-meta">
+                                <span class="gacha-paid-reward">
+                                  <img src="./assets/endfield/originium.webp" alt="" />
+                                  <strong>50</strong>
+                                </span>
+                                <div class="gacha-stepper" data-stepper="originium-98">
+                                  <button type="button" data-stepper-action="decrease" data-stepper-key="originium-98">−</button>
+                                  <span id="gacha-originium-98-qty">0</span>
+                                  <button type="button" data-stepper-action="increase" data-stepper-key="originium-98">+</button>
+                                </div>
+                              </div>
+                            </article>
+
+                            <article class="gacha-paid-item">
+                              <div class="gacha-paid-copy">
+                                <strong>198元源石</strong>
+                              </div>
+
+                              <div class="gacha-paid-item-meta">
+                                <span class="gacha-paid-reward">
+                                  <img src="./assets/endfield/originium.webp" alt="" />
+                                  <strong>102</strong>
+                                </span>
+                                <div class="gacha-stepper" data-stepper="originium-198">
+                                  <button type="button" data-stepper-action="decrease" data-stepper-key="originium-198">−</button>
+                                  <span id="gacha-originium-198-qty">0</span>
+                                  <button type="button" data-stepper-action="increase" data-stepper-key="originium-198">+</button>
+                                </div>
+                              </div>
+                            </article>
+
+                            <article class="gacha-paid-item">
+                              <div class="gacha-paid-copy">
+                                <strong>328元源石</strong>
+                              </div>
+
+                              <div class="gacha-paid-item-meta">
+                                <span class="gacha-paid-reward">
+                                  <img src="./assets/endfield/originium.webp" alt="" />
+                                  <strong>171</strong>
+                                </span>
+                                <div class="gacha-stepper" data-stepper="originium-328">
+                                  <button type="button" data-stepper-action="decrease" data-stepper-key="originium-328">−</button>
+                                  <span id="gacha-originium-328-qty">0</span>
+                                  <button type="button" data-stepper-action="increase" data-stepper-key="originium-328">+</button>
+                                </div>
+                              </div>
+                            </article>
+
+                            <article class="gacha-paid-item">
+                              <div class="gacha-paid-copy">
+                                <strong>648元源石</strong>
+                              </div>
+
+                              <div class="gacha-paid-item-meta">
+                                <span class="gacha-paid-reward">
+                                  <img src="./assets/endfield/originium.webp" alt="" />
+                                  <strong>350</strong>
+                                </span>
+                                <div class="gacha-stepper" data-stepper="originium-648">
+                                  <button type="button" data-stepper-action="decrease" data-stepper-key="originium-648">−</button>
+                                  <span id="gacha-originium-648-qty">0</span>
+                                  <button type="button" data-stepper-action="increase" data-stepper-key="originium-648">+</button>
+                                </div>
+                              </div>
+                            </article>
+                          </div>
+                        </section>
+                      </div>
+
+                      <div class="gacha-income-total">
+                        <span>氪金折算合计</span>
+                        <strong id="gacha-paid-section-total">0</strong>
+                      </div>
                     </section>
                   </div>
                 </div>

@@ -211,6 +211,29 @@
     const gachaWeaponQuotaPerTenPull = 1980;
     const gachaDailyCurrency = 200;
     const gachaWeeklyCurrency = 500;
+    const gachaPaidPackages = {
+      "package-hongyuan": { pullsPerPurchase: 6 },
+      "package-talent": { pullsPerPurchase: 10 },
+      "package-hr": { pullsPerPurchase: 10 },
+      "package-agreement": { pullsPerPurchase: 10 },
+      "package-xinghuo": { pullsPerPurchase: 10 },
+    };
+    const gachaFirstChargeTiers = {
+      "firstcharge-6": { originium: 6 },
+      "firstcharge-30": { originium: 24 },
+      "firstcharge-98": { originium: 84 },
+      "firstcharge-198": { originium: 170 },
+      "firstcharge-328": { originium: 282 },
+      "firstcharge-648": { originium: 560 },
+    };
+    const gachaOriginiumShopTiers = {
+      "originium-6": { originium: 3 },
+      "originium-30": { originium: 15 },
+      "originium-98": { originium: 50 },
+      "originium-198": { originium: 102 },
+      "originium-328": { originium: 171 },
+      "originium-648": { originium: 350 },
+    };
     const gachaCatalog = {
       currentGacha: {
         key: "currentGacha",
@@ -250,6 +273,10 @@
     const gachaDailyCurrencyTotal = document.getElementById("gacha-daily-currency-total");
     const gachaWeeklyCurrencyTotal = document.getElementById("gacha-weekly-currency-total");
     const gachaDailySectionTotal = document.getElementById("gacha-daily-section-total");
+    const gachaMonthCardLabel = document.getElementById("gacha-month-card-label");
+    const gachaMonthCardCurrency = document.getElementById("gacha-month-card-currency");
+    const gachaMonthCardOriginium = document.getElementById("gacha-month-card-originium");
+    const gachaPaidSectionTotal = document.getElementById("gacha-paid-section-total");
 
     const gachaInputs = {
       currentOriginium: document.getElementById("gacha-current-originium"),
@@ -258,8 +285,59 @@
       currentSinglePull: document.getElementById("gacha-current-single-pull"),
       currentWeaponQuota: document.getElementById("gacha-current-weapon-quota"),
       monthlyPassCurrency: document.getElementById("gacha-monthly-pass-currency"),
+      paidMonthlyOriginium: document.getElementById("gacha-paid-monthly-originium"),
       eventCurrency: document.getElementById("gacha-event-currency"),
       eventFeaturedPermits: document.getElementById("gacha-event-featured-permits"),
+    };
+    const gachaPackageQuantityNodes = {
+      "package-hongyuan": document.getElementById("gacha-package-hongyuan-qty"),
+      "package-talent": document.getElementById("gacha-package-talent-qty"),
+      "package-hr": document.getElementById("gacha-package-hr-qty"),
+      "package-agreement": document.getElementById("gacha-package-agreement-qty"),
+      "package-xinghuo": document.getElementById("gacha-package-xinghuo-qty"),
+    };
+    const gachaOriginiumShopQuantityNodes = {
+      "originium-6": document.getElementById("gacha-originium-6-qty"),
+      "originium-30": document.getElementById("gacha-originium-30-qty"),
+      "originium-98": document.getElementById("gacha-originium-98-qty"),
+      "originium-198": document.getElementById("gacha-originium-198-qty"),
+      "originium-328": document.getElementById("gacha-originium-328-qty"),
+      "originium-648": document.getElementById("gacha-originium-648-qty"),
+    };
+    const gachaFirstChargeToggleNodes = {
+      monthcard: document.querySelector('[data-toggle-key="monthcard"]'),
+      "firstcharge-6": document.querySelector('[data-toggle-key="firstcharge-6"]'),
+      "firstcharge-30": document.querySelector('[data-toggle-key="firstcharge-30"]'),
+      "firstcharge-98": document.querySelector('[data-toggle-key="firstcharge-98"]'),
+      "firstcharge-198": document.querySelector('[data-toggle-key="firstcharge-198"]'),
+      "firstcharge-328": document.querySelector('[data-toggle-key="firstcharge-328"]'),
+      "firstcharge-648": document.querySelector('[data-toggle-key="firstcharge-648"]'),
+    };
+    const gachaPaidState = {
+      monthCardSelected: false,
+      packageQuantities: {
+        "package-hongyuan": 0,
+        "package-talent": 0,
+        "package-hr": 0,
+        "package-agreement": 0,
+        "package-xinghuo": 0,
+      },
+      firstChargeSelections: {
+        "firstcharge-6": false,
+        "firstcharge-30": false,
+        "firstcharge-98": false,
+        "firstcharge-198": false,
+        "firstcharge-328": false,
+        "firstcharge-648": false,
+      },
+      originiumShopQuantities: {
+        "originium-6": 0,
+        "originium-30": 0,
+        "originium-98": 0,
+        "originium-198": 0,
+        "originium-328": 0,
+        "originium-648": 0,
+      },
     };
 
     function parseGachaDate(value) {
@@ -294,6 +372,31 @@
         return;
       }
       node.style.width = `${share}%`;
+    }
+
+    function syncPaidControls() {
+      Object.entries(gachaPackageQuantityNodes).forEach(([key, node]) => {
+        if (node) {
+          node.textContent = `${gachaPaidState.packageQuantities[key]}`;
+        }
+      });
+
+      Object.entries(gachaOriginiumShopQuantityNodes).forEach(([key, node]) => {
+        if (node) {
+          node.textContent = `${gachaPaidState.originiumShopQuantities[key]}`;
+        }
+      });
+
+      Object.entries(gachaFirstChargeToggleNodes).forEach(([key, node]) => {
+        if (!node) {
+          return;
+        }
+
+        const isSelected = key === "monthcard" ? gachaPaidState.monthCardSelected : gachaPaidState.firstChargeSelections[key];
+        node.classList.toggle("is-active", isSelected);
+        node.setAttribute("aria-pressed", isSelected ? "true" : "false");
+        node.textContent = isSelected ? "已选" : "未选";
+      });
     }
 
     function getNextWeekStart(fromDate) {
@@ -382,13 +485,32 @@
       const currentSinglePull = getNonNegativeNumber(gachaInputs.currentSinglePull);
       const currentWeaponQuota = getNonNegativeNumber(gachaInputs.currentWeaponQuota);
       const monthlyPassCurrency = getNonNegativeNumber(gachaInputs.monthlyPassCurrency);
+      const paidMonthlyOriginium = getNonNegativeNumber(gachaInputs.paidMonthlyOriginium);
       const eventCurrency = getNonNegativeNumber(gachaInputs.eventCurrency);
       const eventFeaturedPermits = getNonNegativeNumber(gachaInputs.eventFeaturedPermits);
-      const paidFeaturedPulls = 0;
 
       const projectedDailyCurrency = gachaDays * gachaDailyCurrency;
       const projectedWeeklyCurrency = gachaWeeks * gachaWeeklyCurrency;
       const dailyCurrencyTotal = projectedDailyCurrency + projectedWeeklyCurrency + monthlyPassCurrency;
+      const monthCardCount = gachaDays > 0 ? Math.ceil(gachaDays / 30) : 0;
+      const paidMonthCardCurrency = gachaDays * 200;
+      const paidMonthCardOriginium = Math.max(monthCardCount - 1, 0) * 6;
+      const selectedPaidMonthCardCurrency = gachaPaidState.monthCardSelected ? paidMonthCardCurrency : 0;
+      const selectedPaidMonthCardOriginium = gachaPaidState.monthCardSelected ? paidMonthCardOriginium : 0;
+
+      const paidPackagePulls = Object.entries(gachaPaidPackages).reduce((total, [key, config]) => {
+        return total + (gachaPaidState.packageQuantities[key] || 0) * config.pullsPerPurchase;
+      }, 0);
+      const firstChargeOriginiumTotal = Object.entries(gachaFirstChargeTiers).reduce((total, [key, config]) => {
+        return total + (gachaPaidState.firstChargeSelections[key] ? config.originium : 0);
+      }, 0);
+      const normalOriginiumTotal = Object.entries(gachaOriginiumShopTiers).reduce((total, [key, config]) => {
+        return total + (gachaPaidState.originiumShopQuantities[key] || 0) * config.originium;
+      }, 0);
+      const paidOriginiumTotal = selectedPaidMonthCardOriginium + paidMonthlyOriginium + firstChargeOriginiumTotal + normalOriginiumTotal;
+      const paidFeaturedPullsFromOriginium = Math.floor((paidOriginiumTotal * gachaOriginiumToCurrency) / gachaCurrencyPerPull);
+      const paidFeaturedPullsFromCurrency = Math.floor(selectedPaidMonthCardCurrency / gachaCurrencyPerPull);
+      const paidFeaturedPulls = paidFeaturedPullsFromOriginium + paidFeaturedPullsFromCurrency + paidPackagePulls;
 
       const currentFeaturedPullsFromOriginium = Math.floor((currentOriginium * gachaOriginiumToCurrency) / gachaCurrencyPerPull);
       const currentFeaturedPullsFromCurrency = Math.floor(currentCurrency / gachaCurrencyPerPull);
@@ -427,6 +549,18 @@
       if (gachaDailySectionTotal) {
         gachaDailySectionTotal.textContent = `${dailyCurrencyTotal}`;
       }
+      if (gachaMonthCardLabel) {
+        gachaMonthCardLabel.textContent = `月卡（${gachaDays}天）`;
+      }
+      if (gachaMonthCardCurrency) {
+        gachaMonthCardCurrency.textContent = `${paidMonthCardCurrency}`;
+      }
+      if (gachaMonthCardOriginium) {
+        gachaMonthCardOriginium.textContent = `${paidMonthCardOriginium}`;
+      }
+      if (gachaPaidSectionTotal) {
+        gachaPaidSectionTotal.textContent = `${paidFeaturedPulls}`;
+      }
       setSegmentWidth(gachaSourceInventoryBar, inventoryShare);
       setSegmentWidth(gachaSourceDailyBar, dailyShare);
       setSegmentWidth(gachaSourceEventBar, eventShare);
@@ -443,6 +577,8 @@
       if (gachaSourcePaidShare) {
         gachaSourcePaidShare.textContent = `${Math.round(paidShare)}%`;
       }
+
+      syncPaidControls();
     }
 
     if (gachaSelector) {
@@ -467,6 +603,41 @@
         renderGachaCalculator();
       });
     }
+
+    document.addEventListener("click", function (event) {
+      const stepperButton = event.target.closest("[data-stepper-action]");
+      if (stepperButton) {
+        const { stepperAction, stepperKey } = stepperButton.dataset;
+        if (stepperKey in gachaPaidState.packageQuantities) {
+          const nextValue = gachaPaidState.packageQuantities[stepperKey] + (stepperAction === "increase" ? 1 : -1);
+          gachaPaidState.packageQuantities[stepperKey] = Math.max(0, nextValue);
+          renderGachaCalculator();
+          return;
+        }
+
+        if (stepperKey in gachaPaidState.originiumShopQuantities) {
+          const nextValue = gachaPaidState.originiumShopQuantities[stepperKey] + (stepperAction === "increase" ? 1 : -1);
+          gachaPaidState.originiumShopQuantities[stepperKey] = Math.max(0, nextValue);
+          renderGachaCalculator();
+          return;
+        }
+      }
+
+      const toggleButton = event.target.closest("[data-toggle-key]");
+      if (toggleButton) {
+        const { toggleKey } = toggleButton.dataset;
+        if (toggleKey === "monthcard") {
+          gachaPaidState.monthCardSelected = !gachaPaidState.monthCardSelected;
+          renderGachaCalculator();
+          return;
+        }
+
+        if (toggleKey in gachaPaidState.firstChargeSelections) {
+          gachaPaidState.firstChargeSelections[toggleKey] = !gachaPaidState.firstChargeSelections[toggleKey];
+          renderGachaCalculator();
+        }
+      }
+    });
 
     Object.values(gachaInputs).forEach((input) => {
       if (!input) {
