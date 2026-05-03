@@ -1312,14 +1312,14 @@ h3 {
   position: absolute;
   left: 18px;
   right: 18px;
-  bottom: 18px;
+  bottom: 0;
   z-index: 3;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 18px;
   margin: 0;
-  min-height: 96px;
+  min-height: 67px;
   padding: 0 34px;
   border-top: 1px solid rgba(19, 36, 61, 0.1);
   background: #f5f5f7;
