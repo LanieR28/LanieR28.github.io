@@ -955,11 +955,13 @@ h3 {
 
 .gacha-pool-button {
   min-height: 70px;
-  min-width: 200px;
-  padding: 11px 19px;
+  width: fit-content;
+  min-width: 0;
+  padding: 11px 28px;
   display: inline-grid;
   gap: 4px;
   align-content: center;
+  flex: 0 0 auto;
 }
 
 .gacha-pool-button span {
