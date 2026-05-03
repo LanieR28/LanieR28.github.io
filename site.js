@@ -216,7 +216,7 @@
       "package-talent": { pullsPerPurchase: 10 },
       "package-hr": { singlePulls: 10 },
       "package-agreement": { pullsPerPurchase: 10 },
-      "package-xinghuo": { pullsPerPurchase: 10 },
+      "package-xinghuo": { specialPulls: 10, pullsPerPurchase: 10 },
     };
     const gachaStepperLimits = {
       "package-weapon": 9,
@@ -272,6 +272,11 @@
     const gachaSourceDailyShare = document.getElementById("gacha-source-daily-share");
     const gachaSourceEventShare = document.getElementById("gacha-source-event-share");
     const gachaSourcePaidShare = document.getElementById("gacha-source-paid-share");
+    const gachaTotalOriginium = document.getElementById("gacha-total-originium");
+    const gachaTotalCurrency = document.getElementById("gacha-total-currency");
+    const gachaTotalFeaturedPermits = document.getElementById("gacha-total-featured-permits");
+    const gachaTotalSpecialPermits = document.getElementById("gacha-total-special-permits");
+    const gachaTotalSinglePulls = document.getElementById("gacha-total-single-pulls");
     const gachaDailyDays = document.getElementById("gacha-daily-days");
     const gachaWeeklyCycles = document.getElementById("gacha-weekly-cycles");
     const gachaDailyCurrencyTotal = document.getElementById("gacha-daily-currency-total");
@@ -534,11 +539,25 @@
       const paidPackageOriginium = Object.entries(gachaPaidPackages).reduce((total, [key, config]) => {
         return total + (gachaPaidState.packageSelections[key] ? config.originium || 0 : 0);
       }, 0);
+      const paidPackageFeaturedPermits = Object.entries(gachaPaidPackages).reduce((total, [key, config]) => {
+        return total + (gachaPaidState.packageSelections[key] ? config.pullsPerPurchase || 0 : 0);
+      }, 0);
+      const paidPackageSpecialPermits = Object.entries(gachaPaidPackages).reduce((total, [key, config]) => {
+        return total + (gachaPaidState.packageSelections[key] ? config.specialPulls || 0 : 0);
+      }, 0);
+      const paidPackageSinglePulls = Object.entries(gachaPaidPackages).reduce((total, [key, config]) => {
+        return total + (gachaPaidState.packageSelections[key] ? config.singlePulls || 0 : 0);
+      }, 0);
       const paidOriginiumTotal =
         selectedPaidMonthCardOriginium + paidMonthlyOriginium + paidPackageOriginium + firstChargeOriginiumTotal + normalOriginiumTotal;
       const paidFeaturedPullsFromOriginium = Math.floor((paidOriginiumTotal * gachaOriginiumToCurrency) / gachaCurrencyPerPull);
       const paidFeaturedPullsFromCurrency = Math.floor(selectedPaidMonthCardCurrency / gachaCurrencyPerPull);
       const paidFeaturedPulls = paidFeaturedPullsFromOriginium + paidFeaturedPullsFromCurrency + paidPackagePulls;
+      const totalOriginium = currentOriginium + paidOriginiumTotal;
+      const totalCurrency = currentCurrency + dailyCurrencyTotal + eventCurrency + selectedPaidMonthCardCurrency;
+      const totalFeaturedPermits = currentFeaturedPermits + eventFeaturedPermits + paidPackageFeaturedPermits;
+      const totalSpecialPermits = paidPackageSpecialPermits;
+      const totalSinglePulls = currentSinglePull + paidPackageSinglePulls;
 
       const currentFeaturedPullsFromOriginium = Math.floor((currentOriginium * gachaOriginiumToCurrency) / gachaCurrencyPerPull);
       const currentFeaturedPullsFromCurrency = Math.floor(currentCurrency / gachaCurrencyPerPull);
@@ -589,6 +608,21 @@
       }
       if (gachaPaidSectionTotal) {
         gachaPaidSectionTotal.textContent = `${paidFeaturedPulls}`;
+      }
+      if (gachaTotalOriginium) {
+        gachaTotalOriginium.textContent = `${totalOriginium}`;
+      }
+      if (gachaTotalCurrency) {
+        gachaTotalCurrency.textContent = `${totalCurrency}`;
+      }
+      if (gachaTotalFeaturedPermits) {
+        gachaTotalFeaturedPermits.textContent = `${totalFeaturedPermits}`;
+      }
+      if (gachaTotalSpecialPermits) {
+        gachaTotalSpecialPermits.textContent = `${totalSpecialPermits}`;
+      }
+      if (gachaTotalSinglePulls) {
+        gachaTotalSinglePulls.textContent = `${totalSinglePulls}`;
       }
       setSegmentWidth(gachaSourceInventoryBar, inventoryShare);
       setSegmentWidth(gachaSourceDailyBar, dailyShare);
