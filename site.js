@@ -397,6 +397,10 @@
         "event-zhensui": 0,
       },
     };
+    let gachaStepperHoldTimer = null;
+    let gachaStepperRepeatTimer = null;
+    let gachaStepperRepeatDelay = 260;
+    let gachaStepperDidHold = false;
 
     function parseGachaDate(value) {
       const [year, month, day] = value.split("-").map(Number);
@@ -531,6 +535,58 @@
       const secondTierCount = Math.min(Math.max(quantity - 1, 0), 3);
       const thirdTierCount = Math.max(quantity - 4, 0);
       return firstTierCount * 88 + secondTierCount * 108 + thirdTierCount * 128;
+    }
+
+    function updateGachaStepper(stepperKey, stepperAction) {
+      if (!(stepperKey in gachaPaidState.originiumShopQuantities)) {
+        return false;
+      }
+
+      const stepValue = gachaEventCurrencyKeys.includes(stepperKey) ? 100 : 1;
+      const nextValue = gachaPaidState.originiumShopQuantities[stepperKey] + (stepperAction === "increase" ? stepValue : -stepValue);
+      const maxValue = gachaStepperLimits[stepperKey] || Number.POSITIVE_INFINITY;
+      const clampedValue = Math.min(maxValue, Math.max(0, nextValue));
+      if (clampedValue === gachaPaidState.originiumShopQuantities[stepperKey]) {
+        return false;
+      }
+
+      gachaPaidState.originiumShopQuantities[stepperKey] = clampedValue;
+      renderGachaCalculator();
+      return true;
+    }
+
+    function stopGachaStepperHold() {
+      if (gachaStepperHoldTimer) {
+        window.clearTimeout(gachaStepperHoldTimer);
+        gachaStepperHoldTimer = null;
+      }
+      if (gachaStepperRepeatTimer) {
+        window.clearTimeout(gachaStepperRepeatTimer);
+        gachaStepperRepeatTimer = null;
+      }
+    }
+
+    function repeatGachaStepper(stepperKey, stepperAction) {
+      gachaStepperDidHold = true;
+      const didUpdate = updateGachaStepper(stepperKey, stepperAction);
+      if (!didUpdate) {
+        stopGachaStepperHold();
+        return;
+      }
+
+      gachaStepperRepeatDelay = Math.max(48, Math.round(gachaStepperRepeatDelay * 0.82));
+      gachaStepperRepeatTimer = window.setTimeout(function () {
+        repeatGachaStepper(stepperKey, stepperAction);
+      }, gachaStepperRepeatDelay);
+    }
+
+    function startGachaStepperHold(stepperKey, stepperAction) {
+      stopGachaStepperHold();
+      gachaStepperDidHold = false;
+      gachaStepperRepeatDelay = 260;
+      gachaStepperHoldTimer = window.setTimeout(function () {
+        repeatGachaStepper(stepperKey, stepperAction);
+      }, 750);
     }
 
     function syncPaidControls() {
@@ -895,13 +951,14 @@
     document.addEventListener("click", function (event) {
       const stepperButton = event.target.closest("[data-stepper-action]");
       if (stepperButton) {
+        if (gachaStepperDidHold) {
+          gachaStepperDidHold = false;
+          event.preventDefault();
+          return;
+        }
+
         const { stepperAction, stepperKey } = stepperButton.dataset;
-        if (stepperKey in gachaPaidState.originiumShopQuantities) {
-          const stepValue = gachaEventCurrencyKeys.includes(stepperKey) ? 100 : 1;
-          const nextValue = gachaPaidState.originiumShopQuantities[stepperKey] + (stepperAction === "increase" ? stepValue : -stepValue);
-          const maxValue = gachaStepperLimits[stepperKey] || Number.POSITIVE_INFINITY;
-          gachaPaidState.originiumShopQuantities[stepperKey] = Math.min(maxValue, Math.max(0, nextValue));
-          renderGachaCalculator();
+        if (updateGachaStepper(stepperKey, stepperAction)) {
           return;
         }
       }
@@ -933,6 +990,24 @@
         }
       }
     });
+
+    document.addEventListener("pointerdown", function (event) {
+      const stepperButton = event.target.closest("[data-stepper-action]");
+      if (!stepperButton) {
+        return;
+      }
+
+      const { stepperAction, stepperKey } = stepperButton.dataset;
+      if (!(stepperKey in gachaPaidState.originiumShopQuantities)) {
+        return;
+      }
+
+      startGachaStepperHold(stepperKey, stepperAction);
+    });
+
+    document.addEventListener("pointerup", stopGachaStepperHold);
+    document.addEventListener("pointercancel", stopGachaStepperHold);
+    document.addEventListener("pointerleave", stopGachaStepperHold);
 
     Object.values(gachaInputs).forEach((input) => {
       if (!input) {
