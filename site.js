@@ -302,6 +302,7 @@
     const gachaRefreshMonthCardDays = document.getElementById("gacha-refresh-month-card-days");
     const gachaDailyCurrencyTotal = document.getElementById("gacha-daily-currency-total");
     const gachaWeeklyCurrencyTotal = document.getElementById("gacha-weekly-currency-total");
+    const gachaWeeklyWeaponQuotaTotal = document.getElementById("gacha-weekly-weapon-quota-total");
     const gachaRefreshMonthCardCurrencyTotal = document.getElementById("gacha-refresh-month-card-currency-total");
     const gachaDailySectionTotal = document.getElementById("gacha-daily-section-total");
     const gachaMonthCardLabel = document.getElementById("gacha-month-card-label");
@@ -688,6 +689,7 @@
 
       const projectedDailyCurrency = gachaDays * gachaDailyCurrency;
       const projectedWeeklyCurrency = gachaWeeks * gachaWeeklyCurrency;
+      const projectedWeeklyWeaponQuota = gachaWeeks * 100;
       const refreshMonthCardCurrency = gachaDays * gachaDailyCurrency;
       const dailyCurrencyTotal = projectedDailyCurrency + projectedWeeklyCurrency + refreshMonthCardCurrency + monthlyPassCurrency;
       const monthCardCount = gachaDays > 0 ? Math.ceil(gachaDays / 30) : 0;
@@ -776,7 +778,7 @@
       const weaponTicketBonus = weaponFeaturedTickets >= 30 ? 10 : 0;
       const weaponTicketQuota = (weaponBlueTickets + weaponFeaturedTickets + weaponTicketBonus) * 50;
       const characterTotalPulls = totalCurrencyPulls + totalFeaturedPermits + totalSpecialPermits;
-      const weaponQuotaTotal = currentWeaponQuota + paidWeaponQuota + weaponTicketQuota;
+      const weaponQuotaTotal = currentWeaponQuota + paidWeaponQuota + weaponTicketQuota + projectedWeeklyWeaponQuota;
       const weaponQuotaPulls = Math.floor(weaponQuotaTotal / gachaWeaponQuotaPerTenPull);
       const sourceShareTotal = inventoryPullShareValue + dailyPullShareValue + eventPullShareValue + paidPullShareValue;
       const inventoryShare = sourceShareTotal > 0 ? (inventoryPullShareValue / sourceShareTotal) * 100 : 0;
@@ -805,6 +807,9 @@
       }
       if (gachaWeeklyCurrencyTotal) {
         gachaWeeklyCurrencyTotal.textContent = `${projectedWeeklyCurrency}`;
+      }
+      if (gachaWeeklyWeaponQuotaTotal) {
+        gachaWeeklyWeaponQuotaTotal.textContent = `${projectedWeeklyWeaponQuota}`;
       }
       if (gachaRefreshMonthCardCurrencyTotal) {
         gachaRefreshMonthCardCurrencyTotal.textContent = `${refreshMonthCardCurrency}`;

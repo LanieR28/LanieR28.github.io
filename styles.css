@@ -992,6 +992,10 @@ h3 {
   gap: 9px;
 }
 
+.gacha-monthly-pass-input {
+  width: 164px;
+}
+
 .gacha-inline-input > img,
 .gacha-weapon-ticket-stack img {
   width: 34px;
