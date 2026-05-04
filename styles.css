@@ -1407,7 +1407,7 @@ h3 {
   font-family: "Novecento Sans Wide", "Endfield PingFang SC", "PingFang SC", sans-serif;
   font-size: clamp(38px, 3.35vw, 56px);
   line-height: 1.08;
-  transform: translateY(-22px);
+  transform: translateY(-32px);
 }
 
 .gacha-weapon-inputs {
