@@ -731,7 +731,7 @@ h3 {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 22px;
-  margin-top: 30px;
+  margin-top: 18px;
 }
 
 .gacha-card {
@@ -761,6 +761,27 @@ h3 {
 .gacha-toolbar-column {
   display: grid;
   gap: 18px;
+}
+
+.gacha-toolbar-column > .gacha-toolbar-group:first-child .gacha-pill-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.gacha-toolbar-column > .gacha-toolbar-group:first-child .gacha-pool-button {
+  width: 100%;
+  min-height: 60px;
+  padding: 9px 14px;
+}
+
+.gacha-toolbar-column > .gacha-toolbar-group:first-child .gacha-pool-button span {
+  font-size: 22px;
+  line-height: 1.18;
+}
+
+.gacha-toolbar-column > .gacha-toolbar-group:first-child .gacha-pool-button strong {
+  font-size: 16px;
 }
 
 .gacha-inventory-panel {
@@ -854,6 +875,7 @@ h3 {
   gap: 32px;
   align-items: start;
   grid-column: 1 / -1;
+  margin-top: -12px;
 }
 
 .gacha-hero-stack {
@@ -1488,7 +1510,7 @@ h3 {
 }
 
 .gacha-toolbar-group + .gacha-toolbar-group {
-  margin-top: 18px;
+  margin-top: 4px;
 }
 
 .gacha-mode-row {
