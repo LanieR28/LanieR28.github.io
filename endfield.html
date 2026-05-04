@@ -12,7 +12,7 @@
     <link rel="apple-touch-icon" href="./assets/lr-web-icon.png" />
     <meta name="theme-color" content="#ffffff" />
     <link rel="stylesheet" href="./styles.css" />
-    <script src="./site.js?v=20260504-special-package-count" defer></script>
+    <script src="./site.js?v=20260504-special-package-toggle" defer></script>
   </head>
   <body class="endfield-page endfield-gacha-page">
     <div class="site-shell">
@@ -571,11 +571,7 @@
                                   <img src="./assets/endfield/limited-pull.webp" alt="" />
                                   <strong>10</strong>
                                 </span>
-                                <div class="gacha-stepper" data-stepper="package-xinghuo">
-                                  <button type="button" data-stepper-action="decrease" data-stepper-key="package-xinghuo">−</button>
-                                  <input id="gacha-package-xinghuo-qty" class="gacha-stepper-input" type="number" min="0" max="1" step="1" value="0" inputmode="numeric" />
-                                  <button type="button" data-stepper-action="increase" data-stepper-key="package-xinghuo">+</button>
-                                </div>
+                                <button class="gacha-toggle-button" type="button" data-toggle-key="package-xinghuo" aria-pressed="false">未选</button>
                               </div>
                             </article>
 
