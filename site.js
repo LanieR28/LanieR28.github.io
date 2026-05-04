@@ -277,8 +277,8 @@
         key: "mifuGacha",
         tabLabel: "弥弗卡池",
         name: "弥弗卡池",
-        startDate: "2026-06-05",
-        endDate: "2026-06-21",
+        startDate: "2026-06-04",
+        endDate: "2026-06-20",
       },
     };
 
