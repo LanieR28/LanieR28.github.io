@@ -218,7 +218,7 @@
       "package-talent": { pullsPerPurchase: 10, price: 128 },
       "package-hr": { singlePulls: 10, price: 98 },
       "package-agreement": { pullsPerPurchase: 10, weaponQuota: 2000, price: 198 },
-      "package-xinghuo": { specialPulls: 10, price: 98 },
+      "package-xinghuo": { specialPulls: 10, price: 98, quantityKey: "package-xinghuo" },
     };
     const gachaEventRewards = {
       "event-wuling-chef": { currency: 1200 },
@@ -233,6 +233,7 @@
     const gachaStepperLimits = {
       "package-weapon": 7,
       "package-weapon-full": 3,
+      "package-xinghuo": 1,
       "event-wuling-chef": 1200,
       "event-xirang": 1200,
       "event-huiguang-signin": 5,
@@ -338,6 +339,7 @@
     const gachaOriginiumShopQuantityNodes = {
       "package-weapon": document.getElementById("gacha-package-weapon-qty"),
       "package-weapon-full": document.getElementById("gacha-package-weapon-full-qty"),
+      "package-xinghuo": document.getElementById("gacha-package-xinghuo-qty"),
       "originium-6": document.getElementById("gacha-originium-6-qty"),
       "originium-30": document.getElementById("gacha-originium-30-qty"),
       "originium-98": document.getElementById("gacha-originium-98-qty"),
@@ -359,7 +361,6 @@
       "package-talent": document.querySelector('[data-toggle-key="package-talent"]'),
       "package-hr": document.querySelector('[data-toggle-key="package-hr"]'),
       "package-agreement": document.querySelector('[data-toggle-key="package-agreement"]'),
-      "package-xinghuo": document.querySelector('[data-toggle-key="package-xinghuo"]'),
       "firstcharge-6": document.querySelector('[data-toggle-key="firstcharge-6"]'),
       "firstcharge-30": document.querySelector('[data-toggle-key="firstcharge-30"]'),
       "firstcharge-98": document.querySelector('[data-toggle-key="firstcharge-98"]'),
@@ -375,7 +376,6 @@
         "package-talent": false,
         "package-hr": false,
         "package-agreement": false,
-        "package-xinghuo": false,
       },
       firstChargeSelections: {
         "firstcharge-6": false,
@@ -388,6 +388,7 @@
       originiumShopQuantities: {
         "package-weapon": 0,
         "package-weapon-full": 0,
+        "package-xinghuo": 0,
         "originium-6": 0,
         "originium-30": 0,
         "originium-98": 0,
@@ -609,6 +610,9 @@
           const maxValue = gachaStepperLimits[key];
           const stepper = node.closest(".gacha-stepper");
           node.value = `${value}`;
+          if (Number.isFinite(maxValue)) {
+            node.max = `${maxValue}`;
+          }
           if (stepper && Number.isFinite(maxValue)) {
             const decreaseButton = stepper.querySelector('[data-stepper-action="decrease"]');
             const increaseButton = stepper.querySelector('[data-stepper-action="increase"]');
@@ -701,6 +705,12 @@
       return matchedGacha || availableGachas[0] || null;
     }
 
+    function getSelectedGachaPackageLimit(selectedGacha) {
+      const gachaItems = Object.values(gachaCatalog);
+      const selectedIndex = gachaItems.findIndex((gachaItem) => gachaItem.key === selectedGacha.key);
+      return selectedIndex >= 0 ? selectedIndex + 1 : 1;
+    }
+
     function getGachaCutoff(selectedGacha, today) {
       const gachaStartDate = parseGachaDate(selectedGacha.startDate);
       const gachaEndDate = parseGachaDate(selectedGacha.endDate);
@@ -736,6 +746,12 @@
         return;
       }
       gachaState.selectedGachaKey = selectedGacha.key;
+      const packageXinghuoLimit = getSelectedGachaPackageLimit(selectedGacha);
+      gachaStepperLimits["package-xinghuo"] = packageXinghuoLimit;
+      gachaPaidState.originiumShopQuantities["package-xinghuo"] = Math.min(
+        packageXinghuoLimit,
+        gachaPaidState.originiumShopQuantities["package-xinghuo"] || 0,
+      );
       const gachaCutoff = getGachaCutoff(selectedGacha, today);
       const gachaDays = getGachaDayDiff(today, gachaCutoff);
       const gachaWeeks = getWeeklyRefreshCount(today, gachaCutoff);
@@ -765,7 +781,8 @@
       const paidMonthCardPrice = gachaPaidState.monthCardSelected ? monthCardCount * 30 : 0;
       const paidMonthlyOriginiumPrice = paidMonthlyOriginium > 0 ? 68 : 0;
       const paidPackagePrice = Object.entries(gachaPaidPackages).reduce((total, [key, config]) => {
-        return total + (gachaPaidState.packageSelections[key] ? config.price || 0 : 0);
+        const quantity = config.quantityKey ? gachaPaidState.originiumShopQuantities[config.quantityKey] || 0 : gachaPaidState.packageSelections[key] ? 1 : 0;
+        return total + quantity * (config.price || 0);
       }, 0);
       const firstChargePrice = Object.entries(gachaFirstChargeTiers).reduce((total, [key, config]) => {
         return total + (gachaPaidState.firstChargeSelections[key] ? config.price || 0 : 0);
@@ -777,10 +794,8 @@
       const weaponFullPackagePrice = (gachaPaidState.originiumShopQuantities["package-weapon-full"] || 0) * 328;
 
       const paidPackagePulls = Object.entries(gachaPaidPackages).reduce((total, [key, config]) => {
-        if (!gachaPaidState.packageSelections[key]) {
-          return total;
-        }
-        return total + (config.pullsPerPurchase || 0);
+        const quantity = config.quantityKey ? gachaPaidState.originiumShopQuantities[config.quantityKey] || 0 : gachaPaidState.packageSelections[key] ? 1 : 0;
+        return total + quantity * (config.pullsPerPurchase || 0);
       }, 0);
       const paidWeaponQuota =
         (gachaPaidState.originiumShopQuantities["package-weapon"] || 0) * 2000 +
@@ -795,16 +810,20 @@
         return total + (gachaPaidState.originiumShopQuantities[key] || 0) * config.originium;
       }, 0);
       const paidPackageOriginium = Object.entries(gachaPaidPackages).reduce((total, [key, config]) => {
-        return total + (gachaPaidState.packageSelections[key] ? config.originium || 0 : 0);
+        const quantity = config.quantityKey ? gachaPaidState.originiumShopQuantities[config.quantityKey] || 0 : gachaPaidState.packageSelections[key] ? 1 : 0;
+        return total + quantity * (config.originium || 0);
       }, 0);
       const paidPackageFeaturedPermits = Object.entries(gachaPaidPackages).reduce((total, [key, config]) => {
-        return total + (gachaPaidState.packageSelections[key] ? config.pullsPerPurchase || 0 : 0);
+        const quantity = config.quantityKey ? gachaPaidState.originiumShopQuantities[config.quantityKey] || 0 : gachaPaidState.packageSelections[key] ? 1 : 0;
+        return total + quantity * (config.pullsPerPurchase || 0);
       }, 0);
       const paidPackageSpecialPermits = Object.entries(gachaPaidPackages).reduce((total, [key, config]) => {
-        return total + (gachaPaidState.packageSelections[key] ? config.specialPulls || 0 : 0);
+        const quantity = config.quantityKey ? gachaPaidState.originiumShopQuantities[config.quantityKey] || 0 : gachaPaidState.packageSelections[key] ? 1 : 0;
+        return total + quantity * (config.specialPulls || 0);
       }, 0);
       const paidPackageSinglePulls = Object.entries(gachaPaidPackages).reduce((total, [key, config]) => {
-        return total + (gachaPaidState.packageSelections[key] ? config.singlePulls || 0 : 0);
+        const quantity = config.quantityKey ? gachaPaidState.originiumShopQuantities[config.quantityKey] || 0 : gachaPaidState.packageSelections[key] ? 1 : 0;
+        return total + quantity * (config.singlePulls || 0);
       }, 0);
       const paidOriginiumTotal =
         selectedPaidMonthCardOriginium + paidMonthlyOriginium + paidPackageOriginium + firstChargeOriginiumTotal + normalOriginiumTotal;
