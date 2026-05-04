@@ -12,7 +12,7 @@
     <link rel="apple-touch-icon" href="./assets/lr-web-icon.png" />
     <meta name="theme-color" content="#ffffff" />
     <link rel="stylesheet" href="./styles.css" />
-    <script src="./site.js?v=20260504-stepper-immediate-hold" defer></script>
+    <script src="./site.js?v=20260504-stepper-inputs" defer></script>
   </head>
   <body class="endfield-page endfield-gacha-page">
     <div class="site-shell">
@@ -315,7 +315,7 @@
                             </span>
                             <div class="gacha-stepper" data-stepper="event-wuling-chef">
                               <button type="button" data-stepper-action="decrease" data-stepper-key="event-wuling-chef">−</button>
-                              <span id="gacha-event-wuling-chef-qty">0</span>
+                              <input id="gacha-event-wuling-chef-qty" class="gacha-stepper-input" type="number" min="0" max="1200" step="100" value="0" inputmode="numeric" />
                               <button type="button" data-stepper-action="increase" data-stepper-key="event-wuling-chef">+</button>
                             </div>
                           </div>
@@ -332,7 +332,7 @@
                             </span>
                             <div class="gacha-stepper" data-stepper="event-xirang">
                               <button type="button" data-stepper-action="decrease" data-stepper-key="event-xirang">−</button>
-                              <span id="gacha-event-xirang-qty">0</span>
+                              <input id="gacha-event-xirang-qty" class="gacha-stepper-input" type="number" min="0" max="1200" step="100" value="0" inputmode="numeric" />
                               <button type="button" data-stepper-action="increase" data-stepper-key="event-xirang">+</button>
                             </div>
                           </div>
@@ -349,7 +349,7 @@
                             </span>
                             <div class="gacha-stepper" data-stepper="event-huiguang-signin">
                               <button type="button" data-stepper-action="decrease" data-stepper-key="event-huiguang-signin">−</button>
-                              <span id="gacha-event-huiguang-signin-qty">0</span>
+                              <input id="gacha-event-huiguang-signin-qty" class="gacha-stepper-input" type="number" min="0" max="5" step="1" value="0" inputmode="numeric" />
                               <button type="button" data-stepper-action="increase" data-stepper-key="event-huiguang-signin">+</button>
                             </div>
                           </div>
@@ -366,7 +366,7 @@
                             </span>
                             <div class="gacha-stepper" data-stepper="event-survey">
                               <button type="button" data-stepper-action="decrease" data-stepper-key="event-survey">−</button>
-                              <span id="gacha-event-survey-qty">0</span>
+                              <input id="gacha-event-survey-qty" class="gacha-stepper-input" type="number" min="0" max="300" step="100" value="0" inputmode="numeric" />
                               <button type="button" data-stepper-action="increase" data-stepper-key="event-survey">+</button>
                             </div>
                           </div>
@@ -383,7 +383,7 @@
                             </span>
                             <div class="gacha-stepper" data-stepper="event-yiliu">
                               <button type="button" data-stepper-action="decrease" data-stepper-key="event-yiliu">−</button>
-                              <span id="gacha-event-yiliu-qty">0</span>
+                              <input id="gacha-event-yiliu-qty" class="gacha-stepper-input" type="number" min="0" max="1200" step="100" value="0" inputmode="numeric" />
                               <button type="button" data-stepper-action="increase" data-stepper-key="event-yiliu">+</button>
                             </div>
                           </div>
@@ -400,7 +400,7 @@
                             </span>
                             <div class="gacha-stepper" data-stepper="event-zhangzhong">
                               <button type="button" data-stepper-action="decrease" data-stepper-key="event-zhangzhong">−</button>
-                              <span id="gacha-event-zhangzhong-qty">0</span>
+                              <input id="gacha-event-zhangzhong-qty" class="gacha-stepper-input" type="number" min="0" max="1600" step="100" value="0" inputmode="numeric" />
                               <button type="button" data-stepper-action="increase" data-stepper-key="event-zhangzhong">+</button>
                             </div>
                           </div>
@@ -417,7 +417,7 @@
                             </span>
                             <div class="gacha-stepper" data-stepper="event-keyu">
                               <button type="button" data-stepper-action="decrease" data-stepper-key="event-keyu">−</button>
-                              <span id="gacha-event-keyu-qty">0</span>
+                              <input id="gacha-event-keyu-qty" class="gacha-stepper-input" type="number" min="0" max="1400" step="100" value="0" inputmode="numeric" />
                               <button type="button" data-stepper-action="increase" data-stepper-key="event-keyu">+</button>
                             </div>
                           </div>
@@ -434,7 +434,7 @@
                             </span>
                             <div class="gacha-stepper" data-stepper="event-zhensui">
                               <button type="button" data-stepper-action="decrease" data-stepper-key="event-zhensui">−</button>
-                              <span id="gacha-event-zhensui-qty">0</span>
+                              <input id="gacha-event-zhensui-qty" class="gacha-stepper-input" type="number" min="0" max="1200" step="100" value="0" inputmode="numeric" />
                               <button type="button" data-stepper-action="increase" data-stepper-key="event-zhensui">+</button>
                             </div>
                           </div>
@@ -583,7 +583,7 @@
                                 </span>
                                 <div class="gacha-stepper" data-stepper="package-weapon">
                                   <button type="button" data-stepper-action="decrease" data-stepper-key="package-weapon">−</button>
-                                  <span id="gacha-package-weapon-qty">0</span>
+                                  <input id="gacha-package-weapon-qty" class="gacha-stepper-input" type="number" min="0" max="7" step="1" value="0" inputmode="numeric" />
                                   <button type="button" data-stepper-action="increase" data-stepper-key="package-weapon">+</button>
                                 </div>
                               </div>
@@ -601,7 +601,7 @@
                                 </span>
                                 <div class="gacha-stepper" data-stepper="package-weapon-full">
                                   <button type="button" data-stepper-action="decrease" data-stepper-key="package-weapon-full">−</button>
-                                  <span id="gacha-package-weapon-full-qty">0</span>
+                                  <input id="gacha-package-weapon-full-qty" class="gacha-stepper-input" type="number" min="0" max="3" step="1" value="0" inputmode="numeric" />
                                   <button type="button" data-stepper-action="increase" data-stepper-key="package-weapon-full">+</button>
                                 </div>
                               </div>
@@ -719,7 +719,7 @@
                                 </span>
                                 <div class="gacha-stepper" data-stepper="originium-6">
                                   <button type="button" data-stepper-action="decrease" data-stepper-key="originium-6">−</button>
-                                  <span id="gacha-originium-6-qty">0</span>
+                                  <input id="gacha-originium-6-qty" class="gacha-stepper-input" type="number" min="0" step="1" value="0" inputmode="numeric" />
                                   <button type="button" data-stepper-action="increase" data-stepper-key="originium-6">+</button>
                                 </div>
                               </div>
@@ -737,7 +737,7 @@
                                 </span>
                                 <div class="gacha-stepper" data-stepper="originium-30">
                                   <button type="button" data-stepper-action="decrease" data-stepper-key="originium-30">−</button>
-                                  <span id="gacha-originium-30-qty">0</span>
+                                  <input id="gacha-originium-30-qty" class="gacha-stepper-input" type="number" min="0" step="1" value="0" inputmode="numeric" />
                                   <button type="button" data-stepper-action="increase" data-stepper-key="originium-30">+</button>
                                 </div>
                               </div>
@@ -755,7 +755,7 @@
                                 </span>
                                 <div class="gacha-stepper" data-stepper="originium-98">
                                   <button type="button" data-stepper-action="decrease" data-stepper-key="originium-98">−</button>
-                                  <span id="gacha-originium-98-qty">0</span>
+                                  <input id="gacha-originium-98-qty" class="gacha-stepper-input" type="number" min="0" step="1" value="0" inputmode="numeric" />
                                   <button type="button" data-stepper-action="increase" data-stepper-key="originium-98">+</button>
                                 </div>
                               </div>
@@ -773,7 +773,7 @@
                                 </span>
                                 <div class="gacha-stepper" data-stepper="originium-198">
                                   <button type="button" data-stepper-action="decrease" data-stepper-key="originium-198">−</button>
-                                  <span id="gacha-originium-198-qty">0</span>
+                                  <input id="gacha-originium-198-qty" class="gacha-stepper-input" type="number" min="0" step="1" value="0" inputmode="numeric" />
                                   <button type="button" data-stepper-action="increase" data-stepper-key="originium-198">+</button>
                                 </div>
                               </div>
@@ -791,7 +791,7 @@
                                 </span>
                                 <div class="gacha-stepper" data-stepper="originium-328">
                                   <button type="button" data-stepper-action="decrease" data-stepper-key="originium-328">−</button>
-                                  <span id="gacha-originium-328-qty">0</span>
+                                  <input id="gacha-originium-328-qty" class="gacha-stepper-input" type="number" min="0" step="1" value="0" inputmode="numeric" />
                                   <button type="button" data-stepper-action="increase" data-stepper-key="originium-328">+</button>
                                 </div>
                               </div>
@@ -809,7 +809,7 @@
                                 </span>
                                 <div class="gacha-stepper" data-stepper="originium-648">
                                   <button type="button" data-stepper-action="decrease" data-stepper-key="originium-648">−</button>
-                                  <span id="gacha-originium-648-qty">0</span>
+                                  <input id="gacha-originium-648-qty" class="gacha-stepper-input" type="number" min="0" step="1" value="0" inputmode="numeric" />
                                   <button type="button" data-stepper-action="increase" data-stepper-key="originium-648">+</button>
                                 </div>
                               </div>

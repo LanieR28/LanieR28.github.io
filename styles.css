@@ -1185,13 +1185,27 @@ h3 {
   opacity: 0.24;
 }
 
-.gacha-stepper span {
-  min-width: 26px;
+.gacha-stepper-input {
+  width: 40px;
+  min-width: 40px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--text);
   text-align: center;
   font-family: "Novecento Sans Wide", "Endfield PingFang SC", "PingFang SC", sans-serif;
   font-size: 18px;
   line-height: 1;
   transform: translateY(-2px);
+  outline: none;
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+.gacha-stepper-input::-webkit-outer-spin-button,
+.gacha-stepper-input::-webkit-inner-spin-button {
+  margin: 0;
+  -webkit-appearance: none;
 }
 
 .gacha-toggle-button {

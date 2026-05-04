@@ -601,7 +601,7 @@
           const value = gachaPaidState.originiumShopQuantities[key];
           const maxValue = gachaStepperLimits[key];
           const stepper = node.closest(".gacha-stepper");
-          node.textContent = `${value}`;
+          node.value = `${value}`;
           if (stepper && Number.isFinite(maxValue)) {
             const decreaseButton = stepper.querySelector('[data-stepper-action="decrease"]');
             const increaseButton = stepper.querySelector('[data-stepper-action="increase"]');
@@ -1011,6 +1011,24 @@
     document.addEventListener("pointerup", stopGachaStepperHold);
     document.addEventListener("pointercancel", stopGachaStepperHold);
     document.addEventListener("pointerleave", stopGachaStepperHold);
+
+    document.addEventListener("input", function (event) {
+      const stepperInput = event.target.closest(".gacha-stepper-input");
+      if (!stepperInput) {
+        return;
+      }
+
+      const stepperKey = Object.entries(gachaOriginiumShopQuantityNodes).find(([, node]) => node === stepperInput)?.[0];
+      if (!stepperKey) {
+        return;
+      }
+
+      const maxValue = gachaStepperLimits[stepperKey] || Number.POSITIVE_INFINITY;
+      const inputValue = Number.parseInt(stepperInput.value, 10);
+      const nextValue = Number.isFinite(inputValue) ? Math.min(maxValue, Math.max(0, inputValue)) : 0;
+      gachaPaidState.originiumShopQuantities[stepperKey] = nextValue;
+      renderGachaCalculator();
+    });
 
     Object.values(gachaInputs).forEach((input) => {
       if (!input) {
