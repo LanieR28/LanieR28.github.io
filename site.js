@@ -694,7 +694,7 @@
       const dailyCurrencyTotal = projectedDailyCurrency + projectedWeeklyCurrency + refreshMonthCardCurrency + monthlyPassCurrency;
       const monthCardCount = gachaDays > 0 ? Math.ceil(gachaDays / 30) : 0;
       const paidMonthCardCurrency = gachaDays * 200;
-      const paidMonthCardOriginium = monthCardCount * 12;
+      const paidMonthCardOriginium = Math.max(monthCardCount - 1, 0) * 12;
       const selectedPaidMonthCardCurrency = gachaPaidState.monthCardSelected ? paidMonthCardCurrency : 0;
       const selectedPaidMonthCardOriginium = gachaPaidState.monthCardSelected ? paidMonthCardOriginium : 0;
       const paidMonthCardPrice = gachaPaidState.monthCardSelected ? monthCardCount * 30 : 0;
