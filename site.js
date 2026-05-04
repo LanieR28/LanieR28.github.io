@@ -401,6 +401,7 @@
     let gachaStepperRepeatTimer = null;
     let gachaStepperRepeatDelay = 260;
     let gachaStepperDidHold = false;
+    let gachaStepperHandledPointerDown = false;
 
     function parseGachaDate(value) {
       const [year, month, day] = value.split("-").map(Number);
@@ -951,7 +952,8 @@
     document.addEventListener("click", function (event) {
       const stepperButton = event.target.closest("[data-stepper-action]");
       if (stepperButton) {
-        if (gachaStepperDidHold) {
+        if (gachaStepperHandledPointerDown || gachaStepperDidHold) {
+          gachaStepperHandledPointerDown = false;
           gachaStepperDidHold = false;
           event.preventDefault();
           return;
@@ -1002,6 +1004,7 @@
         return;
       }
 
+      gachaStepperHandledPointerDown = updateGachaStepper(stepperKey, stepperAction);
       startGachaStepperHold(stepperKey, stepperAction);
     });
 
