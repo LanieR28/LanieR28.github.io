@@ -213,6 +213,7 @@
     const gachaDailyCurrency = 200;
     const gachaWeeklyCurrency = 500;
     const gachaDailyFixedPermits = 5;
+    const gachaRefreshMonthCardExpiryDate = "2026-05-18";
     const gachaPaidPackages = {
       "package-hongyuan": { originium: 6, price: 6 },
       "package-talent": { pullsPerPurchase: 10, price: 128 },
@@ -451,6 +452,11 @@
     function getGachaDayDiff(fromDate, toDate) {
       const diff = toDate.dayNumber - fromDate.dayNumber;
       return diff > 0 ? Math.floor(diff) : 0;
+    }
+
+    function getRefreshMonthCardDays(today, gachaDays) {
+      const expiryDate = parseGachaDate(gachaRefreshMonthCardExpiryDate);
+      return Math.min(gachaDays, Math.max(0, getGachaDayDiff(today, expiryDate) - 1));
     }
 
     function getNonNegativeNumber(input) {
@@ -758,7 +764,8 @@
       const projectedDailyCurrency = gachaDays * gachaDailyCurrency;
       const projectedWeeklyCurrency = gachaWeeks * gachaWeeklyCurrency;
       const projectedWeeklyWeaponQuota = gachaWeeks * 100;
-      const refreshMonthCardCurrency = gachaDays * gachaDailyCurrency;
+      const refreshMonthCardDays = getRefreshMonthCardDays(today, gachaDays);
+      const refreshMonthCardCurrency = refreshMonthCardDays * gachaDailyCurrency;
       const dailyCurrencyTotal = projectedDailyCurrency + projectedWeeklyCurrency + refreshMonthCardCurrency + monthlyPassCurrency;
       const monthCardCount = gachaDays > 0 ? Math.ceil(gachaDays / 30) : 0;
       const paidMonthCardCurrency = gachaDays * 200;
@@ -868,7 +875,7 @@
         gachaWeeklyCycles.textContent = `${gachaWeeks}`;
       }
       if (gachaRefreshMonthCardDays) {
-        gachaRefreshMonthCardDays.textContent = `${gachaDays}`;
+        gachaRefreshMonthCardDays.textContent = `${refreshMonthCardDays}`;
       }
       if (gachaDailyCurrencyTotal) {
         gachaDailyCurrencyTotal.textContent = `${projectedDailyCurrency}`;
