@@ -308,6 +308,10 @@
     const gachaTotalCurrency = document.getElementById("gacha-total-currency");
     const gachaTotalFeaturedPermits = document.getElementById("gacha-total-featured-permits");
     const gachaTotalSpecialPermits = document.getElementById("gacha-total-special-permits");
+    const gachaTargetPotentialInput = document.getElementById("gacha-target-potential");
+    const gachaTargetPotentialIcon = document.getElementById("gacha-target-potential-icon");
+    const gachaTargetProbabilityFill = document.getElementById("gacha-target-probability-fill");
+    const gachaTargetProbabilityValue = document.getElementById("gacha-target-probability-value");
     const gachaDailyDays = document.getElementById("gacha-daily-days");
     const gachaWeeklyCycles = document.getElementById("gacha-weekly-cycles");
     const gachaRefreshMonthCardDays = document.getElementById("gacha-refresh-month-card-days");
@@ -412,12 +416,18 @@
     };
     const gachaDailyState = {
       searchIntelSelections: {},
+      targetPotential: 0,
     };
     let gachaStepperHoldTimer = null;
     let gachaStepperRepeatTimer = null;
     let gachaStepperRepeatDelay = 260;
     let gachaStepperDidHold = false;
     let gachaStepperHandledPointerDown = false;
+    let gachaProbabilityWorker = null;
+    let gachaProbabilityRequestId = 0;
+    let gachaProbabilityDebounceTimer = null;
+    let gachaProbabilityFallbackTimer = null;
+    let gachaProbabilityLastKey = "";
 
     function parseGachaDate(value) {
       const [year, month, day] = value.split("-").map(Number);
@@ -491,6 +501,7 @@
             settlementMode: gachaState.settlementMode,
             disableOriginiumPulls: gachaPaidState.disableOriginiumPulls,
             searchIntelSelections: gachaDailyState.searchIntelSelections,
+            targetPotential: gachaDailyState.targetPotential,
             monthCardSelected: gachaPaidState.monthCardSelected,
             packageSelections: gachaPaidState.packageSelections,
             firstChargeSelections: gachaPaidState.firstChargeSelections,
@@ -522,6 +533,9 @@
           Object.keys(gachaCatalog).forEach((key) => {
             gachaDailyState.searchIntelSelections[key] = Boolean(savedState.searchIntelSelections[key]);
           });
+        }
+        if (Number.isFinite(Number(savedState.targetPotential))) {
+          gachaDailyState.targetPotential = Math.min(5, Math.max(0, Number.parseInt(savedState.targetPotential, 10)));
         }
         gachaPaidState.monthCardSelected = Boolean(savedState.monthCardSelected);
 
@@ -559,6 +573,142 @@
       node.style.width = `${share}%`;
     }
 
+    function interpolateColor(start, end, amount) {
+      const ratio = Math.min(1, Math.max(0, amount));
+      const values = start.map((channel, index) => Math.round(channel + (end[index] - channel) * ratio));
+      return `rgb(${values[0]}, ${values[1]}, ${values[2]})`;
+    }
+
+    function getGachaProbabilityColor(probability) {
+      if (probability <= 0.15) {
+        return "#d94b4b";
+      }
+      if (probability <= 1 / 3) {
+        return interpolateColor([217, 75, 75], [238, 142, 52], (probability - 0.15) / (1 / 3 - 0.15));
+      }
+      if (probability <= 2 / 3) {
+        return interpolateColor([238, 142, 52], [235, 204, 73], (probability - 1 / 3) / (1 / 3));
+      }
+      return interpolateColor([235, 204, 73], [78, 178, 99], (probability - 2 / 3) / (1 / 3));
+    }
+
+    function syncTargetPotentialControls() {
+      const value = Math.min(5, Math.max(0, gachaDailyState.targetPotential));
+      gachaDailyState.targetPotential = value;
+      if (gachaTargetPotentialInput) {
+        gachaTargetPotentialInput.value = `${value}`;
+      }
+      if (gachaTargetPotentialIcon) {
+        gachaTargetPotentialIcon.textContent = `${value}潜`;
+      }
+      const stepper = gachaTargetPotentialInput ? gachaTargetPotentialInput.closest(".gacha-stepper") : null;
+      if (stepper) {
+        const decreaseButton = stepper.querySelector('[data-stepper-action="decrease"]');
+        const increaseButton = stepper.querySelector('[data-stepper-action="increase"]');
+        if (decreaseButton) {
+          decreaseButton.classList.toggle("is-disabled", value <= 0);
+        }
+        if (increaseButton) {
+          increaseButton.classList.toggle("is-disabled", value >= 5);
+        }
+      }
+    }
+
+    function paintTargetProbability(probability, label) {
+      const color = getGachaProbabilityColor(probability);
+      gachaTargetProbabilityFill.style.width = `${probability * 100}%`;
+      gachaTargetProbabilityValue.textContent = label || `${(probability * 100).toFixed(1)}%`;
+      gachaTargetProbabilityValue.style.color = color;
+    }
+
+    function updateTargetProbabilityDisplay(characterTotalPulls, isSearchIntelAvailable) {
+      if (!gachaTargetProbabilityFill || !gachaTargetProbabilityValue) {
+        return;
+      }
+      if (!isSearchIntelAvailable) {
+        gachaProbabilityLastKey = "";
+        gachaProbabilityRequestId += 1;
+        if (gachaProbabilityDebounceTimer) {
+          window.clearTimeout(gachaProbabilityDebounceTimer);
+          gachaProbabilityDebounceTimer = null;
+        }
+        if (gachaProbabilityWorker) {
+          gachaProbabilityWorker.terminate();
+          gachaProbabilityWorker = null;
+        }
+        paintTargetProbability(0, "—");
+        return;
+      }
+
+      const requestKey = `${characterTotalPulls}:${gachaDailyState.targetPotential}`;
+      if (requestKey === gachaProbabilityLastKey) {
+        return;
+      }
+      gachaProbabilityLastKey = requestKey;
+      if (gachaProbabilityDebounceTimer) {
+        window.clearTimeout(gachaProbabilityDebounceTimer);
+      }
+      if (gachaProbabilityFallbackTimer) {
+        window.clearTimeout(gachaProbabilityFallbackTimer);
+        gachaProbabilityFallbackTimer = null;
+      }
+      gachaTargetProbabilityValue.textContent = "计算中";
+      gachaTargetProbabilityValue.style.color = getGachaProbabilityColor(0);
+
+      gachaProbabilityDebounceTimer = window.setTimeout(function () {
+        const requestId = gachaProbabilityRequestId + 1;
+        gachaProbabilityRequestId = requestId;
+        const payload = {
+          type: "calculate-target-potential",
+          requestId,
+          pulls: characterTotalPulls,
+          targetPotential: gachaDailyState.targetPotential,
+        };
+
+        if (gachaProbabilityWorker) {
+          gachaProbabilityWorker.terminate();
+          gachaProbabilityWorker = null;
+        }
+
+        if (!gachaProbabilityWorker && "Worker" in window) {
+          gachaProbabilityWorker = new Worker("./endfield-gacha-probability-worker.js?v=20260508-target-potential-probability");
+          gachaProbabilityWorker.addEventListener("message", function (event) {
+            const result = event.data || {};
+            if (result.requestId !== gachaProbabilityRequestId) {
+              return;
+            }
+            if (result.type === "target-potential-error") {
+              paintTargetProbability(0, "计算失败");
+              return;
+            }
+            const probability = Math.min(1, Math.max(0, result.successProbability || 0));
+            paintTargetProbability(probability);
+          });
+        }
+
+        if (gachaProbabilityWorker) {
+          gachaProbabilityWorker.postMessage(payload);
+          return;
+        }
+
+        if (!window.EndfieldGachaProbability) {
+          return;
+        }
+        gachaProbabilityFallbackTimer = window.setTimeout(function () {
+          const result = window.EndfieldGachaProbability.calculateTargetPotentialProbability({
+            pulls: characterTotalPulls,
+            targetPotential: gachaDailyState.targetPotential,
+            minimumProbability: 1e-8,
+          });
+          if (requestId !== gachaProbabilityRequestId) {
+            return;
+          }
+          const probability = Math.min(1, Math.max(0, result.successProbability || 0));
+          paintTargetProbability(probability);
+        }, 0);
+      }, 160);
+    }
+
     function getWeaponPackagePrice(quantity) {
       if (quantity <= 0) {
         return 0;
@@ -570,6 +720,17 @@
     }
 
     function updateGachaStepper(stepperKey, stepperAction) {
+      if (stepperKey === "target-potential") {
+        const nextValue = gachaDailyState.targetPotential + (stepperAction === "increase" ? 1 : -1);
+        const clampedValue = Math.min(5, Math.max(0, nextValue));
+        if (clampedValue === gachaDailyState.targetPotential) {
+          return false;
+        }
+        gachaDailyState.targetPotential = clampedValue;
+        renderGachaCalculator();
+        return true;
+      }
+
       if (!(stepperKey in gachaPaidState.originiumShopQuantities)) {
         return false;
       }
@@ -889,6 +1050,8 @@
       if (gachaCharacterTotalPulls) {
         gachaCharacterTotalPulls.textContent = `${characterTotalPulls}抽`;
       }
+      syncTargetPotentialControls();
+      updateTargetProbabilityDisplay(characterTotalPulls, isSearchIntelAvailable);
       if (gachaDailyDays) {
         gachaDailyDays.textContent = `${gachaDays}`;
       }
@@ -1054,7 +1217,7 @@
       }
 
       const { stepperAction, stepperKey } = stepperButton.dataset;
-      if (!(stepperKey in gachaPaidState.originiumShopQuantities)) {
+      if (stepperKey !== "target-potential" && !(stepperKey in gachaPaidState.originiumShopQuantities)) {
         return;
       }
 
@@ -1069,6 +1232,13 @@
     document.addEventListener("input", function (event) {
       const stepperInput = event.target.closest(".gacha-stepper-input");
       if (!stepperInput) {
+        return;
+      }
+
+      if (stepperInput === gachaTargetPotentialInput) {
+        const inputValue = Number.parseInt(stepperInput.value, 10);
+        gachaDailyState.targetPotential = Number.isFinite(inputValue) ? Math.min(5, Math.max(0, inputValue)) : 0;
+        renderGachaCalculator();
         return;
       }
 

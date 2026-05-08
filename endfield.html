@@ -12,7 +12,8 @@
     <link rel="apple-touch-icon" href="./assets/lr-web-icon.png" />
     <meta name="theme-color" content="#ffffff" />
     <link rel="stylesheet" href="./styles.css" />
-    <script src="./site.js?v=20260508-search-intel-hide-fix" defer></script>
+    <script src="./endfield-gacha-probability.js?v=20260508-target-potential-probability" defer></script>
+    <script src="./site.js?v=20260508-target-potential-ui" defer></script>
   </head>
   <body class="endfield-page endfield-gacha-page">
     <div class="site-shell">
@@ -164,6 +165,23 @@
             <section class="gacha-hero-panels">
               <div class="gacha-hero-stack">
                 <article class="gacha-hero-card gacha-hero-card-character">
+                  <div class="gacha-target-potential-panel" aria-label="目标潜能">
+                    <span>目标潜能</span>
+                    <div class="gacha-target-potential-control">
+                      <div class="gacha-stepper gacha-potential-stepper" data-stepper="target-potential">
+                        <button type="button" data-stepper-action="decrease" data-stepper-key="target-potential">−</button>
+                        <input id="gacha-target-potential" class="gacha-stepper-input" type="number" min="0" max="5" step="1" value="0" inputmode="numeric" />
+                        <button type="button" data-stepper-action="increase" data-stepper-key="target-potential">+</button>
+                      </div>
+                      <span class="gacha-potential-icon-placeholder" id="gacha-target-potential-icon">0潜</span>
+                    </div>
+                  </div>
+                  <div class="gacha-target-probability-panel" aria-label="目标潜能概率">
+                    <div class="gacha-target-probability-track">
+                      <span id="gacha-target-probability-fill"></span>
+                    </div>
+                    <strong id="gacha-target-probability-value">计算中</strong>
+                  </div>
                   <div class="gacha-hero-card-head">
                     <div>
                       <p class="eyebrow">CHARACTER</p>

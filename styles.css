@@ -911,6 +911,98 @@ h3 {
   min-height: 240px;
 }
 
+.gacha-hero-card-character {
+  position: relative;
+}
+
+.gacha-target-potential-panel {
+  position: absolute;
+  top: 22px;
+  left: 22px;
+  z-index: 2;
+  display: grid;
+  gap: 10px;
+  justify-items: start;
+  text-align: left;
+}
+
+.gacha-target-potential-panel > span {
+  color: var(--text);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.gacha-target-potential-control {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.gacha-potential-stepper {
+  min-width: 116px;
+}
+
+.gacha-potential-icon-placeholder {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 42px;
+  height: 34px;
+  padding: 0 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.8);
+  color: rgba(0, 0, 0, 0.72);
+  font-family: "Novecento Sans Wide", "Endfield PingFang SC", "PingFang SC", sans-serif;
+  font-size: 14px;
+  line-height: 1;
+}
+
+.gacha-target-probability-panel {
+  position: absolute;
+  top: 24px;
+  right: 26px;
+  z-index: 2;
+  display: grid;
+  width: 174px;
+  gap: 7px;
+  justify-items: end;
+}
+
+.gacha-target-probability-track {
+  width: 100%;
+  height: 16px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.gacha-target-probability-track span {
+  position: relative;
+  display: block;
+  width: 0;
+  height: 100%;
+  overflow: hidden;
+  border-radius: inherit;
+  transition: width 0.28s ease;
+}
+
+.gacha-target-probability-track span::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 174px;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #d94b4b 0%, #d94b4b 15%, #ee8e34 33.333%, #ebcc49 66.667%, #4eb263 100%);
+}
+
+#gacha-target-probability-value {
+  font-family: "Novecento Sans Wide", "Endfield PingFang SC", "PingFang SC", sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1;
+}
+
 .gacha-scroll-panel {
   width: 100%;
   height: 620px;

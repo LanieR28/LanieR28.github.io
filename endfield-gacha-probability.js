@@ -411,3 +411,7 @@ const EndfieldGachaProbability = (function () {
 if (typeof window !== "undefined") {
   window.EndfieldGachaProbability = EndfieldGachaProbability;
 }
+
+if (typeof self !== "undefined") {
+  self.EndfieldGachaProbability = EndfieldGachaProbability;
+}
