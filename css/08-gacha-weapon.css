@@ -1,5 +1,12 @@
 .gacha-hero-card-weapon-panel {
   position: relative;
+  grid-template-rows: 1fr auto;
+}
+
+.gacha-weapon-card-upper {
+  display: grid;
+  gap: 6px;
+  min-height: 220px;
 }
 
 .gacha-weapon-quota-module {

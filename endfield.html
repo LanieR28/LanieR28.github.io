@@ -11,10 +11,10 @@
     <link rel="icon" type="image/png" href="./assets/lr-web-icon.png" />
     <link rel="apple-touch-icon" href="./assets/lr-web-icon.png" />
     <meta name="theme-color" content="#ffffff" />
-    <link rel="stylesheet" href="./styles.css?v=20260509b" />
+    <link rel="stylesheet" href="./styles.css?v=20260509c" />
     <script src="./endfield-gacha-probability.js?v=20260508-prob-fix" defer></script>
     <script src="./endfield-gacha-weapon-probability.js?v=20260509b" defer></script>
-    <script src="./site.js?v=20260509b" defer></script>
+    <script src="./site.js?v=20260509c" defer></script>
   </head>
   <body class="endfield-page endfield-gacha-page">
     <div class="site-shell">
@@ -251,6 +251,24 @@
                         <input id="gacha-weapon-target-potential" class="gacha-stepper-input" type="number" min="0" max="5" step="1" value="0" inputmode="numeric" />
                         <button type="button" data-stepper-action="increase" data-stepper-key="weapon-target-potential">+</button>
                       </div>
+                      <span
+                        class="gacha-potential-icon-placeholder"
+                        id="gacha-weapon-target-potential-icon"
+                      >
+                        <img
+                          class="gacha-potential-icon-image gacha-potential-icon-image-previous"
+                          id="gacha-weapon-target-potential-icon-image-previous"
+                          src="./assets/endfield/potential-0.png?v=20260509c"
+                          alt=""
+                          aria-hidden="true"
+                        />
+                        <img
+                          class="gacha-potential-icon-image gacha-potential-icon-image-current is-visible"
+                          id="gacha-weapon-target-potential-icon-image"
+                          src="./assets/endfield/potential-0.png?v=20260509c"
+                          alt="0潜"
+                        />
+                      </span>
                     </div>
                   </div>
                   <div class="gacha-target-probability-panel" aria-label="武库目标概率">
@@ -262,6 +280,7 @@
                       <sup>1</sup>
                     </strong>
                   </div>
+                  <div class="gacha-weapon-card-upper">
                   <div class="gacha-hero-card-head gacha-hero-card-head-weapon">
                     <div>
                       <p class="eyebrow">WEAPON</p>
@@ -293,6 +312,7 @@
                       <strong id="gacha-weapon-quota-total">0</strong>
                     </div>
                   </div>
+                  </div><!-- /.gacha-weapon-card-upper -->
                   <p class="gacha-probability-note">
                     1. 可能与实际略有偏差。
                   </p>

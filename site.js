@@ -318,6 +318,9 @@
     const gachaTargetProbabilityFill = document.getElementById("gacha-target-probability-fill");
     const gachaTargetProbabilityValue = document.getElementById("gacha-target-probability-value");
     const gachaWeaponTargetPotentialInput = document.getElementById("gacha-weapon-target-potential");
+    const gachaWeaponTargetPotentialIcon = document.getElementById("gacha-weapon-target-potential-icon");
+    const gachaWeaponTargetPotentialIconPreviousImage = document.getElementById("gacha-weapon-target-potential-icon-image-previous");
+    const gachaWeaponTargetPotentialIconImage = document.getElementById("gacha-weapon-target-potential-icon-image");
     const gachaWeaponTargetProbabilityFill = document.getElementById("gacha-weapon-target-probability-fill");
     const gachaWeaponTargetProbabilityValue = document.getElementById("gacha-weapon-target-probability-value");
     const gachaHeroCardCharacter = document.querySelector(".gacha-hero-card-character");
@@ -677,6 +680,35 @@
       const value = Math.min(5, Math.max(0, gachaDailyState.weaponTargetPotential));
       gachaDailyState.weaponTargetPotential = value;
       gachaWeaponTargetPotentialInput.value = `${value}`;
+      if (gachaWeaponTargetPotentialIcon) {
+        gachaWeaponTargetPotentialIcon.setAttribute("aria-label", `${value}潜`);
+      }
+      if (gachaWeaponTargetPotentialIconImage) {
+        const nextIconPath = gachaPotentialIconPaths[value];
+        const currentSrc = gachaWeaponTargetPotentialIconImage.getAttribute("src") || "";
+        if (currentSrc !== nextIconPath) {
+          if (gachaWeaponTargetPotentialIconPreviousImage) {
+            gachaWeaponTargetPotentialIconPreviousImage.style.transition = "none";
+            gachaWeaponTargetPotentialIconPreviousImage.src = currentSrc;
+            gachaWeaponTargetPotentialIconPreviousImage.classList.add("is-visible");
+          }
+          gachaWeaponTargetPotentialIconImage.style.transition = "none";
+          gachaWeaponTargetPotentialIconImage.classList.remove("is-visible");
+          gachaWeaponTargetPotentialIconImage.src = nextIconPath;
+          void gachaWeaponTargetPotentialIconImage.offsetWidth;
+          if (gachaWeaponTargetPotentialIconPreviousImage) {
+            gachaWeaponTargetPotentialIconPreviousImage.style.transition = "";
+          }
+          gachaWeaponTargetPotentialIconImage.style.transition = "";
+          window.requestAnimationFrame(function () {
+            if (gachaWeaponTargetPotentialIconPreviousImage) {
+              gachaWeaponTargetPotentialIconPreviousImage.classList.remove("is-visible");
+            }
+            gachaWeaponTargetPotentialIconImage.classList.add("is-visible");
+          });
+        }
+        gachaWeaponTargetPotentialIconImage.alt = `${value}潜`;
+      }
       const stepper = gachaWeaponTargetPotentialInput.closest(".gacha-stepper");
       if (stepper) {
         const decreaseButton = stepper.querySelector('[data-stepper-action="decrease"]');
