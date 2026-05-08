@@ -2,11 +2,9 @@ window.EndfieldGachaWeaponProbability = (function () {
   const defaultRules = Object.freeze({
     sixStarRate: 0.04,
     upShareWhenSixStar: 0.25,
-    // every sixStarPityAt consecutive non-6-star pulls → forced 6-star
-    sixStarPityAt: 4,
-    // UP pity: first at pull 8 in UP cycle, then every 16 pulls
-    firstUpPityAt: 8,
-    repeatUpPityEvery: 16,
+    sixStarPityAt: 40,
+    firstUpPityAt: 80,
+    repeatUpPityEvery: 160,
   });
 
   function clampInteger(value, min, max) {

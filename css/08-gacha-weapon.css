@@ -18,8 +18,8 @@
   grid-template-columns: 1fr 160px auto;
   align-items: end;
   gap: 22px;
-  margin-top: -58px;
-  transform: translateY(-32px);
+  margin-top: -42px;
+  transform: translateY(-20px);
 }
 
 .gacha-weapon-quota-pulls {
