@@ -913,6 +913,7 @@ h3 {
 
 .gacha-hero-card-character {
   position: relative;
+  padding-bottom: 20px;
 }
 
 .gacha-target-potential-panel {
@@ -940,11 +941,11 @@ h3 {
 }
 
 .gacha-potential-stepper {
-  min-width: 36px;
-  width: 36px;
-  max-width: 36px;
-  height: 30px;
-  padding: 0;
+  min-width: 36px !important;
+  width: 36px !important;
+  max-width: 36px !important;
+  height: 30px !important;
+  padding: 0 !important;
   justify-content: space-between;
 }
 

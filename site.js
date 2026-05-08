@@ -618,9 +618,11 @@
             gachaTargetPotentialIconPreviousImage.src = gachaTargetPotentialIconImage.src;
             gachaTargetPotentialIconPreviousImage.classList.add("is-visible");
           }
+          gachaTargetPotentialIconImage.style.transition = "none";
           gachaTargetPotentialIconImage.classList.remove("is-visible");
           gachaTargetPotentialIconImage.src = nextIconPath;
           window.requestAnimationFrame(function () {
+            gachaTargetPotentialIconImage.style.transition = "";
             window.requestAnimationFrame(function () {
               gachaTargetPotentialIconImage.classList.add("is-visible");
               if (gachaTargetPotentialIconPreviousImage) {
