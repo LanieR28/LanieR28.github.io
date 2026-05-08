@@ -916,6 +916,12 @@ h3 {
   padding-bottom: 20px;
 }
 
+.gacha-hero-card-character:not(.is-special-banner) .gacha-target-potential-panel,
+.gacha-hero-card-character:not(.is-special-banner) .gacha-target-probability-panel,
+.gacha-hero-card-character:not(.is-special-banner) .gacha-probability-note {
+  display: none;
+}
+
 .gacha-target-potential-panel {
   position: absolute;
   top: 20px;

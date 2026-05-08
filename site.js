@@ -268,6 +268,7 @@
         startDate: "2026-04-17",
         endDate: "2026-05-22",
         hasSearchIntel: true,
+        isSpecialBanner: true,
       },
       nextGacha: {
         key: "nextGacha",
@@ -275,6 +276,7 @@
         name: "辉光庆典卡池",
         startDate: "2026-05-14",
         endDate: "2026-06-04",
+        isSpecialBanner: false,
       },
       mifuGacha: {
         key: "mifuGacha",
@@ -283,6 +285,7 @@
         startDate: "2026-06-04",
         endDate: "2026-06-20",
         hasSearchIntel: true,
+        isSpecialBanner: true,
       },
     };
 
@@ -314,6 +317,7 @@
     const gachaTargetPotentialIconImage = document.getElementById("gacha-target-potential-icon-image");
     const gachaTargetProbabilityFill = document.getElementById("gacha-target-probability-fill");
     const gachaTargetProbabilityValue = document.getElementById("gacha-target-probability-value");
+    const gachaHeroCardCharacter = document.querySelector(".gacha-hero-card-character");
     const gachaDailyDays = document.getElementById("gacha-daily-days");
     const gachaWeeklyCycles = document.getElementById("gacha-weekly-cycles");
     const gachaRefreshMonthCardDays = document.getElementById("gacha-refresh-month-card-days");
@@ -1081,6 +1085,10 @@
       }
       if (gachaCharacterTotalPulls) {
         gachaCharacterTotalPulls.textContent = `${characterTotalPulls}抽`;
+      }
+      const isSpecialBanner = Boolean(selectedGacha.isSpecialBanner);
+      if (gachaHeroCardCharacter) {
+        gachaHeroCardCharacter.classList.toggle("is-special-banner", isSpecialBanner);
       }
       syncTargetPotentialControls();
       updateTargetProbabilityDisplay(characterTotalPulls, isSearchIntelAvailable);
