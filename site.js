@@ -620,18 +620,14 @@
           }
           gachaTargetPotentialIconImage.classList.remove("is-visible");
           gachaTargetPotentialIconImage.src = nextIconPath;
-          gachaTargetPotentialIconImage.addEventListener(
-            "load",
-            function () {
-              window.requestAnimationFrame(function () {
-                gachaTargetPotentialIconImage.classList.add("is-visible");
-                if (gachaTargetPotentialIconPreviousImage) {
-                  gachaTargetPotentialIconPreviousImage.classList.remove("is-visible");
-                }
-              });
-            },
-            { once: true },
-          );
+          window.requestAnimationFrame(function () {
+            window.requestAnimationFrame(function () {
+              gachaTargetPotentialIconImage.classList.add("is-visible");
+              if (gachaTargetPotentialIconPreviousImage) {
+                gachaTargetPotentialIconPreviousImage.classList.remove("is-visible");
+              }
+            });
+          });
         }
         gachaTargetPotentialIconImage.alt = `${value}潜`;
       }
