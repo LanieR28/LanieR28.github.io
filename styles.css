@@ -2857,7 +2857,7 @@ main {
   }
 }
 
-/* KMD application portfolio page */
+/* Portfolio page */
 .portfolio-page {
   background: #f7f5f0;
   color: #151515;
@@ -3095,4 +3095,19 @@ main {
   .portfolio-hero-grid {
     padding-top: 44px;
   }
+}
+
+.portfolio-statement-card {
+  display: grid;
+  gap: 18px;
+  max-width: 880px;
+  padding: 30px;
+  background: #fff;
+  border: 1px solid rgba(21, 21, 21, 0.1);
+}
+
+.portfolio-statement-card p {
+  color: rgba(21, 21, 21, 0.76);
+  font-size: 17px;
+  line-height: 1.86;
 }
