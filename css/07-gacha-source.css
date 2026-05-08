@@ -11,6 +11,7 @@
 .gacha-scroll-content {
   display: grid;
   gap: 18px;
+  align-content: start;
 }
 
 .gacha-scroll-card {
