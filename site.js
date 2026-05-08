@@ -912,6 +912,7 @@
       }
       if (gachaSearchIntelItem) {
         gachaSearchIntelItem.hidden = !isSearchIntelAvailable;
+        gachaSearchIntelItem.style.display = isSearchIntelAvailable ? "" : "none";
       }
       if (gachaSearchIntelToggle) {
         gachaSearchIntelToggle.classList.toggle("is-active", isSearchIntelSelected);
