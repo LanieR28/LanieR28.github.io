@@ -173,7 +173,18 @@
                         <input id="gacha-target-potential" class="gacha-stepper-input" type="number" min="0" max="5" step="1" value="0" inputmode="numeric" />
                         <button type="button" data-stepper-action="increase" data-stepper-key="target-potential">+</button>
                       </div>
-                      <span class="gacha-potential-icon-placeholder" id="gacha-target-potential-icon">0潜</span>
+                      <span
+                        class="gacha-potential-icon-placeholder"
+                        id="gacha-target-potential-icon"
+                        style="min-width: 72px; width: 72px; height: 72px; padding: 0; border-radius: 0; background: transparent;"
+                      >
+                        <img
+                          id="gacha-target-potential-icon-image"
+                          src="./assets/endfield/potential-0.png"
+                          alt="0潜"
+                          style="display: block; width: 72px; height: 72px; object-fit: contain;"
+                        />
+                      </span>
                     </div>
                   </div>
                   <div class="gacha-target-probability-panel" aria-label="目标潜能概率">

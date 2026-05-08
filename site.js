@@ -310,6 +310,7 @@
     const gachaTotalSpecialPermits = document.getElementById("gacha-total-special-permits");
     const gachaTargetPotentialInput = document.getElementById("gacha-target-potential");
     const gachaTargetPotentialIcon = document.getElementById("gacha-target-potential-icon");
+    const gachaTargetPotentialIconImage = document.getElementById("gacha-target-potential-icon-image");
     const gachaTargetProbabilityFill = document.getElementById("gacha-target-probability-fill");
     const gachaTargetProbabilityValue = document.getElementById("gacha-target-probability-value");
     const gachaDailyDays = document.getElementById("gacha-daily-days");
@@ -414,6 +415,14 @@
         "event-zhensui": 0,
       },
     };
+    const gachaPotentialIconPaths = [
+      "./assets/endfield/potential-0.png",
+      "./assets/endfield/potential-1.png",
+      "./assets/endfield/potential-2.png",
+      "./assets/endfield/potential-3.png",
+      "./assets/endfield/potential-4.png",
+      "./assets/endfield/potential-5.png",
+    ];
     const gachaDailyState = {
       searchIntelSelections: {},
       targetPotential: 0,
@@ -599,7 +608,11 @@
         gachaTargetPotentialInput.value = `${value}`;
       }
       if (gachaTargetPotentialIcon) {
-        gachaTargetPotentialIcon.textContent = `${value}潜`;
+        gachaTargetPotentialIcon.setAttribute("aria-label", `${value}潜`);
+      }
+      if (gachaTargetPotentialIconImage) {
+        gachaTargetPotentialIconImage.src = gachaPotentialIconPaths[value];
+        gachaTargetPotentialIconImage.alt = `${value}潜`;
       }
       const stepper = gachaTargetPotentialInput ? gachaTargetPotentialInput.closest(".gacha-stepper") : null;
       if (stepper) {
