@@ -41,9 +41,6 @@
 
 .gacha-hero-card-weapon-panel {
   min-height: 240px;
-  display: flex;
-  flex-direction: column;
-  padding-bottom: 20px;
 }
 
 .gacha-hero-card-character {
