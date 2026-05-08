@@ -317,6 +317,9 @@
     const gachaTargetPotentialIconImage = document.getElementById("gacha-target-potential-icon-image");
     const gachaTargetProbabilityFill = document.getElementById("gacha-target-probability-fill");
     const gachaTargetProbabilityValue = document.getElementById("gacha-target-probability-value");
+    const gachaWeaponTargetPotentialInput = document.getElementById("gacha-weapon-target-potential");
+    const gachaWeaponTargetProbabilityFill = document.getElementById("gacha-weapon-target-probability-fill");
+    const gachaWeaponTargetProbabilityValue = document.getElementById("gacha-weapon-target-probability-value");
     const gachaHeroCardCharacter = document.querySelector(".gacha-hero-card-character");
     const gachaDailyDays = document.getElementById("gacha-daily-days");
     const gachaWeeklyCycles = document.getElementById("gacha-weekly-cycles");
@@ -431,6 +434,7 @@
     const gachaDailyState = {
       searchIntelSelections: {},
       targetPotential: 0,
+      weaponTargetPotential: 0,
     };
     let gachaStepperHoldTimer = null;
     let gachaStepperRepeatTimer = null;
@@ -442,6 +446,9 @@
     let gachaProbabilityDebounceTimer = null;
     let gachaProbabilityFallbackTimer = null;
     let gachaProbabilityLastKey = "";
+    let gachaWeaponProbabilityRequestId = 0;
+    let gachaWeaponProbabilityDebounceTimer = null;
+    let gachaWeaponProbabilityLastKey = "";
 
     function parseGachaDate(value) {
       const [year, month, day] = value.split("-").map(Number);
@@ -516,6 +523,7 @@
             disableOriginiumPulls: gachaPaidState.disableOriginiumPulls,
             searchIntelSelections: gachaDailyState.searchIntelSelections,
             targetPotential: gachaDailyState.targetPotential,
+            weaponTargetPotential: gachaDailyState.weaponTargetPotential,
             monthCardSelected: gachaPaidState.monthCardSelected,
             packageSelections: gachaPaidState.packageSelections,
             firstChargeSelections: gachaPaidState.firstChargeSelections,
@@ -550,6 +558,9 @@
         }
         if (Number.isFinite(Number(savedState.targetPotential))) {
           gachaDailyState.targetPotential = Math.min(5, Math.max(0, Number.parseInt(savedState.targetPotential, 10)));
+        }
+        if (Number.isFinite(Number(savedState.weaponTargetPotential))) {
+          gachaDailyState.weaponTargetPotential = Math.min(5, Math.max(0, Number.parseInt(savedState.weaponTargetPotential, 10)));
         }
         gachaPaidState.monthCardSelected = Boolean(savedState.monthCardSelected);
 
@@ -661,6 +672,67 @@
       gachaTargetProbabilityValue.style.color = color;
     }
 
+    function syncWeaponTargetPotentialControls() {
+      if (!gachaWeaponTargetPotentialInput) return;
+      const value = Math.min(5, Math.max(0, gachaDailyState.weaponTargetPotential));
+      gachaDailyState.weaponTargetPotential = value;
+      gachaWeaponTargetPotentialInput.value = `${value}`;
+      const stepper = gachaWeaponTargetPotentialInput.closest(".gacha-stepper");
+      if (stepper) {
+        const decreaseButton = stepper.querySelector('[data-stepper-action="decrease"]');
+        const increaseButton = stepper.querySelector('[data-stepper-action="increase"]');
+        if (decreaseButton) decreaseButton.classList.toggle("is-disabled", value <= 0);
+        if (increaseButton) increaseButton.classList.toggle("is-disabled", value >= 5);
+      }
+    }
+
+    function paintWeaponTargetProbability(probability, label) {
+      if (!gachaWeaponTargetProbabilityFill || !gachaWeaponTargetProbabilityValue) return;
+      const color = getGachaProbabilityColor(probability);
+      gachaWeaponTargetProbabilityFill.style.width = `${probability * 100}%`;
+      gachaWeaponTargetProbabilityValue.textContent = label || `${(probability * 100).toFixed(1)}%`;
+      gachaWeaponTargetProbabilityValue.style.color = color;
+    }
+
+    function updateWeaponTargetProbabilityDisplay(weaponTotalPulls) {
+      if (!gachaWeaponTargetProbabilityFill || !gachaWeaponTargetProbabilityValue) return;
+      if (weaponTotalPulls <= 0) {
+        gachaWeaponProbabilityLastKey = "";
+        gachaWeaponProbabilityRequestId += 1;
+        if (gachaWeaponProbabilityDebounceTimer) {
+          window.clearTimeout(gachaWeaponProbabilityDebounceTimer);
+          gachaWeaponProbabilityDebounceTimer = null;
+        }
+        paintWeaponTargetProbability(0, "—");
+        return;
+      }
+      const requestKey = `${weaponTotalPulls}:${gachaDailyState.weaponTargetPotential}`;
+      if (requestKey === gachaWeaponProbabilityLastKey) return;
+      gachaWeaponProbabilityLastKey = requestKey;
+      if (gachaWeaponProbabilityDebounceTimer) {
+        window.clearTimeout(gachaWeaponProbabilityDebounceTimer);
+      }
+      gachaWeaponTargetProbabilityValue.textContent = "";
+      gachaWeaponProbabilityDebounceTimer = window.setTimeout(function () {
+        const requestId = gachaWeaponProbabilityRequestId + 1;
+        gachaWeaponProbabilityRequestId = requestId;
+        window.setTimeout(function () {
+          if (requestId !== gachaWeaponProbabilityRequestId) return;
+          if (!window.EndfieldGachaWeaponProbability) {
+            paintWeaponTargetProbability(0, "—");
+            return;
+          }
+          const result = window.EndfieldGachaWeaponProbability.calculateWeaponTargetPotentialProbability({
+            pulls: weaponTotalPulls,
+            targetPotential: gachaDailyState.weaponTargetPotential,
+            minimumProbability: 1e-9,
+          });
+          if (requestId !== gachaWeaponProbabilityRequestId) return;
+          paintWeaponTargetProbability(Math.min(1, Math.max(0, result.successProbability || 0)));
+        }, 0);
+      }, 160);
+    }
+
     function updateTargetProbabilityDisplay(characterTotalPulls, isSearchIntelAvailable) {
       if (!gachaTargetProbabilityFill || !gachaTargetProbabilityValue) {
         return;
@@ -766,6 +838,16 @@
           return false;
         }
         gachaDailyState.targetPotential = clampedValue;
+        renderGachaCalculator();
+        return true;
+      }
+      if (stepperKey === "weapon-target-potential") {
+        const nextValue = gachaDailyState.weaponTargetPotential + (stepperAction === "increase" ? 1 : -1);
+        const clampedValue = Math.min(5, Math.max(0, nextValue));
+        if (clampedValue === gachaDailyState.weaponTargetPotential) {
+          return false;
+        }
+        gachaDailyState.weaponTargetPotential = clampedValue;
         renderGachaCalculator();
         return true;
       }
@@ -1095,6 +1177,8 @@
       }
       syncTargetPotentialControls();
       updateTargetProbabilityDisplay(characterTotalPulls, isSearchIntelAvailable);
+      syncWeaponTargetPotentialControls();
+      updateWeaponTargetProbabilityDisplay(weaponQuotaPulls * 10);
       if (gachaDailyDays) {
         gachaDailyDays.textContent = `${gachaDays}`;
       }
@@ -1260,7 +1344,7 @@
       }
 
       const { stepperAction, stepperKey } = stepperButton.dataset;
-      if (stepperKey !== "target-potential" && !(stepperKey in gachaPaidState.originiumShopQuantities)) {
+      if (stepperKey !== "target-potential" && stepperKey !== "weapon-target-potential" && !(stepperKey in gachaPaidState.originiumShopQuantities)) {
         return;
       }
 
@@ -1281,6 +1365,12 @@
       if (stepperInput === gachaTargetPotentialInput) {
         const inputValue = Number.parseInt(stepperInput.value, 10);
         gachaDailyState.targetPotential = Number.isFinite(inputValue) ? Math.min(5, Math.max(0, inputValue)) : 0;
+        renderGachaCalculator();
+        return;
+      }
+      if (stepperInput === gachaWeaponTargetPotentialInput) {
+        const inputValue = Number.parseInt(stepperInput.value, 10);
+        gachaDailyState.weaponTargetPotential = Number.isFinite(inputValue) ? Math.min(5, Math.max(0, inputValue)) : 0;
         renderGachaCalculator();
         return;
       }
