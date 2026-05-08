@@ -4,7 +4,7 @@ const EndfieldGachaProbability = (function () {
     fiveStarBaseRate: 0.08,
     featuredShareWhenSixStar: 0.5,
     sixStarHardPity: 80,
-    sixStarSoftPityMisses: 65,
+    sixStarSoftPityMisses: 64,
     sixStarSoftPityIncrease: 0.05,
     fiveStarOrAboveHardPity: 10,
     featuredGuaranteePulls: 120,
@@ -308,18 +308,29 @@ const EndfieldGachaProbability = (function () {
 
         const forceFeatured = !state.featuredGuaranteeUsed && nextCountedPulls >= rules.featuredGuaranteePulls;
         if (forceFeatured) {
-          const quotaGain = state.hasTargetBody ? rules.repeatedFeaturedSixStarQuota : 0;
-          const quotaResult = addQuotaPulls(basePaidLeft, state.quota, quotaGain, rules);
-          emitCountedState(
-            quotaResult.paidLeft,
-            0,
-            0,
-            quotaResult.quota,
-            Math.min(targetSourcesNeeded, baseUpSources + 1),
-            true,
-            true,
-            stateProbability,
-          );
+          const sixStarRate = getSixStarRate(state.sixPity, rules);
+          const fiveStarRate = state.fivePity >= rules.fiveStarOrAboveHardPity - 1 ? 1 - sixStarRate : rules.fiveStarBaseRate;
+          const fourStarRate = Math.max(0, 1 - sixStarRate - fiveStarRate);
+          if (sixStarRate > 0) {
+            const quotaGain = state.hasTargetBody ? rules.repeatedFeaturedSixStarQuota : 0;
+            const quotaResult = addQuotaPulls(basePaidLeft, state.quota, quotaGain, rules);
+            emitCountedState(quotaResult.paidLeft, 0, 0, quotaResult.quota,
+              Math.min(targetSourcesNeeded, baseUpSources + 1), true, true,
+              stateProbability * sixStarRate);
+          }
+          if (fiveStarRate > 0) {
+            const quotaResult = addQuotaPulls(basePaidLeft, state.quota, rules.repeatedFiveStarQuota, rules);
+            emitCountedState(quotaResult.paidLeft, Math.min(rules.sixStarHardPity - 1, state.sixPity + 1), 0,
+              quotaResult.quota, baseUpSources, state.hasTargetBody, false,
+              stateProbability * fiveStarRate);
+          }
+          if (fourStarRate > 0) {
+            emitCountedState(basePaidLeft,
+              Math.min(rules.sixStarHardPity - 1, state.sixPity + 1),
+              Math.min(rules.fiveStarOrAboveHardPity - 1, state.fivePity + 1),
+              state.quota, baseUpSources, state.hasTargetBody, false,
+              stateProbability * fourStarRate);
+          }
           return;
         }
 
@@ -434,7 +445,10 @@ const EndfieldGachaProbability = (function () {
             const forceFeatured = hasTargetBody === 0 && pullIndex >= rules.featuredGuaranteePulls;
 
             if (forceFeatured) {
-              nextStates[indexOf(Math.min(targetSourcesNeeded, baseSources + 1), 0, 1)] += probability;
+              const sixStarRate = getSixStarRate(sixPity, rules);
+              const nextSixPity = Math.min(rules.sixStarHardPity - 1, sixPity + 1);
+              nextStates[indexOf(Math.min(targetSourcesNeeded, baseSources + 1), 0, 1)] += probability * sixStarRate;
+              nextStates[indexOf(baseSources, nextSixPity, 0)] += probability * (1 - sixStarRate);
               continue;
             }
 

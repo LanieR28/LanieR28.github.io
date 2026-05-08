@@ -432,7 +432,6 @@
       searchIntelSelections: {},
       targetPotential: 0,
     };
-    let gachaIconFadeTimer = null;
     let gachaStepperHoldTimer = null;
     let gachaStepperRepeatTimer = null;
     let gachaStepperRepeatDelay = 260;
@@ -618,15 +617,27 @@
       }
       if (gachaTargetPotentialIconImage) {
         const nextIconPath = gachaPotentialIconPaths[value];
-        if (gachaTargetPotentialIconImage.getAttribute("src") !== nextIconPath) {
-          clearTimeout(gachaIconFadeTimer);
+        const currentSrc = gachaTargetPotentialIconImage.getAttribute("src") || "";
+        if (currentSrc !== nextIconPath) {
+          if (gachaTargetPotentialIconPreviousImage) {
+            gachaTargetPotentialIconPreviousImage.style.transition = "none";
+            gachaTargetPotentialIconPreviousImage.src = currentSrc;
+            gachaTargetPotentialIconPreviousImage.classList.add("is-visible");
+          }
+          gachaTargetPotentialIconImage.style.transition = "none";
           gachaTargetPotentialIconImage.classList.remove("is-visible");
-          gachaIconFadeTimer = setTimeout(function () {
-            gachaTargetPotentialIconImage.src = nextIconPath;
-            window.requestAnimationFrame(function () {
-              gachaTargetPotentialIconImage.classList.add("is-visible");
-            });
-          }, 200);
+          gachaTargetPotentialIconImage.src = nextIconPath;
+          void gachaTargetPotentialIconImage.offsetWidth;
+          if (gachaTargetPotentialIconPreviousImage) {
+            gachaTargetPotentialIconPreviousImage.style.transition = "";
+          }
+          gachaTargetPotentialIconImage.style.transition = "";
+          window.requestAnimationFrame(function () {
+            if (gachaTargetPotentialIconPreviousImage) {
+              gachaTargetPotentialIconPreviousImage.classList.remove("is-visible");
+            }
+            gachaTargetPotentialIconImage.classList.add("is-visible");
+          });
         }
         gachaTargetPotentialIconImage.alt = `${value}潜`;
       }

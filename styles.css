@@ -713,7 +713,7 @@ h3 {
 
 .endfield-gacha-page .hero-copy h1 {
   margin: 0;
-  font-size: clamp(38px, 4.7vw, 76px);
+  font-size: clamp(30px, 3.76vw, 61px);
   line-height: 1.03;
   letter-spacing: -0.05em;
 }
@@ -914,6 +914,7 @@ h3 {
 .gacha-hero-card-character {
   position: relative;
   padding-bottom: 20px;
+  align-content: start;
 }
 
 .gacha-hero-card-character:not(.is-special-banner) .gacha-target-potential-panel,
@@ -947,9 +948,9 @@ h3 {
 }
 
 .gacha-potential-stepper {
-  min-width: 108px !important;
-  width: 108px !important;
-  max-width: 108px !important;
+  min-width: 81px !important;
+  width: 81px !important;
+  max-width: 81px !important;
   height: 30px !important;
   padding: 0 !important;
   justify-content: space-between;
@@ -1062,15 +1063,15 @@ h3 {
 }
 
 .gacha-probability-note {
-  max-width: calc(100% + 22px);
-  margin: 12px 0 0 -22px;
+  width: 100%;
+  margin: 0;
+  padding-top: 12px;
   color: rgba(0, 0, 0, 0.52);
   font-family: "Endfield PingFang SC", "PingFang SC", sans-serif;
   font-size: 12px;
   font-weight: 500;
   line-height: 1.55;
   text-align: left;
-  justify-self: start;
 }
 
 .gacha-scroll-panel {
