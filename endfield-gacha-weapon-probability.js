@@ -2,8 +2,11 @@ const EndfieldGachaWeaponProbability = (function () {
   const defaultRules = Object.freeze({
     sixStarRate: 0.04,
     upShareWhenSixStar: 0.25,
-    firstPityAt: 8,
-    repeatPityEvery: 16,
+    // every sixStarPityAt consecutive non-6-star pulls → forced 6-star
+    sixStarPityAt: 4,
+    // UP pity: first at pull 8 in UP cycle, then every 16 pulls
+    firstUpPityAt: 8,
+    repeatUpPityEvery: 16,
   });
 
   function clampInteger(value, min, max) {
@@ -12,6 +15,14 @@ const EndfieldGachaWeaponProbability = (function () {
     return Math.min(max, Math.max(min, Math.floor(n)));
   }
 
+  // State: (sinceLastSix, upCyclePull, isFirst, upsGot)
+  //   sinceLastSix:  non-6-star pulls since last 6-star (0..sixStarPityAt-1)
+  //   upCyclePull:   total pulls taken so far in current UP cycle (0..repeatUpPityEvery-1)
+  //   isFirst:       whether this is the first UP cycle
+  //   upsGot:        UP weapons obtained
+  //
+  // sinceLastSix >= sixStarPityAt-1  →  this pull is forced 6-star (UP pity wins if both fire)
+  // upCyclePull  >= upThreshold      →  this pull is forced UP 6-star
   function calculateWeaponTargetPotentialProbability({ pulls, targetPotential, rules: customRules, minimumProbability }) {
     const rules = Object.assign({}, defaultRules, customRules || {});
     const minProb = minimumProbability != null ? minimumProbability : 1e-9;
@@ -25,17 +36,26 @@ const EndfieldGachaWeaponProbability = (function () {
     const upRate = rules.sixStarRate * rules.upShareWhenSixStar;
     const offRate = rules.sixStarRate - upRate;
     const missRate = 1 - rules.sixStarRate;
-    const firstThreshold = rules.firstPityAt - 1;
-    const repeatThreshold = rules.repeatPityEvery - 1;
+    const sixPityThreshold = rules.sixStarPityAt - 1;      // 3: at sinceLastSix==3, forced 6-star
+    const firstUpThreshold = rules.firstUpPityAt - 1;      // 7: at upCyclePull==7, forced UP
+    const repeatUpThreshold = rules.repeatUpPityEvery - 1; // 15
 
-    // State encoding: sinceLastSix (0..repeatThreshold) + isFirst (0..1) * sinceBase + upsGot * sinceBase * 2
-    const sinceBase = repeatThreshold + 1;
+    const sinceBase = sixPityThreshold + 1;      // 4
+    const upCycleBase = repeatUpThreshold + 1;   // 16
+    const isFirstBase = 2;
 
-    function encode(sinceLastSix, isFirst, upsGot) {
-      return sinceLastSix + (isFirst ? 1 : 0) * sinceBase + upsGot * sinceBase * 2;
+    function encode(sinceLastSix, upCyclePull, isFirst, upsGot) {
+      return sinceLastSix + upCyclePull * sinceBase + (isFirst ? 1 : 0) * sinceBase * upCycleBase + upsGot * sinceBase * upCycleBase * isFirstBase;
     }
 
-    let current = new Map([[encode(0, true, 0), 1.0]]);
+    function addNext(map, prob, sinceLastSix, upCyclePull, isFirst, upsGot) {
+      if (prob < minProb) return;
+      const k = encode(sinceLastSix, upCyclePull, isFirst, upsGot);
+      map.set(k, (map.get(k) || 0) + prob);
+    }
+
+    // Initial state: no pulls taken, first UP cycle
+    let current = new Map([[encode(0, 0, true, 0), 1.0]]);
     let successProb = 0;
 
     for (let i = 0; i < totalPulls; i++) {
@@ -45,36 +65,46 @@ const EndfieldGachaWeaponProbability = (function () {
         if (prob < minProb) return;
 
         const sinceLastSix = key % sinceBase;
-        const isFirst = Math.floor(key / sinceBase) % 2 === 1;
-        const upsGot = Math.floor(key / (sinceBase * 2));
-        const threshold = isFirst ? firstThreshold : repeatThreshold;
+        const rem1 = Math.floor(key / sinceBase);
+        const upCyclePull = rem1 % upCycleBase;
+        const rem2 = Math.floor(rem1 / upCycleBase);
+        const isFirst = rem2 % isFirstBase === 1;
+        const upsGot = Math.floor(rem2 / isFirstBase);
 
-        if (sinceLastSix >= threshold) {
-          // Guaranteed 6-star
+        const upThreshold = isFirst ? firstUpThreshold : repeatUpThreshold;
+        const isUpForced = upCyclePull >= upThreshold;
+        const isSixForced = sinceLastSix >= sixPityThreshold;
+
+        if (isUpForced) {
+          // Forced UP 6-star — occupies the 4-pull pity slot if also due
           const newUps = upsGot + 1;
           if (newUps >= need) {
-            successProb += prob * rules.upShareWhenSixStar;
+            successProb += prob;
           } else {
-            const k = encode(0, false, newUps);
-            next.set(k, (next.get(k) || 0) + prob * rules.upShareWhenSixStar);
+            addNext(next, prob, 0, 0, false, newUps);
           }
-          const kOff = encode(0, false, upsGot);
-          next.set(kOff, (next.get(kOff) || 0) + prob * (1 - rules.upShareWhenSixStar));
+        } else if (isSixForced) {
+          // Forced 6-star from 4-pull pity; 25% UP
+          const upP = rules.upShareWhenSixStar;
+          const offP = 1 - upP;
+          const newUps = upsGot + 1;
+          if (newUps >= need) {
+            successProb += prob * upP;
+          } else {
+            addNext(next, prob * upP, 0, 0, false, newUps);
+          }
+          // Off-rate: sinceLastSix resets, upCyclePull advances
+          addNext(next, prob * offP, 0, upCyclePull + 1, isFirst, upsGot);
         } else {
-          // UP 6-star
+          // Normal pull
           const newUps = upsGot + 1;
           if (newUps >= need) {
             successProb += prob * upRate;
           } else {
-            const k = encode(0, false, newUps);
-            next.set(k, (next.get(k) || 0) + prob * upRate);
+            addNext(next, prob * upRate, 0, 0, false, newUps);
           }
-          // Off-rate 6-star
-          const kOff = encode(0, false, upsGot);
-          next.set(kOff, (next.get(kOff) || 0) + prob * offRate);
-          // Miss
-          const kMiss = encode(sinceLastSix + 1, isFirst, upsGot);
-          next.set(kMiss, (next.get(kMiss) || 0) + prob * missRate);
+          addNext(next, prob * offRate, 0, upCyclePull + 1, isFirst, upsGot);
+          addNext(next, prob * missRate, sinceLastSix + 1, upCyclePull + 1, isFirst, upsGot);
         }
       });
 
