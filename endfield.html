@@ -12,8 +12,8 @@
     <link rel="apple-touch-icon" href="./assets/lr-web-icon.png" />
     <meta name="theme-color" content="#ffffff" />
     <link rel="stylesheet" href="./styles.css?v=20260508-potential-crossfade" />
-    <script src="./endfield-gacha-probability.js?v=20260508-rolled-target-potential" defer></script>
-    <script src="./site.js?v=20260508-rolled-target-potential" defer></script>
+    <script src="./endfield-gacha-probability.js?v=20260508-effective-pulls-note" defer></script>
+    <script src="./site.js?v=20260508-effective-pulls-note" defer></script>
   </head>
   <body class="endfield-page endfield-gacha-page">
     <div class="site-shell">
@@ -197,7 +197,10 @@
                     <div class="gacha-target-probability-track">
                       <span id="gacha-target-probability-fill"></span>
                     </div>
-                    <strong id="gacha-target-probability-value">计算中</strong>
+                    <strong class="gacha-target-probability-value">
+                      <span id="gacha-target-probability-value">计算中</span>
+                      <sup>1</sup>
+                    </strong>
                   </div>
                   <div class="gacha-hero-card-head">
                     <div>
@@ -229,6 +232,10 @@
                       <span><img src="./assets/endfield/limited-pull-yellow.webp" alt="" /><strong id="gacha-total-featured-permits">0</strong></span>
                       <span><img src="./assets/endfield/limited-pull.webp" alt="" /><strong id="gacha-total-special-permits">0</strong></span>
                     </div>
+
+                    <p class="gacha-probability-note">
+                      1. 此概率已将【加急招募】及目前用户抽数抽完可以兑换的【保障配额】兑换的抽卡数目全部纳入默认抽完得出的概率，可能与实际略有偏差
+                    </p>
                   </div>
                 </article>
 

@@ -473,11 +473,87 @@ const EndfieldGachaProbability = (function () {
 
   function estimateEffectivePulls(options = {}) {
     const rules = { ...defaultRules, ...(options.rules || {}) };
-    const pulls = clampInteger(options.pulls ?? 0, 0, 1000);
-    const initialQuotaCredit = clampInteger(options.guaranteeQuota ?? 0, 0, rules.guaranteeQuotaPerPull - 1) / rules.guaranteeQuotaPerPull;
-    const emergencyPulls = pulls >= rules.emergencyRecruitmentTriggerPulls ? rules.emergencyRecruitmentPulls : 0;
-    const recycledPulls = pulls * 0.057;
-    return Math.min(1000, Math.max(0, Math.floor(pulls + emergencyPulls + recycledPulls + initialQuotaCredit)));
+    let pullBudget = clampInteger(options.pulls ?? 0, 0, 1000);
+    let effectivePulls = 0;
+    let countedPulls = clampInteger(options.initialCountedPulls ?? 0, 0, 1000);
+    let quotaCredit = clampInteger(options.guaranteeQuota ?? 0, 0, rules.guaranteeQuotaPerPull - 1);
+    let states = new Map();
+    states.set(`${clampInteger(options.sixPity ?? 0, 0, rules.sixStarHardPity - 1)},${clampInteger(options.fivePity ?? 0, 0, rules.fiveStarOrAboveHardPity - 1)},${options.ownedTargetSources > 0 ? 1 : 0}`, 1);
+    let emergencyRecruitmentAwarded = countedPulls >= rules.emergencyRecruitmentTriggerPulls;
+    let emergencyRecruitmentUsed = false;
+
+    const applyExpectedPull = (countsTowardGacha) => {
+      const nextStates = new Map();
+      let quotaGain = 0;
+
+      states.forEach((stateProbability, stateKey) => {
+        const [sixPity, fivePity, hasTargetBody] = stateKey.split(",").map(Number);
+        const sixStarRate = countsTowardGacha ? getSixStarRate(sixPity, rules) : rules.sixStarBaseRate;
+        const fiveStarRate = countsTowardGacha && fivePity >= rules.fiveStarOrAboveHardPity - 1 ? 1 - sixStarRate : rules.fiveStarBaseRate;
+        const featuredRate = sixStarRate * rules.featuredShareWhenSixStar;
+        const offRate = sixStarRate - featuredRate;
+        const nonSixFiveRate = Math.max(0, 1 - sixStarRate - fiveStarRate);
+
+        quotaGain +=
+          stateProbability *
+          (fiveStarRate * rules.repeatedFiveStarQuota +
+            offRate * rules.offRateSixStarExpectedQuota +
+            featuredRate * hasTargetBody * rules.repeatedFeaturedSixStarQuota);
+
+        const addState = (nextSixPity, nextFivePity, nextHasTargetBody, probability) => {
+          if (probability <= 0) {
+            return;
+          }
+          const nextKey = `${nextSixPity},${nextFivePity},${nextHasTargetBody}`;
+          nextStates.set(nextKey, (nextStates.get(nextKey) || 0) + stateProbability * probability);
+        };
+
+        if (!countsTowardGacha) {
+          addState(sixPity, fivePity, 1, featuredRate);
+          addState(sixPity, fivePity, hasTargetBody, offRate + fiveStarRate + nonSixFiveRate);
+          return;
+        }
+
+        addState(0, 0, 1, featuredRate);
+        addState(0, 0, hasTargetBody, offRate);
+        addState(Math.min(rules.sixStarHardPity - 1, sixPity + 1), 0, hasTargetBody, fiveStarRate);
+        addState(
+          Math.min(rules.sixStarHardPity - 1, sixPity + 1),
+          Math.min(rules.fiveStarOrAboveHardPity - 1, fivePity + 1),
+          hasTargetBody,
+          nonSixFiveRate,
+        );
+      });
+
+      states = nextStates;
+      quotaCredit += quotaGain;
+      pullBudget += Math.floor(quotaCredit / rules.guaranteeQuotaPerPull);
+      quotaCredit %= rules.guaranteeQuotaPerPull;
+
+      if (countsTowardGacha) {
+        countedPulls += 1;
+        if (countedPulls >= rules.emergencyRecruitmentTriggerPulls) {
+          emergencyRecruitmentAwarded = true;
+        }
+      }
+    };
+
+    while (effectivePulls < 1000 && (pullBudget > 0 || (emergencyRecruitmentAwarded && !emergencyRecruitmentUsed))) {
+      if (pullBudget <= 0 && emergencyRecruitmentAwarded && !emergencyRecruitmentUsed) {
+        emergencyRecruitmentUsed = true;
+        for (let index = 0; index < rules.emergencyRecruitmentPulls && effectivePulls < 1000; index += 1) {
+          effectivePulls += 1;
+          applyExpectedPull(false);
+        }
+        continue;
+      }
+
+      pullBudget -= 1;
+      effectivePulls += 1;
+      applyExpectedPull(true);
+    }
+
+    return Math.min(1000, Math.max(0, effectivePulls));
   }
 
   function calculateRolledTargetPotentialProbability(options = {}) {

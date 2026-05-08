@@ -1037,11 +1037,33 @@ h3 {
   background: linear-gradient(90deg, #d94b4b 0%, #d94b4b 15%, #ee8e34 33.333%, #ebcc49 66.667%, #4eb263 100%);
 }
 
-#gacha-target-probability-value {
+.gacha-target-probability-value {
+  display: inline-flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  gap: 2px;
   font-family: "Novecento Sans Wide", "Endfield PingFang SC", "PingFang SC", sans-serif;
   font-size: 18px;
   font-weight: 600;
   line-height: 1;
+}
+
+.gacha-target-probability-value sup {
+  color: rgba(0, 0, 0, 0.52);
+  font-size: 10px;
+  line-height: 1;
+  transform: translateY(-0.28em);
+}
+
+.gacha-probability-note {
+  max-width: 92%;
+  margin: 4px auto 0;
+  color: rgba(0, 0, 0, 0.52);
+  font-family: "Endfield PingFang SC", "PingFang SC", sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.55;
+  text-align: center;
 }
 
 .gacha-scroll-panel {

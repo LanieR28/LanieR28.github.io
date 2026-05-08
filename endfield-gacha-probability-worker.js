@@ -1,4 +1,4 @@
-importScripts("./endfield-gacha-probability.js?v=20260508-rolled-target-potential");
+importScripts("./endfield-gacha-probability.js?v=20260508-effective-pulls-note");
 
 self.addEventListener("message", function (event) {
   const payload = event.data || {};

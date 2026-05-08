@@ -699,7 +699,7 @@
         }
 
         if (!gachaProbabilityWorker && "Worker" in window) {
-          gachaProbabilityWorker = new Worker("./endfield-gacha-probability-worker.js?v=20260508-rolled-target-potential");
+          gachaProbabilityWorker = new Worker("./endfield-gacha-probability-worker.js?v=20260508-effective-pulls-note");
           gachaProbabilityWorker.addEventListener("message", function (event) {
             const result = event.data || {};
             if (result.requestId !== gachaProbabilityRequestId) {
