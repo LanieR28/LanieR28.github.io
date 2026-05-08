@@ -471,10 +471,34 @@ const EndfieldGachaProbability = (function () {
     };
   }
 
+  function estimateEffectivePulls(options = {}) {
+    const rules = { ...defaultRules, ...(options.rules || {}) };
+    const pulls = clampInteger(options.pulls ?? 0, 0, 1000);
+    const initialQuotaCredit = clampInteger(options.guaranteeQuota ?? 0, 0, rules.guaranteeQuotaPerPull - 1) / rules.guaranteeQuotaPerPull;
+    const emergencyPulls = pulls >= rules.emergencyRecruitmentTriggerPulls ? rules.emergencyRecruitmentPulls : 0;
+    const recycledPulls = pulls * 0.057;
+    return Math.min(1000, Math.max(0, Math.floor(pulls + emergencyPulls + recycledPulls + initialQuotaCredit)));
+  }
+
+  function calculateRolledTargetPotentialProbability(options = {}) {
+    const effectivePulls = estimateEffectivePulls(options);
+    const result = calculateTargetPotentialProbabilityFast({
+      ...options,
+      pulls: effectivePulls,
+    });
+    return {
+      ...result,
+      inputPulls: clampInteger(options.pulls ?? 0, 0, 1000),
+      effectivePulls,
+    };
+  }
+
   return Object.freeze({
     rules: defaultRules,
-    calculateTargetPotentialProbability: calculateTargetPotentialProbabilityFast,
+    calculateTargetPotentialProbability: calculateRolledTargetPotentialProbability,
     calculateTargetPotentialProbabilityFast,
+    calculateRolledTargetPotentialProbability,
+    estimateEffectivePulls,
     calculateTargetPotentialProbabilityDetailed: calculateTargetPotentialProbability,
   });
 })();
