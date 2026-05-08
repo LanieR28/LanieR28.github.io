@@ -213,6 +213,7 @@
     const gachaDailyCurrency = 200;
     const gachaWeeklyCurrency = 500;
     const gachaDailyFixedPermits = 5;
+    const gachaSearchIntelPermits = 10;
     const gachaRefreshMonthCardExpiryDate = "2026-05-18";
     const gachaPaidPackages = {
       "package-hongyuan": { originium: 6, price: 6 },
@@ -266,6 +267,7 @@
         name: "庄方宜卡池",
         startDate: "2026-04-17",
         endDate: "2026-05-22",
+        hasSearchIntel: true,
       },
       nextGacha: {
         key: "nextGacha",
@@ -280,6 +282,7 @@
         name: "弥弗卡池",
         startDate: "2026-06-04",
         endDate: "2026-06-20",
+        hasSearchIntel: true,
       },
     };
 
@@ -312,6 +315,8 @@
     const gachaWeeklyCurrencyTotal = document.getElementById("gacha-weekly-currency-total");
     const gachaWeeklyWeaponQuotaTotal = document.getElementById("gacha-weekly-weapon-quota-total");
     const gachaRefreshMonthCardCurrencyTotal = document.getElementById("gacha-refresh-month-card-currency-total");
+    const gachaSearchIntelItem = document.getElementById("gacha-search-intel-item");
+    const gachaSearchIntelToggle = document.querySelector('[data-toggle-key="daily-search-intel"]');
     const gachaDailySectionTotal = document.getElementById("gacha-daily-section-total");
     const gachaMonthCardLabel = document.getElementById("gacha-month-card-label");
     const gachaMonthCardCurrency = document.getElementById("gacha-month-card-currency");
@@ -405,6 +410,9 @@
         "event-zhensui": 0,
       },
     };
+    const gachaDailyState = {
+      searchIntelSelected: false,
+    };
     let gachaStepperHoldTimer = null;
     let gachaStepperRepeatTimer = null;
     let gachaStepperRepeatDelay = 260;
@@ -459,6 +467,10 @@
       return Math.min(gachaDays, Math.max(0, getGachaDayDiff(today, expiryDate) - 1));
     }
 
+    function hasSearchIntel(selectedGacha) {
+      return Boolean(selectedGacha.hasSearchIntel) || /寻访$/.test(selectedGacha.name || selectedGacha.tabLabel || "");
+    }
+
     function getNonNegativeNumber(input) {
       if (!input) {
         return 0;
@@ -478,6 +490,7 @@
             selectedGachaKey: gachaState.selectedGachaKey,
             settlementMode: gachaState.settlementMode,
             disableOriginiumPulls: gachaPaidState.disableOriginiumPulls,
+            searchIntelSelected: gachaDailyState.searchIntelSelected,
             monthCardSelected: gachaPaidState.monthCardSelected,
             packageSelections: gachaPaidState.packageSelections,
             firstChargeSelections: gachaPaidState.firstChargeSelections,
@@ -505,6 +518,7 @@
           gachaState.settlementMode = savedState.settlementMode;
         }
         gachaPaidState.disableOriginiumPulls = Boolean(savedState.disableOriginiumPulls);
+        gachaDailyState.searchIntelSelected = Boolean(savedState.searchIntelSelected);
         gachaPaidState.monthCardSelected = Boolean(savedState.monthCardSelected);
 
         Object.keys(gachaPaidState.packageSelections).forEach((key) => {
@@ -647,6 +661,12 @@
         node.textContent = isSelected ? "已选" : "未选";
       });
 
+      if (gachaSearchIntelToggle) {
+        gachaSearchIntelToggle.classList.toggle("is-active", gachaDailyState.searchIntelSelected);
+        gachaSearchIntelToggle.setAttribute("aria-pressed", gachaDailyState.searchIntelSelected ? "true" : "false");
+        gachaSearchIntelToggle.textContent = gachaDailyState.searchIntelSelected ? "已选" : "未选";
+      }
+
     }
 
     function syncPaidStickyTotalVisibility() {
@@ -745,6 +765,7 @@
         return;
       }
       gachaState.selectedGachaKey = selectedGacha.key;
+      const isSearchIntelAvailable = hasSearchIntel(selectedGacha);
       const gachaCutoff = getGachaCutoff(selectedGacha, today);
       const gachaDays = getGachaDayDiff(today, gachaCutoff);
       const gachaWeeks = getWeeklyRefreshCount(today, gachaCutoff);
@@ -836,7 +857,8 @@
       const selectedEventSpecialPulls = gachaPaidState.originiumShopQuantities["event-huiguang-signin"] || 0;
       const eventCurrencyTotal = eventCurrency + selectedEventCurrency;
       const eventPermitPullsTotal = eventFeaturedPermits + selectedEventSpecialPulls;
-      const dailyPermitPulls = gachaDailyFixedPermits;
+      const selectedDailySearchIntelPulls = isSearchIntelAvailable && gachaDailyState.searchIntelSelected ? gachaSearchIntelPermits : 0;
+      const dailyPermitPulls = gachaDailyFixedPermits + selectedDailySearchIntelPulls;
       const totalOriginium = currentOriginium + paidOriginiumTotal;
       const totalCurrency = currentCurrency + dailyCurrencyTotal + eventCurrencyTotal + selectedPaidMonthCardCurrency;
       const totalFeaturedPermits = currentFeaturedPermits + eventFeaturedPermits + paidPackageFeaturedPermits;
@@ -888,6 +910,9 @@
       }
       if (gachaRefreshMonthCardCurrencyTotal) {
         gachaRefreshMonthCardCurrencyTotal.textContent = `${refreshMonthCardCurrency}`;
+      }
+      if (gachaSearchIntelItem) {
+        gachaSearchIntelItem.hidden = !isSearchIntelAvailable;
       }
       if (gachaDailySectionTotal) {
         gachaDailySectionTotal.textContent = `${dailyCurrencyTotal}`;
@@ -994,6 +1019,12 @@
 
         if (toggleKey === "monthcard") {
           gachaPaidState.monthCardSelected = !gachaPaidState.monthCardSelected;
+          renderGachaCalculator();
+          return;
+        }
+
+        if (toggleKey === "daily-search-intel") {
+          gachaDailyState.searchIntelSelected = !gachaDailyState.searchIntelSelected;
           renderGachaCalculator();
           return;
         }
