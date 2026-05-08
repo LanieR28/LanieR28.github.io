@@ -1,4 +1,4 @@
-const EndfieldGachaWeaponProbability = (function () {
+window.EndfieldGachaWeaponProbability = (function () {
   const defaultRules = Object.freeze({
     sixStarRate: 0.04,
     upShareWhenSixStar: 0.25,

@@ -9,6 +9,10 @@
   min-height: 220px;
 }
 
+.gacha-hero-card-weapon-panel .gacha-probability-note {
+  transform: translateY(-16px);
+}
+
 .gacha-weapon-quota-module {
   display: grid;
   grid-template-columns: 1fr 160px auto;
