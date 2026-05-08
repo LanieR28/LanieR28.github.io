@@ -421,17 +421,18 @@
       },
     };
     const gachaPotentialIconPaths = [
-      "./assets/endfield/potential-0.png?v=20260508-crossfade",
-      "./assets/endfield/potential-1.png?v=20260508-crossfade",
-      "./assets/endfield/potential-2.png?v=20260508-crossfade",
-      "./assets/endfield/potential-3.png?v=20260508-crossfade",
-      "./assets/endfield/potential-4.png?v=20260508-crossfade",
-      "./assets/endfield/potential-5.png?v=20260508-crossfade",
+      "./assets/endfield/potential-0.png?v=20260508-b",
+      "./assets/endfield/potential-1.png?v=20260508-b",
+      "./assets/endfield/potential-2.png?v=20260508-b",
+      "./assets/endfield/potential-3.png?v=20260508-b",
+      "./assets/endfield/potential-4.png?v=20260508-b",
+      "./assets/endfield/potential-5.png?v=20260508-b",
     ];
     const gachaDailyState = {
       searchIntelSelections: {},
       targetPotential: 0,
     };
+    let gachaIconFadeTimer = null;
     let gachaStepperHoldTimer = null;
     let gachaStepperRepeatTimer = null;
     let gachaStepperRepeatDelay = 260;
@@ -618,22 +619,14 @@
       if (gachaTargetPotentialIconImage) {
         const nextIconPath = gachaPotentialIconPaths[value];
         if (gachaTargetPotentialIconImage.getAttribute("src") !== nextIconPath) {
-          if (gachaTargetPotentialIconPreviousImage) {
-            gachaTargetPotentialIconPreviousImage.src = gachaTargetPotentialIconImage.src;
-            gachaTargetPotentialIconPreviousImage.classList.add("is-visible");
-          }
-          gachaTargetPotentialIconImage.style.transition = "none";
+          clearTimeout(gachaIconFadeTimer);
           gachaTargetPotentialIconImage.classList.remove("is-visible");
-          gachaTargetPotentialIconImage.src = nextIconPath;
-          window.requestAnimationFrame(function () {
-            gachaTargetPotentialIconImage.style.transition = "";
+          gachaIconFadeTimer = setTimeout(function () {
+            gachaTargetPotentialIconImage.src = nextIconPath;
             window.requestAnimationFrame(function () {
               gachaTargetPotentialIconImage.classList.add("is-visible");
-              if (gachaTargetPotentialIconPreviousImage) {
-                gachaTargetPotentialIconPreviousImage.classList.remove("is-visible");
-              }
             });
-          });
+          }, 200);
         }
         gachaTargetPotentialIconImage.alt = `${value}潜`;
       }
@@ -688,8 +681,7 @@
         window.clearTimeout(gachaProbabilityFallbackTimer);
         gachaProbabilityFallbackTimer = null;
       }
-      gachaTargetProbabilityValue.textContent = "计算中";
-      gachaTargetProbabilityValue.style.color = getGachaProbabilityColor(0);
+      gachaTargetProbabilityValue.textContent = "";
 
       gachaProbabilityDebounceTimer = window.setTimeout(function () {
         const requestId = gachaProbabilityRequestId + 1;

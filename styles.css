@@ -947,9 +947,9 @@ h3 {
 }
 
 .gacha-potential-stepper {
-  min-width: 36px !important;
-  width: 36px !important;
-  max-width: 36px !important;
+  min-width: 108px !important;
+  width: 108px !important;
+  max-width: 108px !important;
   height: 30px !important;
   padding: 0 !important;
   justify-content: space-between;
@@ -970,9 +970,9 @@ h3 {
   align-items: center;
   justify-content: center;
   position: relative;
-  min-width: 34px;
-  width: 34px;
-  height: 34px;
+  min-width: 44px;
+  width: 44px;
+  height: 44px;
   padding: 0;
   border-radius: 999px;
   background: transparent;
@@ -986,19 +986,15 @@ h3 {
   position: absolute;
   inset: 0;
   display: block;
-  width: 34px;
-  height: 34px;
+  width: 44px;
+  height: 44px;
   object-fit: contain;
   opacity: 0;
-  transform: scale(0.9);
-  transition:
-    opacity 0.34s ease,
-    transform 0.34s ease;
+  transition: opacity 0.2s ease;
 }
 
 .gacha-potential-icon-image.is-visible {
   opacity: 1;
-  transform: scale(1);
 }
 
 .gacha-potential-icon-image-previous {
