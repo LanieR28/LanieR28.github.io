@@ -474,6 +474,7 @@
   font-family: "Novecento Sans Wide", "Endfield PingFang SC", "PingFang SC", sans-serif;
   font-size: 28px;
   font-weight: 400;
+  font-variant-numeric: lining-nums;
   line-height: 1;
   transform: translateY(-3px);
 }
