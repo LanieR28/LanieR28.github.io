@@ -27,7 +27,7 @@
 
 @font-face {
   font-family: "Endfield PingFang SC";
-  src: url("./assets/fonts/苹方黑体-准-简.ttf") format("truetype");
+  src: url("../assets/fonts/苹方黑体-准-简.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -35,7 +35,7 @@
 
 @font-face {
   font-family: "Endfield PingFang SC";
-  src: url("./assets/fonts/苹方黑体-中黑-简.ttf") format("truetype");
+  src: url("../assets/fonts/苹方黑体-中黑-简.ttf") format("truetype");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -43,7 +43,7 @@
 
 @font-face {
   font-family: "Endfield PingFang SC";
-  src: url("./assets/fonts/苹方黑体-中粗-简.ttf") format("truetype");
+  src: url("../assets/fonts/苹方黑体-中粗-简.ttf") format("truetype");
   font-weight: 600;
   font-style: normal;
   font-display: swap;
@@ -51,7 +51,7 @@
 
 @font-face {
   font-family: "Novecento Sans Wide";
-  src: url("./assets/fonts/novecento/Novecentosanswide-Light.otf") format("opentype");
+  src: url("../assets/fonts/novecento/Novecentosanswide-Light.otf") format("opentype");
   font-weight: 300;
   font-style: normal;
   font-display: swap;
@@ -59,7 +59,7 @@
 
 @font-face {
   font-family: "Novecento Sans Wide";
-  src: url("./assets/fonts/novecento/Novecentosanswide-Book.otf") format("opentype");
+  src: url("../assets/fonts/novecento/Novecentosanswide-Book.otf") format("opentype");
   font-weight: 350;
   font-style: normal;
   font-display: swap;
@@ -67,7 +67,7 @@
 
 @font-face {
   font-family: "Novecento Sans Wide";
-  src: url("./assets/fonts/novecento/Novecentosanswide-Normal.otf") format("opentype");
+  src: url("../assets/fonts/novecento/Novecentosanswide-Normal.otf") format("opentype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -75,7 +75,7 @@
 
 @font-face {
   font-family: "Novecento Sans Wide";
-  src: url("./assets/fonts/novecento/Novecentosanswide-Medium.otf") format("opentype");
+  src: url("../assets/fonts/novecento/Novecentosanswide-Medium.otf") format("opentype");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -83,7 +83,7 @@
 
 @font-face {
   font-family: "Novecento Sans Wide";
-  src: url("./assets/fonts/novecento/Novecentosanswide-Medium.otf") format("opentype");
+  src: url("../assets/fonts/novecento/Novecentosanswide-Medium.otf") format("opentype");
   font-weight: 600;
   font-style: normal;
   font-display: swap;
@@ -91,7 +91,7 @@
 
 @font-face {
   font-family: "Novecento Sans Wide";
-  src: url("./assets/fonts/novecento/Novecentosanswide-Medium.otf") format("opentype");
+  src: url("../assets/fonts/novecento/Novecentosanswide-Medium.otf") format("opentype");
   font-weight: 700;
   font-style: normal;
   font-display: swap;

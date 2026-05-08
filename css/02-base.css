@@ -19,7 +19,7 @@ body {
   right: 0;
   bottom: 0;
   left: 0;
-  background-image: url("./assets/home-bg-03.jpg");
+  background-image: url("../assets/home-bg-03.jpg");
   background-size: cover;
   background-position: center var(--home-bg-position-y);
   background-repeat: no-repeat;
