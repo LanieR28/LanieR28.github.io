@@ -310,6 +310,7 @@
     const gachaTotalSpecialPermits = document.getElementById("gacha-total-special-permits");
     const gachaTargetPotentialInput = document.getElementById("gacha-target-potential");
     const gachaTargetPotentialIcon = document.getElementById("gacha-target-potential-icon");
+    const gachaTargetPotentialIconPreviousImage = document.getElementById("gacha-target-potential-icon-image-previous");
     const gachaTargetPotentialIconImage = document.getElementById("gacha-target-potential-icon-image");
     const gachaTargetProbabilityFill = document.getElementById("gacha-target-probability-fill");
     const gachaTargetProbabilityValue = document.getElementById("gacha-target-probability-value");
@@ -416,12 +417,12 @@
       },
     };
     const gachaPotentialIconPaths = [
-      "./assets/endfield/potential-0.png",
-      "./assets/endfield/potential-1.png",
-      "./assets/endfield/potential-2.png",
-      "./assets/endfield/potential-3.png",
-      "./assets/endfield/potential-4.png",
-      "./assets/endfield/potential-5.png",
+      "./assets/endfield/potential-0.png?v=20260508-crossfade",
+      "./assets/endfield/potential-1.png?v=20260508-crossfade",
+      "./assets/endfield/potential-2.png?v=20260508-crossfade",
+      "./assets/endfield/potential-3.png?v=20260508-crossfade",
+      "./assets/endfield/potential-4.png?v=20260508-crossfade",
+      "./assets/endfield/potential-5.png?v=20260508-crossfade",
     ];
     const gachaDailyState = {
       searchIntelSelections: {},
@@ -611,7 +612,21 @@
         gachaTargetPotentialIcon.setAttribute("aria-label", `${value}潜`);
       }
       if (gachaTargetPotentialIconImage) {
-        gachaTargetPotentialIconImage.src = gachaPotentialIconPaths[value];
+        const nextIconPath = gachaPotentialIconPaths[value];
+        if (gachaTargetPotentialIconImage.getAttribute("src") !== nextIconPath) {
+          if (gachaTargetPotentialIconPreviousImage) {
+            gachaTargetPotentialIconPreviousImage.src = gachaTargetPotentialIconImage.src;
+            gachaTargetPotentialIconPreviousImage.classList.add("is-visible");
+          }
+          gachaTargetPotentialIconImage.classList.remove("is-visible");
+          gachaTargetPotentialIconImage.src = nextIconPath;
+          window.requestAnimationFrame(function () {
+            gachaTargetPotentialIconImage.classList.add("is-visible");
+            if (gachaTargetPotentialIconPreviousImage) {
+              gachaTargetPotentialIconPreviousImage.classList.remove("is-visible");
+            }
+          });
+        }
         gachaTargetPotentialIconImage.alt = `${value}潜`;
       }
       const stepper = gachaTargetPotentialInput ? gachaTargetPotentialInput.closest(".gacha-stepper") : null;

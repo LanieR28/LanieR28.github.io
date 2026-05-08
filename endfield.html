@@ -11,9 +11,9 @@
     <link rel="icon" type="image/png" href="./assets/lr-web-icon.png" />
     <link rel="apple-touch-icon" href="./assets/lr-web-icon.png" />
     <meta name="theme-color" content="#ffffff" />
-    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./styles.css?v=20260508-potential-crossfade" />
     <script src="./endfield-gacha-probability.js?v=20260508-fast-target-potential" defer></script>
-    <script src="./site.js?v=20260508-target-potential-ui" defer></script>
+    <script src="./site.js?v=20260508-potential-crossfade" defer></script>
   </head>
   <body class="endfield-page endfield-gacha-page">
     <div class="site-shell">
@@ -176,13 +176,19 @@
                       <span
                         class="gacha-potential-icon-placeholder"
                         id="gacha-target-potential-icon"
-                        style="min-width: 72px; width: 72px; height: 72px; padding: 0; border-radius: 0; background: transparent;"
                       >
                         <img
+                          class="gacha-potential-icon-image gacha-potential-icon-image-previous"
+                          id="gacha-target-potential-icon-image-previous"
+                          src="./assets/endfield/potential-0.png?v=20260508-crossfade"
+                          alt=""
+                          aria-hidden="true"
+                        />
+                        <img
+                          class="gacha-potential-icon-image gacha-potential-icon-image-current is-visible"
                           id="gacha-target-potential-icon-image"
-                          src="./assets/endfield/potential-0.png"
+                          src="./assets/endfield/potential-0.png?v=20260508-crossfade"
                           alt="0潜"
-                          style="display: block; width: 30px; height: 30px; object-fit: contain;"
                         />
                       </span>
                     </div>

@@ -959,15 +959,44 @@ h3 {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  position: relative;
   min-width: 30px;
+  width: 30px;
   height: 30px;
   padding: 0;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.8);
+  background: transparent;
   color: rgba(0, 0, 0, 0.72);
   font-family: "Novecento Sans Wide", "Endfield PingFang SC", "PingFang SC", sans-serif;
   font-size: 14px;
   line-height: 1;
+}
+
+.gacha-potential-icon-image {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  opacity: 0;
+  transform: scale(0.9);
+  transition:
+    opacity 0.22s ease,
+    transform 0.22s ease;
+}
+
+.gacha-potential-icon-image.is-visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.gacha-potential-icon-image-previous {
+  z-index: 1;
+}
+
+.gacha-potential-icon-image-current {
+  z-index: 2;
 }
 
 .gacha-target-probability-panel {
