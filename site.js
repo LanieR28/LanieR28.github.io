@@ -684,7 +684,7 @@
         }
 
         if (!gachaProbabilityWorker && "Worker" in window) {
-          gachaProbabilityWorker = new Worker("./endfield-gacha-probability-worker.js?v=20260508-target-potential-probability");
+          gachaProbabilityWorker = new Worker("./endfield-gacha-probability-worker.js?v=20260508-fast-target-potential");
           gachaProbabilityWorker.addEventListener("message", function (event) {
             const result = event.data || {};
             if (result.requestId !== gachaProbabilityRequestId) {

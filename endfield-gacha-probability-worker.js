@@ -1,4 +1,4 @@
-importScripts("./endfield-gacha-probability.js?v=20260508-target-potential-probability");
+importScripts("./endfield-gacha-probability.js?v=20260508-fast-target-potential");
 
 self.addEventListener("message", function (event) {
   const payload = event.data || {};

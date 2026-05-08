@@ -402,9 +402,80 @@ const EndfieldGachaProbability = (function () {
     };
   }
 
+  function calculateTargetPotentialProbabilityFast(options = {}) {
+    const rules = { ...defaultRules, ...(options.rules || {}) };
+    const targetPotential = clampInteger(options.targetPotential ?? 0, 0, 5);
+    const targetSourcesNeeded = targetPotential + 1;
+    const pulls = clampInteger(options.pulls ?? 0, 0, 1000);
+    const initialOwnedSources = clampInteger(options.ownedTargetSources ?? 0, 0, targetSourcesNeeded);
+    const initialSixPity = clampInteger(options.sixPity ?? 0, 0, rules.sixStarHardPity - 1);
+    const pitySize = rules.sixStarHardPity;
+    const sourceSize = targetSourcesNeeded + 1;
+    const flagSize = 2;
+    const stateCount = sourceSize * pitySize * flagSize;
+    const indexOf = (sources, sixPity, hasTargetBody) => ((sources * pitySize + sixPity) * flagSize + (hasTargetBody ? 1 : 0));
+
+    let states = new Float64Array(stateCount);
+    states[indexOf(initialOwnedSources, initialSixPity, initialOwnedSources > 0)] = 1;
+
+    for (let pullIndex = 1; pullIndex <= pulls; pullIndex += 1) {
+      const nextStates = new Float64Array(stateCount);
+      const tokenGain = pullIndex % rules.featuredTokenMilestonePulls === 0 ? 1 : 0;
+
+      for (let sources = 0; sources <= targetSourcesNeeded; sources += 1) {
+        for (let sixPity = 0; sixPity < pitySize; sixPity += 1) {
+          for (let hasTargetBody = 0; hasTargetBody <= 1; hasTargetBody += 1) {
+            const probability = states[indexOf(sources, sixPity, hasTargetBody)];
+            if (probability === 0) {
+              continue;
+            }
+
+            const baseSources = Math.min(targetSourcesNeeded, sources + tokenGain);
+            const forceFeatured = hasTargetBody === 0 && pullIndex >= rules.featuredGuaranteePulls;
+
+            if (forceFeatured) {
+              nextStates[indexOf(Math.min(targetSourcesNeeded, baseSources + 1), 0, 1)] += probability;
+              continue;
+            }
+
+            const sixStarRate = getSixStarRate(sixPity, rules);
+            const featuredRate = sixStarRate * rules.featuredShareWhenSixStar;
+            const offRate = sixStarRate - featuredRate;
+            const nonSixRate = Math.max(0, 1 - sixStarRate);
+            const nextSixPity = Math.min(rules.sixStarHardPity - 1, sixPity + 1);
+
+            nextStates[indexOf(Math.min(targetSourcesNeeded, baseSources + 1), 0, 1)] += probability * featuredRate;
+            nextStates[indexOf(baseSources, 0, hasTargetBody === 1)] += probability * offRate;
+            nextStates[indexOf(baseSources, nextSixPity, hasTargetBody === 1)] += probability * nonSixRate;
+          }
+        }
+      }
+
+      states = nextStates;
+    }
+
+    let successProbability = 0;
+    for (let sixPity = 0; sixPity < pitySize; sixPity += 1) {
+      successProbability += states[indexOf(targetSourcesNeeded, sixPity, false)];
+      successProbability += states[indexOf(targetSourcesNeeded, sixPity, true)];
+    }
+
+    return {
+      successProbability: Math.min(1, Math.max(0, successProbability)),
+      rawSuccessProbability: successProbability,
+      failureProbability: Math.max(0, 1 - successProbability),
+      unresolvedProbability: 0,
+      iterations: pulls,
+      maxStateCount: stateCount,
+      targetSourcesNeeded,
+    };
+  }
+
   return Object.freeze({
     rules: defaultRules,
-    calculateTargetPotentialProbability,
+    calculateTargetPotentialProbability: calculateTargetPotentialProbabilityFast,
+    calculateTargetPotentialProbabilityFast,
+    calculateTargetPotentialProbabilityDetailed: calculateTargetPotentialProbability,
   });
 })();
 
