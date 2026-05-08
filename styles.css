@@ -914,10 +914,13 @@ h3 {
 .gacha-hero-card-character {
   position: relative;
   padding-bottom: 20px;
+  grid-template-rows: 1fr auto;
 }
 
-.gacha-hero-card-character.is-special-banner {
-  align-content: start;
+.gacha-character-upper {
+  display: grid;
+  gap: 6px;
+  min-height: 386px;
 }
 
 .gacha-hero-card-character:not(.is-special-banner) .gacha-target-potential-panel,
