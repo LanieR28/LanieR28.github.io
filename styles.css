@@ -914,6 +914,9 @@ h3 {
 .gacha-hero-card-character {
   position: relative;
   padding-bottom: 20px;
+}
+
+.gacha-hero-card-character.is-special-banner {
   align-content: start;
 }
 
