@@ -411,7 +411,7 @@
       },
     };
     const gachaDailyState = {
-      searchIntelSelected: false,
+      searchIntelSelections: {},
     };
     let gachaStepperHoldTimer = null;
     let gachaStepperRepeatTimer = null;
@@ -490,7 +490,7 @@
             selectedGachaKey: gachaState.selectedGachaKey,
             settlementMode: gachaState.settlementMode,
             disableOriginiumPulls: gachaPaidState.disableOriginiumPulls,
-            searchIntelSelected: gachaDailyState.searchIntelSelected,
+            searchIntelSelections: gachaDailyState.searchIntelSelections,
             monthCardSelected: gachaPaidState.monthCardSelected,
             packageSelections: gachaPaidState.packageSelections,
             firstChargeSelections: gachaPaidState.firstChargeSelections,
@@ -518,7 +518,11 @@
           gachaState.settlementMode = savedState.settlementMode;
         }
         gachaPaidState.disableOriginiumPulls = Boolean(savedState.disableOriginiumPulls);
-        gachaDailyState.searchIntelSelected = Boolean(savedState.searchIntelSelected);
+        if (savedState.searchIntelSelections && typeof savedState.searchIntelSelections === "object") {
+          Object.keys(gachaCatalog).forEach((key) => {
+            gachaDailyState.searchIntelSelections[key] = Boolean(savedState.searchIntelSelections[key]);
+          });
+        }
         gachaPaidState.monthCardSelected = Boolean(savedState.monthCardSelected);
 
         Object.keys(gachaPaidState.packageSelections).forEach((key) => {
@@ -661,12 +665,6 @@
         node.textContent = isSelected ? "已选" : "未选";
       });
 
-      if (gachaSearchIntelToggle) {
-        gachaSearchIntelToggle.classList.toggle("is-active", gachaDailyState.searchIntelSelected);
-        gachaSearchIntelToggle.setAttribute("aria-pressed", gachaDailyState.searchIntelSelected ? "true" : "false");
-        gachaSearchIntelToggle.textContent = gachaDailyState.searchIntelSelected ? "已选" : "未选";
-      }
-
     }
 
     function syncPaidStickyTotalVisibility() {
@@ -766,6 +764,7 @@
       }
       gachaState.selectedGachaKey = selectedGacha.key;
       const isSearchIntelAvailable = hasSearchIntel(selectedGacha);
+      const isSearchIntelSelected = Boolean(gachaDailyState.searchIntelSelections[selectedGacha.key]);
       const gachaCutoff = getGachaCutoff(selectedGacha, today);
       const gachaDays = getGachaDayDiff(today, gachaCutoff);
       const gachaWeeks = getWeeklyRefreshCount(today, gachaCutoff);
@@ -857,7 +856,7 @@
       const selectedEventSpecialPulls = gachaPaidState.originiumShopQuantities["event-huiguang-signin"] || 0;
       const eventCurrencyTotal = eventCurrency + selectedEventCurrency;
       const eventPermitPullsTotal = eventFeaturedPermits + selectedEventSpecialPulls;
-      const selectedDailySearchIntelPulls = isSearchIntelAvailable && gachaDailyState.searchIntelSelected ? gachaSearchIntelPermits : 0;
+      const selectedDailySearchIntelPulls = isSearchIntelAvailable && isSearchIntelSelected ? gachaSearchIntelPermits : 0;
       const dailyPermitPulls = gachaDailyFixedPermits + selectedDailySearchIntelPulls;
       const totalOriginium = currentOriginium + paidOriginiumTotal;
       const totalCurrency = currentCurrency + dailyCurrencyTotal + eventCurrencyTotal + selectedPaidMonthCardCurrency;
@@ -913,6 +912,11 @@
       }
       if (gachaSearchIntelItem) {
         gachaSearchIntelItem.hidden = !isSearchIntelAvailable;
+      }
+      if (gachaSearchIntelToggle) {
+        gachaSearchIntelToggle.classList.toggle("is-active", isSearchIntelSelected);
+        gachaSearchIntelToggle.setAttribute("aria-pressed", isSearchIntelSelected ? "true" : "false");
+        gachaSearchIntelToggle.textContent = isSearchIntelSelected ? "已选" : "未选";
       }
       if (gachaDailySectionTotal) {
         gachaDailySectionTotal.textContent = `${dailyCurrencyTotal}`;
@@ -1024,7 +1028,7 @@
         }
 
         if (toggleKey === "daily-search-intel") {
-          gachaDailyState.searchIntelSelected = !gachaDailyState.searchIntelSelected;
+          gachaDailyState.searchIntelSelections[gachaState.selectedGachaKey] = !gachaDailyState.searchIntelSelections[gachaState.selectedGachaKey];
           renderGachaCalculator();
           return;
         }
