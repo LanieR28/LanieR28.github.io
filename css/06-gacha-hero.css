@@ -1,0 +1,210 @@
+.gacha-hero-panels {
+  display: grid;
+  grid-template-columns: 560px minmax(0, 1fr);
+  gap: 32px;
+  align-items: start;
+  grid-column: 1 / -1;
+  margin-top: -12px;
+}
+
+.gacha-hero-stack {
+  display: grid;
+  gap: 24px;
+}
+
+.gacha-hero-card {
+  display: grid;
+  gap: 6px;
+  min-height: 620px;
+  padding: 20px 44px 0;
+  border: none;
+  background: #f5f5f7;
+  text-align: center;
+  overflow: hidden;
+}
+
+.gacha-hero-card-character {
+  width: 100%;
+  min-height: 386px;
+}
+
+.gacha-hero-card-placeholder {
+  position: relative;
+  width: 100%;
+  min-height: 620px;
+  padding: 0;
+  overflow: hidden;
+}
+
+.gacha-hero-card-weapon-panel {
+  min-height: 240px;
+}
+
+.gacha-hero-card-character {
+  position: relative;
+  padding-bottom: 20px;
+  grid-template-rows: 1fr auto;
+}
+
+.gacha-character-upper {
+  display: grid;
+  gap: 6px;
+  min-height: 386px;
+}
+
+.gacha-hero-card-character:not(.is-special-banner) .gacha-target-potential-panel,
+.gacha-hero-card-character:not(.is-special-banner) .gacha-target-probability-panel,
+.gacha-hero-card-character:not(.is-special-banner) .gacha-probability-note {
+  display: none;
+}
+
+.gacha-target-potential-panel {
+  position: absolute;
+  top: 20px;
+  left: 22px;
+  z-index: 2;
+  display: grid;
+  gap: 10px;
+  justify-items: start;
+  text-align: left;
+}
+
+.gacha-target-potential-panel > span {
+  color: var(--text);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.gacha-target-potential-control {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+}
+
+.gacha-potential-stepper {
+  min-width: 81px !important;
+  width: 81px !important;
+  max-width: 81px !important;
+  height: 30px !important;
+  padding: 0 !important;
+  justify-content: space-between;
+}
+
+.gacha-potential-stepper button {
+  width: 9px;
+  height: 22px;
+}
+
+.gacha-potential-stepper .gacha-stepper-input {
+  width: 16px;
+  min-width: 16px;
+}
+
+.gacha-potential-icon-placeholder {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  min-width: 44px;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: rgba(0, 0, 0, 0.72);
+  font-family: "Novecento Sans Wide", "Endfield PingFang SC", "PingFang SC", sans-serif;
+  font-size: 14px;
+  line-height: 1;
+}
+
+.gacha-potential-icon-image {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.gacha-potential-icon-image.is-visible {
+  opacity: 1;
+}
+
+.gacha-potential-icon-image-previous {
+  z-index: 1;
+}
+
+.gacha-potential-icon-image-current {
+  z-index: 2;
+}
+
+.gacha-target-probability-panel {
+  position: absolute;
+  top: 24px;
+  right: 26px;
+  z-index: 2;
+  display: grid;
+  width: 122px;
+  gap: 7px;
+  justify-items: end;
+}
+
+.gacha-target-probability-track {
+  width: 100%;
+  height: 16px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.gacha-target-probability-track span {
+  position: relative;
+  display: block;
+  width: 0;
+  height: 100%;
+  overflow: hidden;
+  border-radius: inherit;
+  transition: width 0.28s ease;
+}
+
+.gacha-target-probability-track span::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 122px;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #d94b4b 0%, #d94b4b 15%, #ee8e34 33.333%, #ebcc49 66.667%, #4eb263 100%);
+}
+
+.gacha-target-probability-value {
+  display: inline-flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  gap: 2px;
+  font-family: "Novecento Sans Wide", "Endfield PingFang SC", "PingFang SC", sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.gacha-target-probability-value sup {
+  color: rgba(0, 0, 0, 0.52);
+  font-size: 7px;
+  line-height: 1;
+  transform: translateY(-0.36em);
+}
+
+.gacha-probability-note {
+  width: 100%;
+  margin: 0;
+  padding-top: 12px;
+  color: rgba(0, 0, 0, 0.52);
+  font-family: "Endfield PingFang SC", "PingFang SC", sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.55;
+  text-align: left;
+}

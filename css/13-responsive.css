@@ -1,0 +1,391 @@
+@media (max-width: 960px) {
+  .tech-metrics,
+  .tech-flow-grid,
+  .tech-columns,
+  .tech-presentation-grid,
+  .tech-proof-card {
+    grid-template-columns: 1fr;
+  }
+
+  .tech-hero {
+    padding-top: 36px;
+  }
+
+  .tech-hero h1 {
+    font-size: clamp(30px, 8.5vw, 54px);
+  }
+
+  .tech-hero-lead {
+    font-size: clamp(20px, 5vw, 30px);
+  }
+}
+
+@media (max-width: 960px) {
+  .site-shell {
+    width: 100%;
+  }
+
+  .hero-grid,
+  .gacha-hero-panels,
+  .gacha-layout,
+  .gacha-hero-metrics,
+  .gacha-results-grid,
+  .gacha-rate-grid,
+  .gacha-form-grid,
+  .project-grid,
+  .project-card.wide,
+  .split,
+  .contact-grid,
+  .mini-grid,
+  .detail-grid,
+  .detail-grid.reverse {
+    grid-template-columns: 1fr;
+  }
+
+  .project-card.wide img {
+    min-height: 220px;
+  }
+
+  .highlight-row,
+  .b30-gallery,
+  .level-gallery,
+  .minor-grid,
+  .feature-split,
+  .feature-split.reverse {
+    grid-template-columns: 1fr;
+  }
+
+  .product-local-nav {
+    top: 0;
+  }
+
+  .product-local-nav-inner {
+    min-height: 48px;
+    padding: 0 4px;
+  }
+
+  .product-local-title {
+    font-size: 17px;
+  }
+
+  .product-local-links {
+    gap: 16px;
+    overflow-x: auto;
+    justify-content: flex-start;
+  }
+
+  .product-hero-copy h1 {
+    font-size: clamp(34px, 10vw, 56px);
+  }
+
+  .product-hero-copy .hero-text {
+    font-size: 17px;
+  }
+
+  .product-lead {
+    font-size: 18px;
+  }
+
+  .topbar {
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 14px;
+  }
+
+  .search-box {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .search-box input {
+    width: 100%;
+  }
+
+  .gacha-card {
+    padding: 20px;
+  }
+
+  .gacha-hero-card-character {
+    width: 100%;
+  }
+
+  .gacha-toolbar-shell,
+  .gacha-hero-panels,
+  .gacha-inventory-row {
+    grid-template-columns: 1fr;
+  }
+
+  .gacha-detail-row {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .gacha-mode-row {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .endfield-main {
+    width: min(100%, calc(100vw - 24px));
+  }
+
+  .gacha-pill-button {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* Portfolio page */
+.portfolio-page {
+  background: #f7f5f0;
+  color: #151515;
+}
+
+.portfolio-page .site-shell {
+  padding-bottom: 80px;
+}
+
+.portfolio-hero,
+.portfolio-section {
+  width: min(1180px, calc(100vw - 32px));
+  margin: 0 auto;
+}
+
+.portfolio-hero {
+  padding: 24px 0 54px;
+}
+
+.portfolio-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  min-height: 52px;
+  border-bottom: 1px solid rgba(21, 21, 21, 0.12);
+}
+
+.portfolio-brand,
+.portfolio-nav a {
+  color: #151515;
+  text-decoration: none;
+}
+
+.portfolio-brand {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+}
+
+.portfolio-nav-links {
+  display: flex;
+  gap: 28px;
+  align-items: center;
+  font-size: 13px;
+}
+
+.portfolio-hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(320px, 0.8fr);
+  gap: 42px;
+  align-items: end;
+  padding-top: 72px;
+}
+
+.portfolio-hero-copy h1 {
+  max-width: 860px;
+  font-size: clamp(44px, 6.8vw, 92px);
+  line-height: 0.98;
+  letter-spacing: -0.07em;
+  font-weight: 600;
+}
+
+.portfolio-lead {
+  max-width: 760px;
+  margin-top: 28px;
+  color: rgba(21, 21, 21, 0.72);
+  font-size: 19px;
+  line-height: 1.82;
+}
+
+.portfolio-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 32px;
+}
+
+.portfolio-summary-card {
+  padding: 28px;
+  background: #fff;
+  border: 1px solid rgba(21, 21, 21, 0.1);
+}
+
+.portfolio-summary-card h2 {
+  margin-bottom: 22px;
+  font-size: 32px;
+}
+
+.portfolio-profile-list {
+  display: grid;
+  gap: 18px;
+  margin: 0;
+}
+
+.portfolio-profile-list div {
+  display: grid;
+  gap: 4px;
+}
+
+.portfolio-profile-list dt {
+  color: rgba(21, 21, 21, 0.48);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.portfolio-profile-list dd {
+  margin: 0;
+  color: rgba(21, 21, 21, 0.78);
+  line-height: 1.55;
+}
+
+.portfolio-profile-list a {
+  color: #9b6a3a;
+}
+
+.portfolio-section {
+  padding: 64px 0;
+  border-top: 1px solid rgba(21, 21, 21, 0.1);
+}
+
+.portfolio-section-heading {
+  display: grid;
+  gap: 14px;
+  max-width: 820px;
+  margin-bottom: 34px;
+}
+
+.portfolio-section-heading h2 {
+  font-size: clamp(34px, 5.4vw, 68px);
+  line-height: 1.02;
+  letter-spacing: -0.05em;
+  font-weight: 600;
+}
+
+.portfolio-project-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.portfolio-project-card {
+  display: grid;
+  gap: 22px;
+  align-content: start;
+  padding: 24px;
+  background: #fff;
+  border: 1px solid rgba(21, 21, 21, 0.1);
+}
+
+.portfolio-project-card.featured {
+  grid-column: 1 / -1;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  align-items: center;
+}
+
+.portfolio-project-card img {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: #f1eee7;
+}
+
+.portfolio-project-copy {
+  display: grid;
+  gap: 16px;
+}
+
+.portfolio-project-copy h3,
+.portfolio-fit-grid h3 {
+  font-size: clamp(24px, 3.4vw, 42px);
+  line-height: 1.1;
+  letter-spacing: -0.035em;
+  font-weight: 600;
+}
+
+.portfolio-project-copy p,
+.portfolio-fit-grid p {
+  color: rgba(21, 21, 21, 0.72);
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+.portfolio-project-copy a {
+  color: #9b6a3a;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.portfolio-bullets {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding-left: 20px;
+  color: rgba(21, 21, 21, 0.72);
+  line-height: 1.65;
+}
+
+.portfolio-fit-section {
+  padding-bottom: 0;
+}
+
+.portfolio-fit-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.portfolio-fit-grid article {
+  padding: 26px;
+  background: #fff;
+  border: 1px solid rgba(21, 21, 21, 0.1);
+}
+
+@media (max-width: 960px) {
+  .portfolio-nav,
+  .portfolio-nav-links {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .portfolio-nav-links {
+    gap: 12px;
+    padding-bottom: 16px;
+  }
+
+  .portfolio-hero-grid,
+  .portfolio-project-card.featured,
+  .portfolio-project-grid,
+  .portfolio-fit-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .portfolio-hero-grid {
+    padding-top: 44px;
+  }
+}
+
+.portfolio-statement-card {
+  display: grid;
+  gap: 18px;
+  max-width: 880px;
+  padding: 30px;
+  background: #fff;
+  border: 1px solid rgba(21, 21, 21, 0.1);
+}
+
+.portfolio-statement-card p {
+  color: rgba(21, 21, 21, 0.76);
+  font-size: 17px;
+  line-height: 1.86;
+}

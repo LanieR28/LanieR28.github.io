@@ -1,0 +1,163 @@
+.project-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.project-card {
+  overflow: hidden;
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+}
+
+.project-card.wide {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+}
+
+.project-card img {
+  width: 100%;
+  height: 100%;
+  min-height: 280px;
+  object-fit: cover;
+  display: block;
+  background: linear-gradient(135deg, #d6ecff, #f2f8ff);
+}
+
+.project-copy {
+  padding: 20px;
+}
+
+.project-tag {
+  margin-bottom: 8px;
+  color: var(--blue);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.project-copy h3 {
+  margin-bottom: 10px;
+  font-size: 28px;
+  line-height: 1.18;
+  letter-spacing: -0.03em;
+}
+
+.project-copy p {
+  line-height: 1.8;
+}
+
+.project-links {
+  margin-top: 18px;
+}
+
+.text-link {
+  color: var(--blue);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.pill-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.pill-row span {
+  padding: 8px 12px;
+  border-radius: 0;
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--blue);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.split {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 24px;
+}
+
+.body-text {
+  font-size: 17px;
+  line-height: 1.85;
+}
+
+.info-panel {
+  display: grid;
+  gap: 12px;
+  padding: 0;
+}
+
+.info-item {
+  padding: 14px 16px;
+  border-top: 1px solid var(--line);
+  background: transparent;
+}
+
+.info-label,
+.contact-label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.info-item strong,
+.contact-card strong {
+  font-size: 18px;
+  line-height: 1.45;
+  font-weight: 600;
+}
+
+.mini-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.mini-card {
+  padding: 16px;
+  border-top: 1px solid var(--line);
+  background: transparent;
+}
+
+.mini-label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.mini-card strong {
+  font-size: 17px;
+  line-height: 1.5;
+  font-weight: 600;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.contact-card {
+  min-height: 132px;
+  padding: 18px;
+  color: var(--text);
+  text-decoration: none;
+  border-top: 1px solid var(--line);
+}
+
+.search-hit {
+  outline: 2px solid rgba(31, 120, 216, 0.38);
+  outline-offset: 6px;
+}

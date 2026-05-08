@@ -1,0 +1,51 @@
+body {
+  margin: 0;
+  color: var(--text);
+  font-family: "Novecento Sans Wide", "Endfield PingFang SC", "PingFang SC", "PingFangSC-Regular",
+    "PingFangSC-Medium", "PingFangSC-Semibold", "Hiragino Sans", "Yu Gothic", "Microsoft YaHei", sans-serif;
+  background: var(--bg);
+  transition: background-color 0.42s ease, color 0.42s ease;
+}
+
+.home-page .site-shell {
+  position: relative;
+  isolation: isolate;
+}
+
+.home-page .site-shell::before {
+  content: "";
+  position: fixed;
+  top: var(--nav-height);
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-image: url("./assets/home-bg-03.jpg");
+  background-size: cover;
+  background-position: center var(--home-bg-position-y);
+  background-repeat: no-repeat;
+  opacity: 0.14;
+  pointer-events: none;
+  z-index: -1;
+}
+
+:root[data-theme="dark"] .home-page .site-shell::before {
+  opacity: 0.1;
+}
+
+.site-shell {
+  width: 100%;
+  margin: 0;
+  padding: 0 0 72px;
+}
+
+.hero,
+.section {
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.hero {
+  padding: 68px 0 28px;
+}

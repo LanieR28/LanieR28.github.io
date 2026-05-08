@@ -1,0 +1,278 @@
+.gacha-card-head {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.gacha-card-head h3 {
+  font-size: 22px;
+  line-height: 1.25;
+}
+
+.gacha-card-head p {
+  color: var(--muted);
+  line-height: 1.75;
+}
+
+.gacha-toolbar-group + .gacha-toolbar-group {
+  margin-top: 4px;
+}
+
+.gacha-mode-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 18px;
+}
+
+.gacha-originium-toggle {
+  white-space: nowrap;
+}
+
+.gacha-toolbar-card .gacha-label {
+  margin-bottom: 10px;
+}
+
+.gacha-label {
+  display: block;
+  margin-bottom: 12px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(95, 99, 104, 0.88);
+}
+
+.gacha-pill-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.gacha-pill-button {
+  min-height: 44px;
+  padding: 0 22px;
+  border: 1px solid var(--blue);
+  border-radius: 999px;
+  background: var(--blue);
+  color: #fff;
+  font: inherit;
+  font-weight: 400;
+  line-height: 1.1;
+  cursor: pointer;
+  text-align: center;
+  transition:
+    opacity 0.22s ease,
+    background-color 0.22s ease,
+    color 0.22s ease,
+    border-color 0.22s ease,
+    box-shadow 0.22s ease,
+    transform 0.22s ease;
+}
+
+.gacha-pool-button {
+  min-height: 70px;
+  width: fit-content;
+  min-width: 0;
+  padding: 11px 28px;
+  display: inline-grid;
+  gap: 4px;
+  align-content: center;
+  flex: 0 0 auto;
+}
+
+.gacha-pool-button span {
+  display: block;
+  font-size: 29px;
+  font-weight: 500;
+  line-height: 1.28;
+}
+
+.gacha-pool-button strong {
+  display: block;
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  line-height: 1.2;
+  font-family: "Novecento Sans Wide", "Endfield PingFang SC", "PingFang SC", sans-serif;
+}
+
+.gacha-pill-button:hover,
+.gacha-pill-button:focus-visible {
+  opacity: 0.9;
+  background-color: rgba(204, 170, 136, 0.08);
+  box-shadow: none;
+  transform: translateY(-1px);
+}
+
+.gacha-pill-button.gacha-pill-button-secondary {
+  background: transparent;
+  color: var(--blue);
+}
+
+.gacha-pill-button:not(.is-active) {
+  background: transparent;
+  color: var(--blue);
+}
+
+.gacha-pill-button.gacha-pill-button-secondary:hover,
+.gacha-pill-button.gacha-pill-button-secondary:focus-visible,
+.gacha-pill-button:not(.is-active):hover,
+.gacha-pill-button:not(.is-active):focus-visible {
+  background: rgba(204, 170, 136, 0.08);
+  color: var(--blue);
+}
+
+.gacha-pill-button.gacha-pill-button-secondary.is-active,
+.gacha-pill-button.is-active {
+  background: var(--blue);
+  color: #fff;
+}
+
+.gacha-result-tile,
+.gacha-rate-item {
+  padding: 18px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.88);
+}
+
+.gacha-result-tile span,
+.gacha-rate-item span {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 12px;
+  color: rgba(95, 99, 104, 0.88);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.gacha-result-tile strong,
+.gacha-rate-item strong {
+  display: block;
+  font-size: clamp(23px, 2.6vw, 34px);
+  line-height: 1.22;
+  font-family: "Novecento Sans Wide", "Endfield PingFang SC", "PingFang SC", sans-serif;
+  font-weight: 400;
+}
+
+.gacha-result-tile p {
+  margin-top: 10px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.gacha-days-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 18px;
+  border-radius: 999px;
+  background: #3a3a3c;
+  color: #f5f5f7;
+  font-size: 19px;
+  font-weight: 400;
+  font-family: "Novecento Sans Wide", "Endfield PingFang SC", "PingFang SC", sans-serif;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
+.gacha-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.gacha-field {
+  display: grid;
+  gap: 8px;
+}
+
+.gacha-field span {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.gacha-field input {
+  width: 100%;
+  min-height: 46px;
+  padding: 0 14px;
+  border: 1px solid var(--line);
+  border-radius: 0;
+  background: #fff;
+  color: var(--text);
+  font: inherit;
+}
+
+.gacha-rate-grid,
+.gacha-results-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.gacha-results-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.gacha-detail-list {
+  margin-top: 18px;
+  border-top: 1px solid var(--line);
+}
+
+.gacha-detail-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 15px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.gacha-detail-row span {
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.gacha-detail-row strong {
+  font-size: 18px;
+}
+
+:root[data-theme="dark"] .gacha-card,
+:root[data-theme="dark"] .gacha-hero-card,
+:root[data-theme="dark"] .gacha-hero-metric,
+:root[data-theme="dark"] .gacha-result-tile,
+:root[data-theme="dark"] .gacha-rate-item {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.endfield-gacha-page {
+  font-family: "Novecento Sans Wide", "Endfield PingFang SC", "PingFang SC", "PingFangSC-Regular",
+    "PingFangSC-Medium", "PingFangSC-Semibold", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+}
+
+:root[data-theme="dark"] .gacha-field input {
+  background: rgba(255, 255, 255, 0.04);
+  color: #fff;
+}
+
+.bullet-list {
+  display: grid;
+  gap: 12px;
+  padding-left: 20px;
+  line-height: 1.8;
+}
+
+main {
+  display: grid;
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.section {
+  padding: 28px;
+}
+
+.section-heading {
+  margin-bottom: 18px;
+}
