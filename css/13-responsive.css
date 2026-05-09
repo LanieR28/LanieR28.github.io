@@ -120,7 +120,8 @@
   }
 
   .gacha-hero-card-placeholder {
-    max-height: 100vh;
+    height: 80vh;
+    min-height: 480px;
   }
 
   .gacha-scroll-panel {
@@ -249,7 +250,9 @@
   }
 
   .gacha-weapon-inputs {
-    justify-items: center;
+    grid-template-columns: auto auto;
+    justify-content: center;
+    gap: 12px;
   }
 
   .gacha-weapon-quota-pulls {
