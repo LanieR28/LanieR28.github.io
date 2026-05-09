@@ -29,8 +29,6 @@
   .gacha-hero-panels,
   .gacha-layout,
   .gacha-hero-metrics,
-  .gacha-results-grid,
-  .gacha-rate-grid,
   .gacha-form-grid,
   .project-grid,
   .project-card.wide,
@@ -40,6 +38,14 @@
   .detail-grid,
   .detail-grid.reverse {
     grid-template-columns: 1fr;
+  }
+
+  .gacha-results-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .gacha-rate-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .project-card.wide img {
@@ -109,29 +115,158 @@
     width: 100%;
   }
 
+  .gacha-hero-card-placeholder {
+    max-height: 520px;
+  }
+
+  .gacha-scroll-panel {
+    padding: 14px 14px 68px;
+  }
+
+  .gacha-pool-button {
+    min-height: 56px;
+    padding: 8px 18px;
+  }
+
+  .gacha-pool-button span {
+    font-size: 20px;
+  }
+
+  .gacha-pool-button strong {
+    font-size: 14px;
+  }
+
+  .gacha-toolbar-column > .gacha-toolbar-group:first-child .gacha-pill-row {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .gacha-toolbar-column > .gacha-toolbar-group:first-child .gacha-pool-button {
+    min-height: 56px;
+    padding: 8px 10px;
+  }
+
+  .gacha-toolbar-column > .gacha-toolbar-group:first-child .gacha-pool-button span {
+    font-size: 17px;
+  }
+
+  .gacha-toolbar-column > .gacha-toolbar-group:first-child .gacha-pool-button strong {
+    font-size: 13px;
+  }
+
+  .gacha-source-module {
+    margin-top: -100px;
+  }
+
+  .gacha-resource-summary img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .gacha-resource-summary strong {
+    font-size: 20px;
+  }
+
   .gacha-toolbar-shell,
-  .gacha-hero-panels,
-  .gacha-inventory-row {
+  .gacha-hero-panels {
     grid-template-columns: 1fr;
   }
 
+  .gacha-inventory-row {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .gacha-inventory-item img {
+    width: 48px;
+    height: 48px;
+  }
+
+  .gacha-inventory-item {
+    gap: 8px;
+    padding: 6px 2px 0;
+  }
+
+  .gacha-inventory-item input {
+    height: 38px;
+    padding: 0 6px 3px;
+    font-size: 17px;
+  }
+
   .gacha-detail-row {
-    align-items: flex-start;
-    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 6px 16px;
   }
 
   .gacha-mode-row {
-    align-items: flex-start;
-    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 10px 18px;
+  }
+
+  .gacha-paid-item {
+    flex-wrap: wrap;
+    gap: 6px 18px;
+  }
+
+  .gacha-income-item {
+    flex-wrap: wrap;
+    gap: 6px 18px;
   }
 
   .endfield-main {
     width: min(100%, calc(100vw - 24px));
   }
 
-  .gacha-pill-button {
+  .gacha-pool-button.gacha-pill-button {
     width: 100%;
     justify-content: center;
+  }
+
+  .gacha-hero-card {
+    min-height: auto;
+    padding: 16px 20px 0;
+  }
+
+  .gacha-hero-card-weapon-panel {
+    min-height: auto;
+  }
+
+  .gacha-weapon-card-upper {
+    min-height: auto;
+  }
+
+  .gacha-weapon-quota-module {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    gap: 16px;
+    margin-top: 0;
+    transform: none;
+  }
+
+  .gacha-weapon-inputs {
+    justify-items: center;
+  }
+
+  .gacha-weapon-quota-pulls {
+    transform: none;
+    font-size: 36px;
+  }
+
+  .gacha-weapon-quota-total img {
+    width: 48px;
+    height: 48px;
+  }
+
+  .gacha-weapon-quota-total strong {
+    font-size: 22px;
+  }
+
+  .gacha-hero-card-weapon-panel .gacha-probability-note {
+    transform: none;
+  }
+
+  .gacha-character-upper {
+    min-height: auto;
   }
 }
 
