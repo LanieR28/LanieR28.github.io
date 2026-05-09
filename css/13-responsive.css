@@ -115,8 +115,12 @@
     width: 100%;
   }
 
+  .endfield-gacha-page .hero-grid {
+    width: min(100%, calc(100vw - 24px));
+  }
+
   .gacha-hero-card-placeholder {
-    max-height: 520px;
+    max-height: 100vh;
   }
 
   .gacha-scroll-panel {
@@ -224,11 +228,12 @@
 
   .gacha-hero-card {
     min-height: auto;
-    padding: 16px 20px 0;
+    padding: 16px 20px 20px;
   }
 
   .gacha-hero-card-weapon-panel {
     min-height: auto;
+    padding-bottom: 24px;
   }
 
   .gacha-weapon-card-upper {
@@ -239,7 +244,7 @@
     grid-template-columns: 1fr;
     justify-items: center;
     gap: 16px;
-    margin-top: 0;
+    margin-top: 12px;
     transform: none;
   }
 
