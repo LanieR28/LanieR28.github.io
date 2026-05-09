@@ -161,6 +161,17 @@
 
   .gacha-source-module {
     margin-top: -100px;
+    --gacha-resource-number-y: -6px;
+  }
+
+  .gacha-source-legend {
+    flex-wrap: nowrap;
+    gap: 0 8px;
+    font-size: 13px;
+  }
+
+  .gacha-source-legend strong {
+    font-size: 15px;
   }
 
   .gacha-resource-summary img {
