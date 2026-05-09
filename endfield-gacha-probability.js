@@ -432,15 +432,21 @@ const EndfieldGachaProbability = (function () {
               continue;
             }
 
-            const sixStarRate = getSixStarRate(sixPity, rules);
+            const isCounted = pullIndex <= countedPulls;
+            const sixStarRate = isCounted ? getSixStarRate(sixPity, rules) : rules.sixStarBaseRate;
             const featuredRate = sixStarRate * rules.featuredShareWhenSixStar;
             const offRate = sixStarRate - featuredRate;
             const nonSixRate = Math.max(0, 1 - sixStarRate);
-            const nextSixPity = Math.min(rules.sixStarHardPity - 1, sixPity + 1);
 
-            nextStates[indexOf(Math.min(targetSourcesNeeded, baseSources + 1), 0, 1)] += probability * featuredRate;
-            nextStates[indexOf(baseSources, 0, hasTargetBody === 1)] += probability * offRate;
-            nextStates[indexOf(baseSources, nextSixPity, hasTargetBody === 1)] += probability * nonSixRate;
+            if (isCounted) {
+              const nextSixPity = Math.min(rules.sixStarHardPity - 1, sixPity + 1);
+              nextStates[indexOf(Math.min(targetSourcesNeeded, baseSources + 1), 0, 1)] += probability * featuredRate;
+              nextStates[indexOf(baseSources, 0, hasTargetBody === 1)] += probability * offRate;
+              nextStates[indexOf(baseSources, nextSixPity, hasTargetBody === 1)] += probability * nonSixRate;
+            } else {
+              nextStates[indexOf(Math.min(targetSourcesNeeded, baseSources + 1), sixPity, 1)] += probability * featuredRate;
+              nextStates[indexOf(baseSources, sixPity, hasTargetBody === 1)] += probability * (offRate + nonSixRate);
+            }
           }
         }
       }
