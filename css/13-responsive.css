@@ -239,11 +239,14 @@
 
   .gacha-weapon-card-upper {
     min-height: auto;
+    justify-items: center;
+    text-align: center;
   }
 
   .gacha-hero-card-head-weapon {
     justify-items: center;
     text-align: center;
+    width: 100%;
   }
 
   .gacha-weapon-quota-module {
