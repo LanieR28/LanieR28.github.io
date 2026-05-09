@@ -242,9 +242,10 @@
   }
 
   .gacha-weapon-quota-module {
-    grid-template-columns: 1fr;
-    justify-items: center;
-    gap: 16px;
+    grid-template-columns: auto auto;
+    justify-content: center;
+    align-items: center;
+    gap: 16px 32px;
     margin-top: 12px;
     transform: none;
   }
