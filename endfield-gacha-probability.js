@@ -400,6 +400,7 @@ const EndfieldGachaProbability = (function () {
     const targetPotential = clampInteger(options.targetPotential ?? 0, 0, 5);
     const targetSourcesNeeded = targetPotential + 1;
     const pulls = clampInteger(options.pulls ?? 0, 0, 1000);
+    const countedPulls = clampInteger(options.countedPulls ?? pulls, 0, 1000);
     const initialOwnedSources = clampInteger(options.ownedTargetSources ?? 0, 0, targetSourcesNeeded);
     const initialSixPity = clampInteger(options.sixPity ?? 0, 0, rules.sixStarHardPity - 1);
     const pitySize = rules.sixStarHardPity;
@@ -413,7 +414,7 @@ const EndfieldGachaProbability = (function () {
 
     for (let pullIndex = 1; pullIndex <= pulls; pullIndex += 1) {
       const nextStates = new Float64Array(stateCount);
-      const tokenGain = pullIndex % rules.featuredTokenMilestonePulls === 0 ? 1 : 0;
+      const tokenGain = pullIndex <= countedPulls && pullIndex % rules.featuredTokenMilestonePulls === 0 ? 1 : 0;
 
       for (let sources = 0; sources <= targetSourcesNeeded; sources += 1) {
         for (let sixPity = 0; sixPity < pitySize; sixPity += 1) {
@@ -424,7 +425,7 @@ const EndfieldGachaProbability = (function () {
             }
 
             const baseSources = Math.min(targetSourcesNeeded, sources + tokenGain);
-            const forceFeatured = hasTargetBody === 0 && pullIndex >= rules.featuredGuaranteePulls;
+            const forceFeatured = hasTargetBody === 0 && pullIndex <= countedPulls && pullIndex >= rules.featuredGuaranteePulls;
 
             if (forceFeatured) {
               nextStates[indexOf(Math.min(targetSourcesNeeded, baseSources + 1), 0, 1)] += probability;
@@ -546,19 +547,24 @@ const EndfieldGachaProbability = (function () {
       applyExpectedPull(true);
     }
 
-    return Math.min(1000, Math.max(0, effectivePulls));
+    return {
+      effectivePulls: Math.min(1000, Math.max(0, effectivePulls)),
+      countedPulls: Math.min(1000, Math.max(0, countedPulls)),
+    };
   }
 
   function calculateRolledTargetPotentialProbability(options = {}) {
-    const effectivePulls = estimateEffectivePulls(options);
+    const estimated = estimateEffectivePulls(options);
     const result = calculateTargetPotentialProbabilityFast({
       ...options,
-      pulls: effectivePulls,
+      pulls: estimated.effectivePulls,
+      countedPulls: estimated.countedPulls,
     });
     return {
       ...result,
       inputPulls: clampInteger(options.pulls ?? 0, 0, 1000),
-      effectivePulls,
+      effectivePulls: estimated.effectivePulls,
+      countedPulls: estimated.countedPulls,
     };
   }
 
