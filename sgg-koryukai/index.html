@@ -1,0 +1,426 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SGG交流会 | Theme Rotation Activity</title>
+  <style>
+    :root {
+      --bg: #f7f9fc;
+      --panel: #ffffff;
+      --ink: #172033;
+      --muted: #667085;
+      --line: #d8e1ec;
+      --accent: #f0b429;
+      --accent-soft: #fff7d7;
+      --done: #e6e9ef;
+      --done-ink: #8b95a5;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: Aptos, "Yu Gothic", "Hiragino Sans", Meiryo, system-ui, sans-serif;
+    }
+
+    .app {
+      min-height: 100vh;
+      padding: 28px 34px 34px;
+      display: grid;
+      grid-template-rows: auto 1fr;
+      gap: 26px;
+    }
+
+    .topbar {
+      display: grid;
+      grid-template-columns: 170px 1fr auto;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .status h1 {
+      margin: 0;
+      font-size: 25px;
+      line-height: 1.1;
+      letter-spacing: 0;
+    }
+
+    .status p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .countries {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(120px, 1fr));
+      gap: 16px;
+    }
+
+    .country {
+      height: 74px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.55);
+      padding: 0;
+      display: grid;
+      place-items: center;
+      position: relative;
+      cursor: pointer;
+      transition: background 160ms ease, border-color 160ms ease, box-shadow 160ms ease, opacity 160ms ease;
+    }
+
+    .country.active {
+      background: var(--accent-soft);
+      border: 3px solid var(--accent);
+      box-shadow: 0 8px 22px rgba(240, 180, 41, 0.14);
+    }
+
+    .country:not(.active) img {
+      opacity: 0.33;
+      filter: saturate(0.75);
+    }
+
+    .country img {
+      width: 104px;
+      height: 52px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .controls {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    button {
+      border: 1px solid var(--line);
+      background: #ffffff;
+      color: var(--ink);
+      padding: 0 14px;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .controls button {
+      height: 40px;
+    }
+
+    button.primary {
+      border-color: #c99716;
+      background: var(--accent);
+      color: #1f2937;
+    }
+
+    button:focus-visible,
+    .topic:focus-visible,
+    .country:focus-visible {
+      outline: 3px solid rgba(240, 180, 41, 0.45);
+      outline-offset: 2px;
+    }
+
+    .grid {
+      min-height: 0;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-rows: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .topic {
+      height: auto;
+      min-height: 0;
+      border: 1px solid #cbd6e2;
+      background: var(--panel);
+      display: grid;
+      place-items: center;
+      position: relative;
+      color: var(--ink);
+      cursor: pointer;
+      touch-action: manipulation;
+      transition: background 140ms ease, border-color 140ms ease, color 140ms ease, transform 120ms ease;
+      user-select: none;
+      padding: 16px;
+    }
+
+    .topic:hover {
+      border-color: #9fb0c4;
+      transform: translateY(-1px);
+    }
+
+    .topic.done {
+      background: #d8dde6;
+      border-color: #a8b0bd;
+      color: #6f7a89;
+      box-shadow: inset 0 0 0 999px rgba(96, 108, 126, 0.08);
+    }
+
+    .topic.done::after {
+      content: "済";
+      position: absolute;
+      top: 12px;
+      right: 14px;
+      width: 38px;
+      height: 30px;
+      display: grid;
+      place-items: center;
+      border: 2px solid #a2abb8;
+      color: #697386;
+      font-size: 16px;
+      font-weight: 800;
+      background: rgba(255, 255, 255, 0.58);
+    }
+
+    .topic span {
+      display: block;
+      text-align: center;
+      font-size: clamp(24px, 2.35vw, 34px);
+      line-height: 1.16;
+      font-weight: 800;
+      letter-spacing: 0;
+    }
+
+    @media (max-width: 900px) {
+      .app {
+        padding: 18px;
+        gap: 18px;
+      }
+
+      .topbar {
+        grid-template-columns: 1fr;
+      }
+
+      .countries {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .controls {
+        justify-content: flex-start;
+      }
+
+      .grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-rows: repeat(6, minmax(110px, 1fr));
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <section class="topbar" aria-label="country rotation">
+      <div class="status">
+        <h1>現在の国</h1>
+        <p id="progressText">0 / 12</p>
+      </div>
+      <div class="countries" id="countries"></div>
+      <div class="controls">
+        <button class="primary" id="nextButton" type="button">次の国</button>
+        <button id="resetCountryButton" type="button">この国をリセット</button>
+        <button id="resetAllButton" type="button">全リセット</button>
+        <button id="fullscreenButton" type="button">全画面</button>
+      </div>
+    </section>
+
+    <section class="grid" id="themeGrid" aria-label="themes"></section>
+  </main>
+
+  <script>
+    const themes = [
+      "お祭り/祝日",
+      "サウナ/SPA/お風呂",
+      "交通",
+      "趣味",
+      "天気",
+      "仕事/生活",
+      "有名な所",
+      "学校生活",
+      "飲食文化/お酒",
+      "ショッピング",
+      "自然災害",
+      "スポーツ",
+    ];
+
+    const countries = [
+      { key: "us", name: "United States", flag: "../assets/flags/us.png" },
+      { key: "china", name: "China", flag: "../assets/flags/china.png" },
+      { key: "austria", name: "Austria", flag: "../assets/flags/austria.png" },
+      { key: "spain", name: "Spain", flag: "../assets/flags/spain.png" },
+    ];
+
+    const storageKey = "theme-rotation-activity-v1";
+    let activeCountry = 0;
+    let selections = loadSelections();
+
+    const countriesEl = document.getElementById("countries");
+    const gridEl = document.getElementById("themeGrid");
+    const progressText = document.getElementById("progressText");
+
+    function emptySelections() {
+      return Object.fromEntries(countries.map((country) => [country.key, []]));
+    }
+
+    function loadSelections() {
+      try {
+        const parsed = JSON.parse(localStorage.getItem(storageKey));
+        const base = emptySelections();
+        for (const country of countries) {
+          if (Array.isArray(parsed?.[country.key])) {
+            base[country.key] = parsed[country.key].filter((value) => Number.isInteger(value));
+          }
+        }
+        return base;
+      } catch {
+        return emptySelections();
+      }
+    }
+
+    function saveSelections() {
+      try {
+        localStorage.setItem(storageKey, JSON.stringify(selections));
+      } catch {
+        // Keep the live screen usable even if storage is blocked.
+      }
+    }
+
+    function currentKey() {
+      return countries[activeCountry].key;
+    }
+
+    function isDone(themeIndex) {
+      return selections[currentKey()].includes(themeIndex);
+    }
+
+    function toggleTheme(themeIndex) {
+      const key = currentKey();
+      const selected = new Set(selections[key]);
+      if (selected.has(themeIndex)) {
+        selected.delete(themeIndex);
+      } else {
+        selected.add(themeIndex);
+      }
+      selections[key] = Array.from(selected).sort((a, b) => a - b);
+      render();
+      saveSelections();
+    }
+
+    function handleThemePick(event) {
+      const topicButton = event.target.closest(".topic");
+      if (!topicButton || !gridEl.contains(topicButton)) {
+        return;
+      }
+      const themeIndex = Number(topicButton.dataset.index);
+      if (!Number.isInteger(themeIndex)) {
+        return;
+      }
+      toggleTheme(themeIndex);
+    }
+
+    function setCountry(index) {
+      activeCountry = ((index % countries.length) + countries.length) % countries.length;
+      render();
+    }
+
+    function nextCountry() {
+      setCountry(activeCountry + 1);
+    }
+
+    function resetCountry() {
+      selections[currentKey()] = [];
+      render();
+      saveSelections();
+    }
+
+    function resetAll() {
+      selections = emptySelections();
+      render();
+      saveSelections();
+    }
+
+    function renderCountries() {
+      countriesEl.replaceChildren();
+      countries.forEach((country, index) => {
+        const button = document.createElement("button");
+        button.className = `country${index === activeCountry ? " active" : ""}`;
+        button.type = "button";
+        button.setAttribute("aria-label", country.name);
+        button.addEventListener("click", () => setCountry(index));
+
+        const img = document.createElement("img");
+        img.src = country.flag;
+        img.alt = `${country.name} flag`;
+        button.append(img);
+        countriesEl.append(button);
+      });
+    }
+
+    function renderGrid() {
+      gridEl.replaceChildren();
+      themes.forEach((theme, index) => {
+        const button = document.createElement("button");
+        button.className = `topic${isDone(index) ? " done" : ""}`;
+        button.type = "button";
+        button.dataset.index = String(index);
+        button.setAttribute("aria-pressed", String(isDone(index)));
+
+        const label = document.createElement("span");
+        label.textContent = theme;
+        button.append(label);
+        gridEl.append(button);
+      });
+    }
+
+    function renderProgress() {
+      const count = selections[currentKey()].length;
+      progressText.textContent = `${count} / ${themes.length}`;
+    }
+
+    function render() {
+      renderCountries();
+      renderGrid();
+      renderProgress();
+    }
+
+    document.getElementById("nextButton").addEventListener("click", nextCountry);
+    document.getElementById("resetCountryButton").addEventListener("click", resetCountry);
+    document.getElementById("resetAllButton").addEventListener("click", resetAll);
+    gridEl.addEventListener("click", handleThemePick);
+    document.getElementById("fullscreenButton").addEventListener("click", () => {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen?.();
+      } else {
+        document.exitFullscreen?.();
+      }
+    });
+
+    window.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowRight" || event.key === " ") {
+        event.preventDefault();
+        nextCountry();
+      }
+      if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        setCountry(activeCountry - 1);
+      }
+      if (["1", "2", "3", "4"].includes(event.key)) {
+        setCountry(Number(event.key) - 1);
+      }
+      if (event.key.toLowerCase() === "r") {
+        resetCountry();
+      }
+    });
+
+    render();
+  </script>
+</body>
+</html>
