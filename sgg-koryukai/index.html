@@ -361,7 +361,7 @@
   <script>
     const themes = [
       "お祭り/祝日",
-      "サウナ/SPA/お風呂",
+      "サウナ🧖/SPA/お風呂",
       "交通",
       "趣味",
       "天気",
@@ -382,8 +382,56 @@
     ];
 
     const questionBank = {
-      default: themes.map((theme) => `${theme}について、あなたの国で印象的なことは何ですか？`),
-      us: {},
+      default: themes.map((theme) => ({
+        text: `${theme}について、あなたの国で印象的なことは何ですか？`,
+        answer: null,
+      })),
+      us: {
+        0: {
+          text: "アメリカでは、子どもたちはクリスマスの夜にサンタさんのためにホットドッグを置いておく。",
+          answer: false,
+        },
+        1: {
+          text: "アメリカでは、朝シャワー派がかなり多い。",
+          answer: true,
+        },
+        2: {
+          text: "アメリカでは、高校生が自分の車で通学することもある。",
+          answer: true,
+        },
+        3: {
+          text: "アメリカでは、車をいじるのが好きな人を「gearhead（ギアヘッド）」と呼ぶ。",
+          answer: true,
+        },
+        4: {
+          text: "ハワイでは一度も雪が降ったことがない。",
+          answer: false,
+        },
+        5: {
+          text: "アメリカでは、チップを払う文化があり、レストランでは約20％が一般的。",
+          answer: true,
+        },
+        6: {
+          text: "アメリカには、自由の女神像がフランスから贈られた。",
+          answer: true,
+        },
+        7: {
+          text: "アメリカでは、先生を「Mr.」「Ms.」と呼ぶのが一般的。",
+          answer: true,
+        },
+        8: {
+          text: "アメリカでは、法律でビールを飲む年齢が18歳から許可されている。",
+          answer: false,
+        },
+        9: {
+          text: "アメリカでは、お店に表示されている値段は普通、税込みである。",
+          answer: false,
+        },
+        10: {
+          text: "アメリカで最も地震が多い州はカリフォルニアである。",
+          answer: false,
+        },
+      },
       china: {},
       austria: {},
       spain: {},
@@ -454,7 +502,8 @@
     }
 
     function getQuestion(countryKey, themeIndex) {
-      return questionBank[countryKey]?.[themeIndex] || questionBank.default[themeIndex];
+      const entry = questionBank[countryKey]?.[themeIndex] || questionBank.default[themeIndex];
+      return typeof entry === "string" ? entry : entry.text;
     }
 
     function hideQuestion() {
