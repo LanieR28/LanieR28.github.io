@@ -437,7 +437,84 @@
         },
       },
       china: {},
-      austria: {},
+      austria: {
+        0: {
+          text: "オーストリアでは、5月に「木を盗むイベント」がある地域があります。",
+          answer: true,
+        },
+        1: [
+          {
+            text: "オーストリアのサウナでは、男女が一緒に入ることがあります。",
+            answer: true,
+          },
+          {
+            text: "オーストリアのサウナでは、水着を着るのが普通です。",
+            answer: false,
+          },
+        ],
+        2: {
+          text: "オーストリアでは、電車の切符を持っていなくても改札を通れます。",
+          answer: true,
+        },
+        3: {
+          text: "オーストリアでは、車で外国へ日帰り旅行する人がいます。",
+          answer: true,
+        },
+        4: {
+          text: "オーストリアでは、夏でもエアコンがない家が多いです。",
+          answer: true,
+        },
+        5: [
+          {
+            text: "オーストリアでは、日曜日にドリルを使うと怒られることがあります。",
+            answer: true,
+          },
+          {
+            text: "オーストリアでは、公共交通が不便なので車がないと生活できません。",
+            answer: false,
+          },
+        ],
+        6: {
+          text: "『サウンド・オブ・ミュージック』は、アメリカよりオーストリアで人気があります。",
+          answer: false,
+        },
+        7: {
+          text: "オーストリアでは、学校に「スキー休み」がある地域があります。",
+          answer: true,
+        },
+        8: {
+          text: "オーストリアでは、「乾杯」をする時に目を見ないと失礼だと思う人がいます。",
+          answer: true,
+        },
+        9: [
+          {
+            text: "オーストリアでは、キャッシュレス決済だけで生活できます。",
+            answer: false,
+          },
+          {
+            text: "オーストリアでは、「現金しか使えません」と言われることはほとんどありません。",
+            answer: false,
+          },
+          {
+            text: "オーストリアでは、袋は無料でもらえる店が多いです。",
+            answer: false,
+          },
+        ],
+        10: {
+          text: "オーストリアでは、雪崩（なだれ）が起こることがあります。",
+          answer: true,
+        },
+        11: [
+          {
+            text: "アメリカ・カリフォルニア州の元知事のアーノルド・シュワルツェネッガーはオーストリア出身です。",
+            answer: true,
+          },
+          {
+            text: "F1のミハエル・シューマッハはオーストリア人です。",
+            answer: false,
+          },
+        ],
+      },
       spain: {
         0: {
           text: "12月31日にカウントダウンの時にスペイン人が12個葡萄を食べる伝統がある。",
@@ -547,15 +624,33 @@
         activeQuestion = null;
       } else {
         selected.add(themeIndex);
-        activeQuestion = { countryIndex: activeCountry, themeIndex };
+        activeQuestion = {
+          countryIndex: activeCountry,
+          themeIndex,
+          questionIndex: pickQuestionIndex(key, themeIndex),
+        };
       }
       selections[key] = Array.from(selected).sort((a, b) => a - b);
       render();
       saveSelections();
     }
 
-    function getQuestion(countryKey, themeIndex) {
+    function getQuestionEntry(countryKey, themeIndex) {
       const entry = questionBank[countryKey]?.[themeIndex] || questionBank.default[themeIndex];
+      if (Array.isArray(entry)) {
+        return entry;
+      }
+      return [entry];
+    }
+
+    function pickQuestionIndex(countryKey, themeIndex) {
+      const entries = getQuestionEntry(countryKey, themeIndex);
+      return Math.floor(Math.random() * entries.length);
+    }
+
+    function getQuestion(countryKey, themeIndex, questionIndex = 0) {
+      const entries = getQuestionEntry(countryKey, themeIndex);
+      const entry = entries[questionIndex] || entries[0];
       return typeof entry === "string" ? entry : entry.text;
     }
 
@@ -650,7 +745,7 @@
       questionFlag.alt = `${country.name} flag`;
       questionCountry.textContent = country.name;
       questionTheme.textContent = theme;
-      questionText.textContent = getQuestion(country.key, activeQuestion.themeIndex);
+      questionText.textContent = getQuestion(country.key, activeQuestion.themeIndex, activeQuestion.questionIndex);
       questionOverlay.hidden = false;
     }
 
