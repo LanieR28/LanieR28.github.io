@@ -212,6 +212,8 @@
     }
 
     .question-card {
+      position: relative;
+      overflow: hidden;
       width: min(1320px, 96vw);
       min-height: min(720px, 88vh);
       padding: clamp(28px, 4vw, 54px);
@@ -274,6 +276,63 @@
       font-size: 16px;
     }
 
+    .detail-viewer {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      display: grid;
+      grid-template-rows: auto minmax(0, 1fr);
+      gap: 18px;
+      padding: clamp(24px, 4vw, 52px);
+      background: rgba(255, 255, 255, 0.98);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 220ms ease, visibility 220ms ease;
+    }
+
+    .detail-viewer.is-visible {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    .detail-close {
+      justify-self: end;
+      width: 46px;
+      height: 46px;
+      padding: 0;
+      border-color: #cbd6e2;
+      color: var(--ink);
+      font-size: 30px;
+      font-weight: 400;
+      line-height: 1;
+      background: #ffffff;
+    }
+
+    .detail-stage {
+      min-height: 0;
+      display: grid;
+      place-items: center;
+      border: 1px solid #d8e1ec;
+      background: #f9fafc;
+    }
+
+    .detail-stage img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    .detail-placeholder {
+      margin: 0;
+      color: var(--muted);
+      font-size: clamp(22px, 3vw, 36px);
+      font-weight: 500;
+      text-align: center;
+    }
+
     @media (max-width: 900px) {
       .app {
         padding: 18px;
@@ -319,6 +378,10 @@
       .question-actions {
         flex-direction: column;
       }
+
+      .detail-viewer {
+        padding: 18px;
+      }
     }
   </style>
 </head>
@@ -352,7 +415,15 @@
       <p class="question-text" id="questionText">質問をここに表示します。</p>
       <div class="question-actions">
         <button class="primary" id="closeQuestionButton" type="button">閉じる</button>
+        <button id="detailButton" type="button">詳細</button>
         <button id="questionNextButton" type="button">次の国へ</button>
+      </div>
+      <div class="detail-viewer" id="detailViewer" aria-label="詳細画像">
+        <button class="detail-close" id="closeDetailButton" type="button" aria-label="詳細画像を閉じる">×</button>
+        <div class="detail-stage">
+          <img id="detailImage" src="" alt="" hidden>
+          <p class="detail-placeholder" id="detailPlaceholder">画像準備中</p>
+        </div>
       </div>
     </div>
   </section>
@@ -615,10 +686,19 @@
       },
     };
 
+    const detailImageBank = {
+      default: {},
+      us: {},
+      china: {},
+      austria: {},
+      spain: {},
+    };
+
     const storageKey = "theme-rotation-activity-v1";
     let activeCountry = 0;
     let selections = loadSelections();
     let activeQuestion = null;
+    let detailOpen = false;
 
     const countriesEl = document.getElementById("countries");
     const gridEl = document.getElementById("themeGrid");
@@ -627,6 +707,9 @@
     const questionFlag = document.getElementById("questionFlag");
     const questionTheme = document.getElementById("questionTheme");
     const questionText = document.getElementById("questionText");
+    const detailViewer = document.getElementById("detailViewer");
+    const detailImage = document.getElementById("detailImage");
+    const detailPlaceholder = document.getElementById("detailPlaceholder");
 
     function emptySelections() {
       return Object.fromEntries(countries.map((country) => [country.key, []]));
@@ -669,6 +752,7 @@
       if (selected.has(themeIndex)) {
         selected.delete(themeIndex);
         activeQuestion = null;
+        detailOpen = false;
       } else {
         selected.add(themeIndex);
         activeQuestion = {
@@ -701,9 +785,44 @@
       return typeof entry === "string" ? entry : entry.text;
     }
 
+    function getQuestionObject(countryKey, themeIndex, questionIndex = 0) {
+      const entries = getQuestionEntry(countryKey, themeIndex);
+      const entry = entries[questionIndex] || entries[0];
+      return typeof entry === "string" ? { text: entry } : entry;
+    }
+
+    function getDetailImage(countryKey, themeIndex, questionIndex = 0) {
+      const questionEntry = getQuestionObject(countryKey, themeIndex, questionIndex);
+      const countryImages = detailImageBank[countryKey] || {};
+      const detailEntry =
+        questionEntry.image ||
+        countryImages[`${themeIndex}:${questionIndex}`] ||
+        countryImages[themeIndex] ||
+        detailImageBank.default[themeIndex];
+
+      if (!detailEntry) {
+        return null;
+      }
+      return typeof detailEntry === "string" ? { src: detailEntry, alt: "" } : detailEntry;
+    }
+
     function hideQuestion() {
       activeQuestion = null;
+      detailOpen = false;
       render();
+    }
+
+    function showDetail() {
+      if (!activeQuestion) {
+        return;
+      }
+      detailOpen = true;
+      renderDetail();
+    }
+
+    function closeDetail() {
+      detailOpen = false;
+      renderDetail();
     }
 
     function handleThemePick(event) {
@@ -721,6 +840,7 @@
     function setCountry(index) {
       activeCountry = ((index % countries.length) + countries.length) % countries.length;
       activeQuestion = null;
+      detailOpen = false;
       render();
     }
 
@@ -783,6 +903,8 @@
     function renderQuestion() {
       if (!activeQuestion) {
         questionOverlay.hidden = true;
+        detailOpen = false;
+        renderDetail();
         return;
       }
 
@@ -793,6 +915,33 @@
       questionTheme.textContent = theme;
       questionText.textContent = getQuestion(country.key, activeQuestion.themeIndex, activeQuestion.questionIndex);
       questionOverlay.hidden = false;
+      renderDetail();
+    }
+
+    function renderDetail() {
+      if (!detailOpen || !activeQuestion) {
+        detailViewer.classList.remove("is-visible");
+        detailImage.hidden = true;
+        detailImage.removeAttribute("src");
+        detailImage.alt = "";
+        detailPlaceholder.hidden = false;
+        return;
+      }
+
+      const country = countries[activeQuestion.countryIndex];
+      const detail = getDetailImage(country.key, activeQuestion.themeIndex, activeQuestion.questionIndex);
+      if (detail?.src) {
+        detailImage.src = detail.src;
+        detailImage.alt = detail.alt || `${themes[activeQuestion.themeIndex]} 詳細画像`;
+        detailImage.hidden = false;
+        detailPlaceholder.hidden = true;
+      } else {
+        detailImage.hidden = true;
+        detailImage.removeAttribute("src");
+        detailImage.alt = "";
+        detailPlaceholder.hidden = false;
+      }
+      detailViewer.classList.add("is-visible");
     }
 
     function render() {
@@ -807,6 +956,8 @@
     document.getElementById("resetAllButton").addEventListener("click", resetAll);
     gridEl.addEventListener("click", handleThemePick);
     document.getElementById("closeQuestionButton").addEventListener("click", hideQuestion);
+    document.getElementById("detailButton").addEventListener("click", showDetail);
+    document.getElementById("closeDetailButton").addEventListener("click", closeDetail);
     document.getElementById("questionNextButton").addEventListener("click", nextCountry);
     questionOverlay.addEventListener("click", (event) => {
       if (event.target === questionOverlay) {
@@ -837,7 +988,11 @@
         resetCountry();
       }
       if (event.key === "Escape") {
-        hideQuestion();
+        if (detailOpen) {
+          closeDetail();
+        } else {
+          hideQuestion();
+        }
       }
     });
 
