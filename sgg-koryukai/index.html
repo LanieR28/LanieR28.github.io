@@ -166,6 +166,11 @@
       box-shadow: inset 0 0 0 999px rgba(96, 108, 126, 0.08);
     }
 
+    .topic.spotlight {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 4px rgba(240, 180, 41, 0.25), inset 0 0 0 999px rgba(240, 180, 41, 0.08);
+    }
+
     .topic.done::after {
       content: "済";
       position: absolute;
@@ -191,6 +196,85 @@
       letter-spacing: 0;
     }
 
+    .question-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 20;
+      display: grid;
+      place-items: center;
+      padding: 42px;
+      background: rgba(12, 18, 28, 0.42);
+      backdrop-filter: blur(12px);
+    }
+
+    .question-overlay[hidden] {
+      display: none;
+    }
+
+    .question-card {
+      width: min(1040px, 92vw);
+      min-height: min(560px, 78vh);
+      padding: clamp(34px, 5vw, 70px);
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      gap: 28px;
+      background: rgba(255, 255, 255, 0.96);
+      border: 4px solid var(--accent);
+      box-shadow: 0 40px 120px rgba(0, 0, 0, 0.34);
+    }
+
+    .question-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .question-country {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      color: var(--muted);
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .question-country img {
+      width: 86px;
+      height: 48px;
+      object-fit: contain;
+    }
+
+    .question-theme {
+      color: #9a6a00;
+      font-size: clamp(22px, 2.4vw, 34px);
+      font-weight: 900;
+      text-align: right;
+    }
+
+    .question-text {
+      margin: 0;
+      align-self: center;
+      color: var(--ink);
+      font-size: clamp(42px, 6vw, 82px);
+      line-height: 1.14;
+      font-weight: 900;
+      letter-spacing: 0;
+      text-align: center;
+    }
+
+    .question-actions {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+    }
+
+    .question-actions button {
+      min-width: 150px;
+      height: 48px;
+      font-size: 16px;
+    }
+
     @media (max-width: 900px) {
       .app {
         padding: 18px;
@@ -213,6 +297,28 @@
         grid-template-columns: repeat(2, minmax(0, 1fr));
         grid-template-rows: repeat(6, minmax(110px, 1fr));
       }
+
+      .question-overlay {
+        padding: 18px;
+      }
+
+      .question-card {
+        min-height: 72vh;
+        padding: 28px 22px;
+      }
+
+      .question-meta {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .question-theme {
+        text-align: left;
+      }
+
+      .question-actions {
+        flex-direction: column;
+      }
     }
   </style>
 </head>
@@ -234,6 +340,23 @@
 
     <section class="grid" id="themeGrid" aria-label="themes"></section>
   </main>
+
+  <section class="question-overlay" id="questionOverlay" hidden aria-live="polite">
+    <div class="question-card" role="dialog" aria-modal="true" aria-labelledby="questionText">
+      <div class="question-meta">
+        <div class="question-country">
+          <img id="questionFlag" src="../assets/flags/us.png" alt="">
+          <span id="questionCountry">United States</span>
+        </div>
+        <div class="question-theme" id="questionTheme">お祭り/祝日</div>
+      </div>
+      <p class="question-text" id="questionText">質問をここに表示します。</p>
+      <div class="question-actions">
+        <button class="primary" id="closeQuestionButton" type="button">閉じる</button>
+        <button id="questionNextButton" type="button">次の国へ</button>
+      </div>
+    </div>
+  </section>
 
   <script>
     const themes = [
@@ -258,13 +381,27 @@
       { key: "spain", name: "Spain", flag: "../assets/flags/spain.png" },
     ];
 
+    const questionBank = {
+      default: themes.map((theme) => `${theme}について、あなたの国で印象的なことは何ですか？`),
+      us: {},
+      china: {},
+      austria: {},
+      spain: {},
+    };
+
     const storageKey = "theme-rotation-activity-v1";
     let activeCountry = 0;
     let selections = loadSelections();
+    let activeQuestion = null;
 
     const countriesEl = document.getElementById("countries");
     const gridEl = document.getElementById("themeGrid");
     const progressText = document.getElementById("progressText");
+    const questionOverlay = document.getElementById("questionOverlay");
+    const questionFlag = document.getElementById("questionFlag");
+    const questionCountry = document.getElementById("questionCountry");
+    const questionTheme = document.getElementById("questionTheme");
+    const questionText = document.getElementById("questionText");
 
     function emptySelections() {
       return Object.fromEntries(countries.map((country) => [country.key, []]));
@@ -306,12 +443,23 @@
       const selected = new Set(selections[key]);
       if (selected.has(themeIndex)) {
         selected.delete(themeIndex);
+        activeQuestion = null;
       } else {
         selected.add(themeIndex);
+        activeQuestion = { countryIndex: activeCountry, themeIndex };
       }
       selections[key] = Array.from(selected).sort((a, b) => a - b);
       render();
       saveSelections();
+    }
+
+    function getQuestion(countryKey, themeIndex) {
+      return questionBank[countryKey]?.[themeIndex] || questionBank.default[themeIndex];
+    }
+
+    function hideQuestion() {
+      activeQuestion = null;
+      render();
     }
 
     function handleThemePick(event) {
@@ -328,6 +476,7 @@
 
     function setCountry(index) {
       activeCountry = ((index % countries.length) + countries.length) % countries.length;
+      activeQuestion = null;
       render();
     }
 
@@ -368,7 +517,9 @@
       gridEl.replaceChildren();
       themes.forEach((theme, index) => {
         const button = document.createElement("button");
-        button.className = `topic${isDone(index) ? " done" : ""}`;
+        const isSpotlight =
+          activeQuestion?.countryIndex === activeCountry && activeQuestion?.themeIndex === index;
+        button.className = `topic${isDone(index) ? " done" : ""}${isSpotlight ? " spotlight" : ""}`;
         button.type = "button";
         button.dataset.index = String(index);
         button.setAttribute("aria-pressed", String(isDone(index)));
@@ -385,16 +536,40 @@
       progressText.textContent = `${count} / ${themes.length}`;
     }
 
+    function renderQuestion() {
+      if (!activeQuestion) {
+        questionOverlay.hidden = true;
+        return;
+      }
+
+      const country = countries[activeQuestion.countryIndex];
+      const theme = themes[activeQuestion.themeIndex];
+      questionFlag.src = country.flag;
+      questionFlag.alt = `${country.name} flag`;
+      questionCountry.textContent = country.name;
+      questionTheme.textContent = theme;
+      questionText.textContent = getQuestion(country.key, activeQuestion.themeIndex);
+      questionOverlay.hidden = false;
+    }
+
     function render() {
       renderCountries();
       renderGrid();
       renderProgress();
+      renderQuestion();
     }
 
     document.getElementById("nextButton").addEventListener("click", nextCountry);
     document.getElementById("resetCountryButton").addEventListener("click", resetCountry);
     document.getElementById("resetAllButton").addEventListener("click", resetAll);
     gridEl.addEventListener("click", handleThemePick);
+    document.getElementById("closeQuestionButton").addEventListener("click", hideQuestion);
+    document.getElementById("questionNextButton").addEventListener("click", nextCountry);
+    questionOverlay.addEventListener("click", (event) => {
+      if (event.target === questionOverlay) {
+        hideQuestion();
+      }
+    });
     document.getElementById("fullscreenButton").addEventListener("click", () => {
       if (!document.fullscreenElement) {
         document.documentElement.requestFullscreen?.();
@@ -417,6 +592,9 @@
       }
       if (event.key.toLowerCase() === "r") {
         resetCountry();
+      }
+      if (event.key === "Escape") {
+        hideQuestion();
       }
     });
 
