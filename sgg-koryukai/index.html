@@ -234,10 +234,6 @@
     .question-country {
       display: flex;
       align-items: center;
-      gap: 16px;
-      color: var(--muted);
-      font-size: 18px;
-      font-weight: 400;
     }
 
     .question-country img {
@@ -249,7 +245,7 @@
     .question-theme {
       color: #9a6a00;
       font-size: clamp(20px, 2vw, 30px);
-      font-weight: 400;
+      font-weight: 500;
       text-align: right;
     }
 
@@ -261,7 +257,7 @@
       color: var(--ink);
       font-size: clamp(36px, 5.1vw, 68px);
       line-height: 1.24;
-      font-weight: 400;
+      font-weight: 500;
       letter-spacing: 0;
       text-align: center;
     }
@@ -350,7 +346,6 @@
       <div class="question-meta">
         <div class="question-country">
           <img id="questionFlag" src="../assets/flags/us.png" alt="">
-          <span id="questionCountry">United States</span>
         </div>
         <div class="question-theme" id="questionTheme">お祭り/祝日</div>
       </div>
@@ -630,7 +625,6 @@
     const progressText = document.getElementById("progressText");
     const questionOverlay = document.getElementById("questionOverlay");
     const questionFlag = document.getElementById("questionFlag");
-    const questionCountry = document.getElementById("questionCountry");
     const questionTheme = document.getElementById("questionTheme");
     const questionText = document.getElementById("questionText");
 
@@ -796,7 +790,6 @@
       const theme = themes[activeQuestion.themeIndex];
       questionFlag.src = country.flag;
       questionFlag.alt = `${country.name} flag`;
-      questionCountry.textContent = country.name;
       questionTheme.textContent = theme;
       questionText.textContent = getQuestion(country.key, activeQuestion.themeIndex, activeQuestion.questionIndex);
       questionOverlay.hidden = false;
