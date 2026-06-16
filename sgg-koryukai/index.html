@@ -708,7 +708,20 @@
         11: "../assets/sgg/america/sports.jpg",
       },
       china: {},
-      austria: {},
+      austria: {
+        0: "../assets/sgg/austria/matsuri-shukujitu.jpg",
+        1: "../assets/sgg/austria/spa.jpg",
+        2: "../assets/sgg/austria/koutsu.jpg",
+        3: "../assets/sgg/austria/shumi.jpg",
+        4: "../assets/sgg/austria/tenki.jpg",
+        5: "../assets/sgg/austria/shigoto-seikatsu.jpg",
+        6: "../assets/sgg/austria/yuumei-na-tokoro.jpg",
+        7: "../assets/sgg/austria/gakkou-seikatsu.jpg",
+        8: "../assets/sgg/austria/ishokubunka.jpg",
+        9: "../assets/sgg/austria/shopping.jpg",
+        10: "../assets/sgg/austria/shizensaigai.jpg",
+        11: "../assets/sgg/austria/sports.jpg",
+      },
       spain: {
         0: "../assets/sgg/spain/1.jpg",
         2: "../assets/sgg/spain/3.jpg",
@@ -735,6 +748,7 @@
     const questionFlag = document.getElementById("questionFlag");
     const questionTheme = document.getElementById("questionTheme");
     const questionText = document.getElementById("questionText");
+    const detailButton = document.getElementById("detailButton");
     const detailViewer = document.getElementById("detailViewer");
     const detailImage = document.getElementById("detailImage");
     const detailPlaceholder = document.getElementById("detailPlaceholder");
@@ -932,6 +946,7 @@
       if (!activeQuestion) {
         questionOverlay.hidden = true;
         detailOpen = false;
+        detailButton.hidden = true;
         renderDetail();
         return;
       }
@@ -942,6 +957,10 @@
       questionFlag.alt = `${country.name} flag`;
       questionTheme.textContent = theme;
       questionText.textContent = getQuestion(country.key, activeQuestion.themeIndex, activeQuestion.questionIndex);
+      detailButton.hidden = !getDetailImage(country.key, activeQuestion.themeIndex, activeQuestion.questionIndex);
+      if (detailButton.hidden) {
+        detailOpen = false;
+      }
       questionOverlay.hidden = false;
       renderDetail();
     }
