@@ -15,7 +15,8 @@ OUT_DIR.mkdir(parents=True, exist_ok=True)
 OUT = OUT_DIR / "Melodiniq-ULTIMA移植.json"
 SCALE = 12 / 16
 RAIL_W = 0.1      # width of an edge rail line
-RAIL_GAP = 0.2    # gap between neighbouring rails, and between the field edge and the first rail
+RAIL_GAP = 0.35   # gap between neighbouring rails (user 10-04: 0.2 -> 0.35)
+EDGE_GAP = 0.2    # gap between the field edge and the first rail
 PORT_CACHE = Path(__file__).with_name("_melo_port.pkl")
 
 if PORT_CACHE.exists():
@@ -229,7 +230,7 @@ for side in (-1, 1):
         live = [(e, s) for e, s in live if e > p[0] + 1e-9]
         slot = min(set(range(len(live) + 1)) - {s for e, s in live})
         live.append((p[2], slot))
-        p[1] = p[3] = side * (6 + RAIL_GAP + RAIL_W / 2 + slot * (RAIL_W + RAIL_GAP))
+        p[1] = p[3] = side * (6 + EDGE_GAP + RAIL_W / 2 + slot * (RAIL_W + RAIL_GAP))
 used = [False] * len(pieces)
 by_start = {}
 for i, p in enumerate(pieces):
