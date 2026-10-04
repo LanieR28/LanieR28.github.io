@@ -135,6 +135,61 @@ def restore_hidden_tails(ch):
     print("hold ends restored:", fixed, "of", len(groups), "all-hidden groups checked")
     return ch
 
+# ---- m8: two strips born at 8:0 (user 10-04 screenshot: two dark gaps at 8:0)
+# CHUNITHM has six slides side by side at 8:0, (0,2) (2,3) (5,6) (5,6) (11,3) (14,2); only four of them come
+# from 7:192, the (2,3) and (11,3) are new, with no note and nothing before them. The port dropped both.
+# They are new holds with hidden heads in the two 2-lane gaps (lane -3 / 3), pass the full width at 8:96 like
+# the others and join the right-hand path (the port has left 3 / right 1, the original left 3 / right 3).
+def add_m8_strips(ch):
+    t0, tfull = 32.0, 33.0
+    cand = [c for c in ch if c[0]["arche"] != "Guide" and len(c) >= 5
+            and any(abs(n["beat"] - tfull) < 0.01 and abs(n["lane"]) < 1e-6 and abs(n["size"] - 6) < 1e-6 for n in c)]
+    right = [c for c in cand if c[-1]["lane"] > 0 or c[-2]["lane"] > 0]
+    if len(cand) != 4 or len(right) != 1:
+        print("m8 strips: layout not as expected, skipped", len(cand), len(right)); return ch
+    src = right[0]
+    k = next(i for i, n in enumerate(src) if abs(n["beat"] - tfull) < 0.01)
+    after = src[k:-1] if src[-1]["arche"] != "AnchorNote" else src[k:]    # full-width node ... last anchor, tail left to the peer
+    for i, lane in enumerate((-3.0, 3.0)):
+        head = dict(arche="NormalHiddenHeadNote", beat=t0 + 0.002 * (i + 1), lane=lane, size=1.0, direction=0, ease=1)
+        nodes = [head] + [dict(n, beat=n["beat"] + 0.0005 * (i + 1)) for n in after]
+        nodes[-1] = dict(nodes[-1], arche="AnchorNote", hidden_end=True)
+        ch.append(nodes)
+    print("m8 strips added: 2")
+    return ch
+
+ch = add_m8_strips(ch)
+
+# ---- m13 (user 10-04, option A): 8 CHR (cells 0,2..14, width 2), each with an SXC to the centre (7,2); they
+# reach it at 13:384/276/168/60/60/168/276/384, wait there, leave at 14:0/108/216/324 (mirrored) and all end on
+# their own cell at 15:0. The port kept 4 of the 8, unsymmetric. Here: ONE full-width gold tap (an 8-finger
+# palm slap does not play on a phone) and 8 holds with hidden heads, every strip kept; 12 lanes / 16 cells
+# = 0.75 lane per cell, so each strip is 1.5 wide and the eight tile the field.
+def add_m13_strips(ch):
+    t0 = beat_of(13, 0)
+    old = [c for c in ch if c[0]["arche"] != "Guide" and abs(c[0]["beat"] - t0) < 0.01 and len(c) > 1
+           and abs(c[-1]["beat"] - beat_of(15, 0)) < 0.05]
+    if len(old) != 4:
+        print("m13 strips: layout not as expected, skipped", len(old)); return ch
+    gone = {id(c) for c in old}
+    ch = [c for c in ch if id(c) not in gone]
+    ch.append([dict(arche="CriticalTapNote", beat=t0, lane=0.0, size=6.0, direction=0, ease=1)])
+    arrive = {0: 384, 2: 276, 4: 168, 6: 60, 8: 60, 10: 168, 12: 276, 14: 384}
+    leave = {0: 0, 2: 108, 4: 216, 6: 324, 8: 324, 10: 216, 12: 108, 14: 0}
+    t_end = beat_of(15, 0)
+    for i, cell in enumerate(sorted(arrive)):
+        x = (cell + 1) * SCALE - 6
+        ctr = (7 + 1) * SCALE - 6
+        n = [dict(arche="NormalHiddenHeadNote", beat=t0 + 0.002 * (i + 1), lane=x, size=SCALE, direction=0, ease=1),
+             dict(arche="AnchorNote", beat=t0 + arrive[cell] / 96, lane=ctr, size=SCALE, direction=0, ease=1),
+             dict(arche="AnchorNote", beat=beat_of(14, leave[cell]), lane=ctr, size=SCALE, direction=0, ease=1),
+             dict(arche="NormalTailTraceNote", beat=t_end, lane=x, size=SCALE, direction=0, ease=1)]
+        ch.append(n)
+    print("m13 strips: 4 replaced by 8")
+    return ch
+
+ch = add_m13_strips(ch)
+
 ch = restore_hidden_tails(ch)
 
 # ---- playable notes from the port (its own decoration guides are replaced by the coloured lines)
