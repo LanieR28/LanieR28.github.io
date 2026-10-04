@@ -14,7 +14,7 @@ OUT_DIR = Path(os.environ.get("MELO_OUT", r"C:\Users\東雲LanieR\Downloads\PJSK
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 OUT = OUT_DIR / "Melodiniq-ULTIMA移植.json"
 SCALE = 12 / 16
-RAIL_W = 0.1      # width of an edge rail line
+RAIL_W = 0.2      # width of every air line, edge rails included (user 10-04: 0.1 -> 0.2)
 RAIL_GAP = 0.5    # gap between neighbouring rails (user 10-04: 0.2 -> 0.35 -> 0.5)
 EDGE_GAP = 0.5    # gap between the field edge and the first rail
 PORT_CACHE = Path(__file__).with_name("_melo_port.pkl")
