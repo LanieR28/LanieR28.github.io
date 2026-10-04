@@ -45,6 +45,50 @@ def unclip(n):
     elif cell + w > 16:
         n["lane"] = (cell + w) * SCALE - 6 - n["size"]
 
+# ---- stacked Ex slides (user 10-04): SXD rows sharing start and length, ending 1 cell wide, are N separate
+# holds. The port merges parallel slides into one gesture (8 -> 4); here each row keeps its own hold, heads
+# stacked at the start, tails spread 1 lane wide per row and packed against the field edge (left cells
+# 0..3 -> -5.5..-2.5, right cells 12..15 -> 2.5..5.5). A CHUNITHM flick at the end becomes the tail flick
+# of the nearest hold, as the port does for a single slide.
+def spread_stacked_slides(ch):
+    stacks = {}
+    for f in rows:
+        if f[0] == "SXD" and int(f[7]) == 1 and len(f) >= 9:
+            stacks.setdefault((f[1], f[2], f[3], f[4], f[5]), []).append(int(f[6]))
+    flk = {}
+    for f in rows:
+        if f[0] == "FLK":
+            flk.setdefault(round(beat_of(f[1], f[2]) * 96), []).append((int(f[3]), int(f[4]), f[5]))
+    for (m, o, c0, w0, dur), ends in stacks.items():
+        if len(ends) < 3:
+            continue
+        t0 = beat_of(m, o); t1 = t0 + int(dur) / 96
+        lane0, size0 = (int(c0) + int(w0) / 2) * SCALE - 6, int(w0) * SCALE / 2
+        old = [c for c in ch if c[0]["arche"].endswith("HiddenHeadNote") and abs(c[0]["beat"] - t0) < 0.05
+               and abs(c[-1]["beat"] - t1) < 0.05]
+        if not old:
+            continue
+        head_arche = old[0][0]["arche"]
+        ch = [c for c in ch if not any(c is o_ for o_ in old)]
+        pos = lambda cell: -6 + cell + 0.5 if cell < 8 else cell - 9.5
+        ends = sorted(ends)
+        flicks = flk.get(round(t1 * 96), [])
+        # nearest hold end for each flick
+        owner = {}
+        for fc, fw, _d in flicks:
+            owner[min(ends, key=lambda e: abs(e + 0.5 - (fc + fw / 2)))] = (fc, fw)
+        for i, e in enumerate(ends):
+            head = dict(arche=head_arche, beat=t0 + 0.002 * (i + 1), lane=lane0, size=size0, direction=0, ease=1)
+            tail = dict(arche="NormalTailTraceNote", beat=t1, lane=pos(e), size=0.5, direction=0, ease=1)
+            if e in owner:
+                fc, fw = owner[e]
+                fx = (fc + fw / 2) * SCALE - 6
+                tail.update(arche="NormalTailFlickNote", direction=0 if abs(fx - tail["lane"]) < 0.5 else (2 if fx > tail["lane"] else 1))
+            ch.append([head, tail])
+    return ch
+
+ch = spread_stacked_slides(ch)
+
 # ---- playable notes from the port (its own decoration guides are replaced by the coloured lines)
 chains = []
 for c in ch:
