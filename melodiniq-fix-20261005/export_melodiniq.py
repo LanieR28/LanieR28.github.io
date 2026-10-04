@@ -89,6 +89,54 @@ def spread_stacked_slides(ch):
 
 ch = spread_stacked_slides(ch)
 
+# ---- hold ends (user 10-04: "most hold ends must NOT be invisible"). The port hides a tail only where a note
+# sits on it, and lets just the last-starting hold of a converging group keep its tail; two of its passes can
+# both fire and leave a group with no visible tail at all (m19: 4 holds ending at one spot, AIR on it).
+# Such a group gets its visible tail back on the last-starting hold; the others stay hidden (no stacked tails).
+def restore_hidden_tails(ch):
+    TICK = 1 / 480
+    judged = lambda n: n["arche"] != "AnchorNote" and "Hidden" not in n["arche"] and "Guide" not in n["arche"]
+    over = lambda a, b: abs(a["lane"] - b["lane"]) < a["size"] + b["size"] - 1e-6
+    air = {}
+    for f in rows:
+        if f[0] in ("AIR", "AUL", "AUR") and len(f) > 5 and f[5] in ("SLD", "HLD"):
+            air.setdefault(int(f[1]) * 384 + int(f[2]), []).append((f[0], int(f[3]), int(f[4])))
+    longs = [c for c in ch if len(c) > 1 and c[0]["arche"] != "Guide"]
+    hidden = sorted((c for c in longs if c[-1]["arche"] == "AnchorNote"), key=lambda c: c[-1]["beat"])
+    groups = []
+    for c in hidden:
+        for g in groups:
+            if abs(g[0][-1]["beat"] - c[-1]["beat"]) < 0.02 and any(over(d[-1], c[-1]) for d in g):
+                g.append(c); break
+        else:
+            groups.append([c])
+    fixed = 0
+    for g in groups:
+        e = g[0][-1]
+        if any(d[-1]["arche"] != "AnchorNote" and abs(d[-1]["beat"] - e["beat"]) < 0.02 and any(over(d[-1], x[-1]) for x in g) for d in longs):
+            continue                                   # a peer already shows the end
+        if any(judged(n) and abs(n["beat"] - e["beat"]) <= 3 * TICK and any(over(n, x[-1]) for x in g)
+               and not any(n is x[-1] for x in g) for d in ch if d[0]["arche"] != "Guide" for n in d):
+            continue                                   # a note sits on it: hiding is right
+        c = max(g, key=lambda c: c[0]["beat"])
+        t = round(max(x[-1]["beat"] for x in g) * 96) / 96    # the port staggers a group's ends by a few ticks
+        tick = round(t * 96)
+        if len(c) >= 2 and t <= c[-2]["beat"]:
+            t = c[-2]["beat"] + TICK
+        pre = "Critical" if any("Critical" in n["arche"] for n in c) else "Normal"
+        lo, hi = (c[-1]["lane"] - c[-1]["size"] + 6) / SCALE, (c[-1]["lane"] + c[-1]["size"] + 6) / SCALE
+        a = [x for x in air.get(tick, []) if x[1] < hi - 0.5 and x[1] + x[2] > lo + 0.5]
+        end = dict(c[-1], beat=t, hidden_end=False)
+        if a:
+            end.update(arche=pre + "TailFlickNote", direction={"AIR": 0, "AUL": 1, "AUR": 2}[a[0][0]])
+        else:
+            end.update(arche=pre + "TailTraceNote", direction=0)
+        c[-1] = end; fixed += 1
+    print("hold ends restored:", fixed, "of", len(groups), "all-hidden groups checked")
+    return ch
+
+ch = restore_hidden_tails(ch)
+
 # ---- playable notes from the port (its own decoration guides are replaced by the coloured lines)
 chains = []
 for c in ch:
