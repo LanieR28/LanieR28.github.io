@@ -1,0 +1,17 @@
+[
+  {
+    "name": "mmw-up.bundle.part001",
+    "bytes": 50331648,
+    "sha256": "4ece62e6ada1f662e0786394bb83e769eb5eefb5586f46656b1dabd0095d880c"
+  },
+  {
+    "name": "mmw-up.bundle.part002",
+    "bytes": 50331648,
+    "sha256": "0d531e9637d5372bd582911225bac5299041d17a85068ee4928f6c8ff7be8e56"
+  },
+  {
+    "name": "mmw-up.bundle.part003",
+    "bytes": 38160061,
+    "sha256": "45b9d6018faa137403e7dba95fb0a1f516dcca1134aa703866226f395cc1c637"
+  }
+]

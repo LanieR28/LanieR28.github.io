@@ -1,0 +1,57 @@
+[
+  {
+    "name": "charts.zip.part001",
+    "bytes": 50331648,
+    "sha256": "6bb2b87484a04145a74603a36ef713f7ce1fc75d9ce920e92ad90bfca96b1bfc"
+  },
+  {
+    "name": "charts.zip.part002",
+    "bytes": 50331648,
+    "sha256": "de3de0ee390a19bd5486a19d6274eaecb57ce59c18a215cce8bf1ed773667c6c"
+  },
+  {
+    "name": "charts.zip.part003",
+    "bytes": 50331648,
+    "sha256": "08d79f5807cf33d7d652b6d40893afc33897b357b096f1a25e72f7ecb78128cf"
+  },
+  {
+    "name": "charts.zip.part004",
+    "bytes": 50331648,
+    "sha256": "3e6929dadf908e6c42e1fb70f8f480fcbd79634e8d07cf64cd31efa662815881"
+  },
+  {
+    "name": "charts.zip.part005",
+    "bytes": 50331648,
+    "sha256": "c6398e87a109981757da8eeb7b210f31038d7e12cd4db9901945c51924f12ce3"
+  },
+  {
+    "name": "charts.zip.part006",
+    "bytes": 50331648,
+    "sha256": "7c10f0839194ba865a118659174f574e9f406c7aeff504636775d875886721ff"
+  },
+  {
+    "name": "charts.zip.part007",
+    "bytes": 50331648,
+    "sha256": "c97c376924530a03be2c07c545aeeb286e9d0daa8b9b3be0c0be7c56ff056272"
+  },
+  {
+    "name": "charts.zip.part008",
+    "bytes": 50331648,
+    "sha256": "ca708dfc26845e7677584e531b4deb743445510978b16b84f60fccbc3fa292fd"
+  },
+  {
+    "name": "charts.zip.part009",
+    "bytes": 50331648,
+    "sha256": "3cecb5f03ea2db250780b0fc86f81c7c8b58b2f732f77e953542f16c247f8760"
+  },
+  {
+    "name": "charts.zip.part010",
+    "bytes": 50331648,
+    "sha256": "5729bc60e92a00f38acb870ddd35cc9e1017388a29c994425d2327bed2283b1a"
+  },
+  {
+    "name": "charts.zip.part011",
+    "bytes": 39336774,
+    "sha256": "fbd2d0592edbc2fa79c95e0728eba6b8698a170f34a0982d71a0554533b0829c"
+  }
+]

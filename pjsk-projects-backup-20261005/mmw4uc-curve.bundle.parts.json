@@ -1,0 +1,17 @@
+[
+  {
+    "name": "mmw4uc-curve.bundle.part001",
+    "bytes": 50331648,
+    "sha256": "604a3d495ac3a20a24d542948a88278c6f7e91aa4ece6debf986159428755497"
+  },
+  {
+    "name": "mmw4uc-curve.bundle.part002",
+    "bytes": 50331648,
+    "sha256": "4f868b2a0e1252ac16206ddca1ee6c98084e306ef6b9529c4d2a8572a4a3be12"
+  },
+  {
+    "name": "mmw4uc-curve.bundle.part003",
+    "bytes": 38160064,
+    "sha256": "1adcc0801160d4acf3f12f8bc965f5bba609c2c43e75e4060c08b6a8e51e5e6e"
+  }
+]

@@ -1,0 +1,17 @@
+[
+  {
+    "name": "mmw-up.zip.part001",
+    "bytes": 50331648,
+    "sha256": "9f56fa2283faec20525401e6e73903da74aad277f056ec3b2e6c6d094cbed89c"
+  },
+  {
+    "name": "mmw-up.zip.part002",
+    "bytes": 50331648,
+    "sha256": "ebca4200e57138795c3bc064b3b006faa9c4565f40b10f6f9de284886b50c9ec"
+  },
+  {
+    "name": "mmw-up.zip.part003",
+    "bytes": 18567103,
+    "sha256": "ce22add3df7cc6c791b94fd8fbb47294c7aed30bb1ccd3dcb01de81eb875925c"
+  }
+]

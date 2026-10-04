@@ -1,0 +1,22 @@
+[
+  {
+    "name": "mmw4uc-curve.zip.part001",
+    "bytes": 50331648,
+    "sha256": "5459be9e28ac59413c13c67f3dc4e80ccc212f7294e526a399b7f5bb8558e499"
+  },
+  {
+    "name": "mmw4uc-curve.zip.part002",
+    "bytes": 50331648,
+    "sha256": "a30bd2e83c902b635223431af823e2ddf88027debb51715d4cf753e6e722b150"
+  },
+  {
+    "name": "mmw4uc-curve.zip.part003",
+    "bytes": 50331648,
+    "sha256": "a8722ebb3fba8f5cedfe1e95017632b8c90d8135227eb45f6f17f80f27119f9a"
+  },
+  {
+    "name": "mmw4uc-curve.zip.part004",
+    "bytes": 29386213,
+    "sha256": "d67e1ae1579cd5466044ba8f00f3c0fcef4d90d00b9874b5870d54afab903744"
+  }
+]
